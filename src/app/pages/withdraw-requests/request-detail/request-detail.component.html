@@ -1,0 +1,77 @@
+
+<div class="panel h-full overflow-hidden border-0 p-0" *ngIf="requestDetail">
+    <div class="min-h-[190px] bg-gradient-to-r from-[#4361ee] to-[#160f6b] p-6">
+        <div class="mb-6 flex items-center justify-between">
+            <div class="flex items-center rounded-full bg-black/50 p-1 font-semibold text-white ltr:pr-3 rtl:pl-3 cursor-pointer" [routerLink]="'/tutors/'+requestDetail.tutor.id">
+                <img
+                    class="block h-8 w-8 rounded-full border-2 border-white/50 object-cover ltr:mr-1 rtl:ml-1"
+                    src="{{requestDetail.tutor.imageUrl}}"
+                    alt=""
+                />
+                {{requestDetail.tutor.name}}
+            </div>
+            <button
+                type="button"
+                (click)="location.back()"
+                class="flex h-9 w-9 items-center justify-between rounded-md bg-white text-black hover:opacity-80 ltr:ml-auto rtl:mr-auto"
+            >
+                <icon-arrow-backward class="m-auto h-6 w-6" />
+            </button>
+        </div>
+        <div class="flex items-center justify-between text-white">
+            <p class="text-xl">Wallet Balance</p>
+            <h5 class="text-2xl ltr:ml-auto rtl:mr-auto">{{requestDetail.tutor.balance}}<span class="text-white-light">{{requestDetail.currency}}</span></h5>
+        </div>
+    </div>
+
+    <div class="p-5">
+        <div class="mb-5">
+            <span
+            [ngClass]="requestDetail.status=='Pending'?'bg-orange-500':'bg-green-700'"
+                class="rounded-full bg-[#1b2e4b] px-4 py-1.5 text-xs text-white before:inline-block before:h-1.5 before:w-1.5 before:rounded-full before:bg-white ltr:before:mr-2 rtl:before:ml-2"
+                >{{requestDetail.status}}</span
+            >
+        </div>
+        <div class="mb-5 space-y-2">
+            <div class="flex items-center justify-between">
+                <p class="font-semibold text-[#515365]">Requested Amount</p>
+                <p class="text-base"><span class="font-semibold">{{requestDetail.amount}}</span><span> {{requestDetail.currency}}</span> </p>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-semibold text-[#515365]">Method</p>
+                <p class="text-base"><span class="font-semibold">{{requestDetail.method}}</span></p>
+            </div>
+            <div class="flex items-center justify-between" *ngIf="requestDetail.receiptUrl">
+                <p class="font-semibold text-[#515365]"> Invoice Link</p>
+                <a href="" target="_blank" class="text-base text-primary underline"><span class="font-semibold">{{requestDetail.receiptUrl}}</span></a>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-semibold text-[#515365]">Requested Date</p>
+                <p class="text-base"><span class="font-semibold">{{requestDetail.createdOn.seconds*1000 | date }}</span></p>
+            </div>
+            <div class="flex flex-col gap-1 items-start mt-10 py-5 border-t border-dashed">
+                <p class="font-semibold text-[#515365] text-base">Description</p>
+                <p class=""><span class="font-semibold">{{requestDetail.description}}</span></p>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-end gap-3 px-2 text-center">
+            <!-- <button type="button" class="btn btn-danger ltr:mr-2 rtl:ml-2" (click)="formSubmission = false;reason='';modal1.open()">Reject Request</button> -->
+            <button [routerLink]="'/tutors/'+requestDetail.requested_by" type="button" class="btn btn-secondary ltr:mr-2 rtl:ml-2">View Transaction History</button>
+            <button type="button" [disabled]="loading" class="btn btn-success flex justify-center items-start gap-2" *ngIf="requestDetail.status == 'Pending'"  (click)="payNow()"><p *ngIf="loading" class="animate-spin border-4 border-white border-l-transparent rounded-full w-4 h-4 inline-block align-middle m-auto"></p><span>Pay Now <span class="ml-2">{{requestDetail.amount}}</span><span> {{requestDetail.currency}}</span></span> </button>
+        </div>
+    </div>
+</div>
+
+<modal #modal1 class="modal-top w-full">
+    <ng-template #modalHeader> <div>Reject Reason</div> </ng-template>
+    <ng-template #modalBody>
+
+        <form>
+        <textarea class="border w-full p-4" [ngClass]="formSubmission && reason == ''?'border-red-500':''" name="reason" [(ngModel)]="reason" id="reason" cols="30" rows="10" ></textarea>
+    </form>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button type="button" (click)="modal1.close()" class="btn btn-primary ltr:ml-4 rtl:mr-4">Close</button>
+        <button type="button" [disabled]="loading" (click)="formSubmission = true;reason != '' && modal1.close();submitReason()" class="btn btn-success ltr:ml-4 rtl:mr-4">Submit <span *ngIf="loading" class="ml-3 animate-spin border-4 border-primary border-l-transparent rounded-full w-10 h-10 inline-block align-middle m-auto mb-10"></span></button>
+    </ng-template>
+</modal>

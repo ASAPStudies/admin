@@ -1,0 +1,90 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" routerLink="/students" class="text-primary hover:underline">Student</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>Profile</span>
+        </li>
+    </ul>
+    <div class="pt-5">
+        <div class="mb-5 flex items-center justify-between">
+            <h5 class="text-lg font-semibold dark:text-white-light">Profile</h5>
+        </div>
+        <div class="mb-5 flex overflow-y-auto whitespace-nowrap border-b border-[#ebedf2] font-semibold dark:border-[#191e3a]">
+            <button
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary':  activeTab.toLowerCase() === 'home'}"
+                (click)="toggleTab('home')"
+            >
+                Student Info
+            </button>
+            <button
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary':  activeTab.toLowerCase() === 'questions'}"
+                (click)="toggleTab('questions')"
+            >
+                Questions
+            </button>
+            <button
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary':  activeTab.toLowerCase() === 'sessions'}"
+                (click)="toggleTab('sessions')"
+            >
+                Live Sessions
+            </button>
+            <button
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary':  activeTab.toLowerCase() === 'danger-zone'}"
+                (click)="activeTab = 'danger-zone'"
+            >
+                Danger Zone
+            </button>
+        </div>
+        <div *ngIf="!isLoading">
+            <div *ngIf="activeTab.toLowerCase() === 'home'">
+                <app-profile-info [student]="student" />
+            </div>
+            <div *ngIf="activeTab.toLowerCase() === 'questions'">
+
+                    <app-questions [questions]="questions" />
+            </div>
+            <div *ngIf="activeTab.toLowerCase() === 'sessions'" class="switch">
+                <app-sessions [sessions]="sessions" />
+
+            </div>
+            <div *ngIf="activeTab.toLowerCase() === 'danger-zone'" class="switch">
+                <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <!-- <div class="panel space-y-5">
+                        <h5 class="mb-4 text-lg font-semibold">Deactivate Account</h5>
+                        <p>You will not be able to receive messages, notifications for up to 24 hours.</p>
+                        <label class="relative h-6 w-12">
+                            <input
+                                type="checkbox"
+                                class="custom_switch peer absolute z-10 h-full w-full cursor-pointer opacity-0"
+                                id="custom_switch_checkbox7"
+                            />
+                            <span
+                                for="custom_switch_checkbox7"
+                                class="block h-full rounded-full bg-[#ebedf2] before:absolute before:bottom-1 before:left-1 before:h-4 before:w-4 before:rounded-full before:bg-white before:transition-all before:duration-300 peer-checked:bg-primary peer-checked:before:left-7 dark:bg-dark dark:before:bg-white-dark dark:peer-checked:before:bg-white"
+                            ></span>
+                        </label>
+                    </div> -->
+                    <div class="panel space-y-5">
+                        <h5 class="mb-4 text-lg font-semibold">Delete Account</h5>
+                        <p>Once you delete the account, there is no going back. Please be certain.</p>
+                        <button class="btn btn-danger btn-delete-account" (click)="deleteAccount()">Delete account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center py-10 w-full">
+            <span *ngIf="isLoading" class="animate-spin border-4 border-primary border-l-transparent rounded-full w-10 h-10 inline-block align-middle m-auto mb-10"></span>
+        </div>
+
+    </div>
+</div>

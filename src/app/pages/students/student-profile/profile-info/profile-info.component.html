@@ -1,0 +1,67 @@
+<div *ngIf="student" class="mb-5 rounded-md border border-[#ebedf2] bg-white p-4 dark:border-[#191e3a] dark:bg-[#0e1726]">
+    <h6 class="mb-5 text-lg font-bold">General Information</h6>
+    <div class="flex flex-col sm:flex-row">
+        <div class="mb-5 w-full sm:w-2/12 ltr:sm:mr-4 rtl:sm:ml-4">
+            <img src="{{student.imageUrl}}" alt="" class="mx-auto border h-20 w-20 rounded-full object-cover md:h-32 md:w-32" />
+        </div>
+        <div class="grid flex-1 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+            <div>
+                <label for="name" class="underline">Full Name</label>
+                <h3 class="text-lg ">{{student.name}}</h3>
+            </div>
+            <div>
+                <label for="email" class="underline">Email</label>
+                <h3 class="text-lg ">{{student.email}}</h3>
+            </div>
+            <div>
+                <label for="gender" class="underline">Gender</label>
+                <h3 class="text-lg ">{{student.gender}}</h3>
+            </div>
+            <div>
+                <label for="dateofbirth" class="underline">Date of Birth</label>
+                <h3 class="text-lg ">{{(student.dateofbirth.seconds) * 1000 | date}}</h3>
+            </div>
+            <div>
+                <label for="profile" class="underline">Profile</label>
+                <h3 class="text-lg ">
+                    <span [ngClass]="student.isComplete?'bg-success':'bg-danger'" class="badge  rounded-full">{{student.isComplete? 'Complete':'Incomplete'}}</span></h3>
+            </div>
+            <div>
+                <label for="date" class="underline">Account Created Date</label>
+                <h3 class="text-lg text-primary">{{(student.createdOn.seconds) * 1000 | date}}</h3>
+            </div>
+            <!-- <div *ngIf="type=='tutor'">
+                <label for="date" class="underline">Account Status</label>
+                <div class="flex gap-3">
+                    <span class="font-medium text-xl" [ngClass]="student.onHold?'text-red-500':'text-green-700'">{{student.onHold?'onHold':'Approved'}}</span>
+                    <label class="w-12 h-6 relative">
+                        <input [checked]="!student.onHold" (change)="student.onHold = !student.onHold;changeAccountStatus(student.onHold,student.id)" type="checkbox" class="custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer" id="custom_switch_checkbox2" />
+                        <span for="custom_switch_checkbox2" class="outline_checkbox bg-icon border-2 border-[#ebedf2] dark:border-white-dark block h-full rounded-full before:absolute before:left-1 before:bg-[#ebedf2] dark:before:bg-white-dark before:bottom-1 before:w-4 before:h-4 before:rounded-full before:bg-[url(/assets/images/close.svg)] before:bg-no-repeat before:bg-center peer-checked:before:left-7 peer-checked:before:bg-[url(/assets/images/checked.svg)] peer-checked:border-green-700 peer-checked:before:bg-green-700 before:transition-all before:duration-300"></span>
+                    </label>
+                </div>
+            </div> -->
+
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!student" class="flex w-full items-center justify-center">
+    <p class="mt-5 text-base dark:text-white">Student Info not found!</p>
+
+</div>
+<div class="flex gap-2 w-full" *ngIf="type == 'tutor'">
+    <app-documents class="w-full" [student]="student" />
+<div class="panel w-full" *ngIf="type == 'tutor' && student?.subjectObjs?.length">
+    <div class="mb-6 flex items-center justify-between">
+        <h5 class="text-lg font-semibold dark:text-white-light">Tutor Subjects</h5>
+        <!-- <a href="javascript:;" class="btn btn-primary">Renew Now</a> -->
+    </div>
+    <div class="group">
+        <ul  class="mb-6 list-inside list-disc space-y-2 font-semibold text-white-dark">
+            <li *ngFor="let item of student?.subjectObjs">{{item.name}}</li>
+        </ul>
+
+    </div>
+</div>
+</div>
+

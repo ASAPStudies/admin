@@ -1,0 +1,146 @@
+<div class="mb-12 flex items-center rounded-b-md bg-[#DBE7FF] dark:bg-[#141F31]">
+    <ul class="mx-auto flex items-center gap-5 overflow-auto whitespace-nowrap px-3 py-4.5 xl:gap-8">
+        <li
+            class="group flex min-w-[120px] cursor-pointer flex-col items-center justify-center gap-4 rounded-md px-8 py-2.5 text-center text-[#506690] duration-300 hover:bg-white hover:text-primary dark:hover:bg-[#1B2E4B]"
+            [ngClass]="{ 'bg-white text-primary dark:bg-[#1B2E4B]': activeTab === 'all' }"
+            (click)="toggleTab('all')"
+        >
+            <!-- <icon-desktop [fill]="true" /> -->
+
+            <h5 class="font-bold text-black dark:text-white">All</h5>
+        </li>
+        <li
+            class="group flex min-w-[120px] cursor-pointer flex-col items-center justify-center gap-4 rounded-md px-8 py-2.5 text-center text-[#506690] duration-300 hover:bg-white hover:text-primary dark:hover:bg-[#1B2E4B]"
+            [ngClass]="{ 'bg-white text-primary dark:bg-[#1B2E4B]': activeTab === 'Pending' }"
+            (click)="toggleTab('Pending')"
+        >
+            <!-- <icon-user [fill]="true" class="h-8 w-8" /> -->
+
+            <h5 class="font-bold text-black dark:text-white">Pending</h5>
+        </li>
+        <li
+            class="group flex min-w-[120px] cursor-pointer flex-col items-center justify-center gap-4 rounded-md px-8 py-2.5 text-center text-[#506690] duration-300 hover:bg-white hover:text-primary dark:hover:bg-[#1B2E4B]"
+            [ngClass]="{ 'bg-white text-primary dark:bg-[#1B2E4B]': activeTab === 'accepted' }"
+            (click)="toggleTab('accepted')"
+        >
+            <!-- <icon-user [fill]="true" class="h-8 w-8" /> -->
+
+            <h5 class="font-bold text-black dark:text-white">Accepted</h5>
+        </li>
+        <!-- <li
+            class="group flex min-w-[120px] cursor-pointer flex-col items-center justify-center gap-4 rounded-md px-8 py-2.5 text-center text-[#506690] duration-300 hover:bg-white hover:text-primary dark:hover:bg-[#1B2E4B]"
+            [ngClass]="{ 'bg-white text-primary dark:bg-[#1B2E4B]': activeTab === 'Old' }"
+            (click)="toggleTab('Old')"
+        >
+
+            <h5 class="font-bold text-black dark:text-white">Old</h5>
+        </li> -->
+
+    </ul>
+</div>
+<div *ngIf="filteredSessions.length>0" class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+
+<ng-container *ngFor="let item of filteredSessions">
+<div class="panel">
+    <div class="-m-5 mb-5 flex items-center justify-between border-b border-[#e0e6ed] p-5 dark:border-[#1b2e4b]">
+        <a href="javascript:;" class="flex font-semibold">
+            <ng-container *ngIf="item.status != 'Pending' && item.tutor">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-secondary text-white ltr:mr-4 rtl:ml-4">
+                    <!-- <span>FD</span> -->
+                    <img src="{{item.tutor.imageUrl}}" alt="" srcset="">
+                </div>
+                <div>
+                    <h6>{{item.tutor.name}}</h6>
+                    <p class="mt-1 text-xs text-white-dark">{{item.subject}}</p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="item.status == 'Pending'">
+                    <h6>
+                        {{item.subject}}
+                    </h6>
+            </ng-container>
+        </a>
+        <div class="flex items-center gap-3 justify-end">
+            <span [ngClass]="{'bg-primary/20 text-primary':item.status == 'Pending', 'bg-success/20 text-success':item.status == 'accepted'}" class="badge  rounded-full capitalize">{{item.status}}</span>
+
+        </div>
+    </div>
+    <div class="group ">
+        <div class="mb-5">
+            <div class="text-white-dark">
+                {{item.description}}
+            </div>
+        </div>
+
+        <div class="flex items-end justify-between">
+            <div class="flex flex-col gap-0">
+                <a *ngIf="item.attachmentUrl" [href]="item.attachmentUrl" target="_blank" class="flex mb-3 cursor-pointer  items-center  px-2 py-1 text-xs font-semibold text-primary underline">
+                    <icon-file class="h-3 w-3 ltr:mr-1 rtl:ml-1" />
+
+                    Question Attachment
+                </a>
+                <div class="flex items-center rounded-full  px-2 py-1 text-xs font-semibold text-success">
+                    <icon-clock class="h-3 w-3 ltr:mr-1 rtl:ml-1" />
+
+                    Post Date: {{item.createdOn.seconds *1000| date}}
+                </div>
+                <div class="flex items-center rounded-full  px-2 py-1 text-xs font-semibold text-danger">
+                    <icon-clock class="h-3 w-3 ltr:mr-1 rtl:ml-1" />
+
+                    Due Date: {{item.dueDate.seconds * 1000 | date}}
+                </div>
+
+            </div>
+            <button  *ngIf="item.status == 'accepted'" (click)="selectedSession = item;getMeetingDetails();modal1.open()" type="button" class="btn btn-sm btn-primary">
+                Meeting Details
+            </button>
+        </div>
+    </div>
+</div>
+</ng-container>
+
+</div>
+<div *ngIf="filteredSessions.length == 0 && !isLoading" class="flex w-full items-center justify-center">
+<p class="mt-5 text-base dark:text-white">Session not found!</p>
+
+</div>
+
+<div class="flex justify-center py-10 w-full" *ngIf="filteredSessions.length == 0 && isLoading">
+    <span class="animate-spin border-4 border-primary border-l-transparent rounded-full w-10 h-10 inline-block align-middle m-auto mb-10"></span>
+</div>
+
+<modal #modal1 class="modal-top" >
+<ng-template #modalHeader> <div>Meeting Details</div> </ng-template>
+<ng-template #modalBody>
+    <div class="flex justify-center py-10 w-full" *ngIf="!meetingDetail && isMeetingLoading">
+        <span class="animate-spin border-4 border-primary border-l-transparent rounded-full w-10 h-10 inline-block align-middle m-auto mb-10"></span>
+    </div>
+    <div class="group " *ngIf="meetingDetail">
+        <div class="mb-5 flex flex-col gap-3">
+            <h2>Topic:</h2>
+            <div class="text-white-dark">
+                {{meetingDetail.topic}}
+            </div>
+        </div>
+
+        <div class="flex items-end justify-between">
+            <div class="flex flex-col gap-0">
+                <a [href]="meetingDetail.join_url" target="_blank" *ngIf="meetingDetail?.join_url"  class="flex mb-3 cursor-pointer  items-center  px-2 py-1 text-xs font-semibold text-primary underline">
+                    <icon-file class="h-3 w-3 ltr:mr-1 rtl:ml-1" />
+
+                     Meeting Link: {{meetingDetail.join_url}}
+                </a>
+                <div class="flex items-center rounded-full  px-2 py-1 text-xs font-semibold text-success">
+                    <icon-clock class="h-3 w-3 ltr:mr-1 rtl:ml-1" />
+
+                    Start On: {{meetingDetail.start_time | date}}
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #modalFooter>
+    <button type="button" (click)="meetingDetail = null;modal1.close()" class="btn btn-primary ltr:ml-4 rtl:mr-4">Close</button>
+</ng-template>
+</modal>
+

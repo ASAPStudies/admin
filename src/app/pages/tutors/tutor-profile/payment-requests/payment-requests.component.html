@@ -1,0 +1,59 @@
+<div *ngIf="withdrawRequests.length>0" class="panel mt-6 pb-1.5">
+    <div class="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+        <div class="text-right">
+            <input [(ngModel)]="search" type="text" class="form-input w-auto" placeholder="Search..." />
+        </div>
+    </div>
+
+    <div class="datatable">
+        <ng-datatable
+        [loading]="isLoading"
+            [rows]="withdrawRequests"
+            [columns]="cols"
+            [sortable]="true"
+            [search]="search"
+            [pageSize]="5"
+            skin="whitespace-nowrap table-hover"
+            firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg> '
+            previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+        >
+        <ng-template slot="tutor" let-value="data">
+            <div class="min-w-[150px] text-black dark:text-white">
+                <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{value.tutor.imageUrl}}" alt="avatar" />
+                    <span class="whitespace-nowrap">{{value.tutor.name}}</span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template slot="status" let-value="data">
+                    <span class="whitespace-nowrap px-2 py-1 rounded-lg text-white" [ngClass]="value.status=='Pending'?'bg-orange-500':'bg-green-700'">{{value.status}}</span>
+        </ng-template>
+        <ng-template slot="createdOn" let-value="data">
+            <span class="whitespace-nowrap px-2 py-1 rounded-lg">{{value.createdOn.seconds * 1000 | date}}</span>
+</ng-template>
+        <ng-template slot="amount" let-value="data">
+            <div class="min-w-[150px] text-black dark:text-white">
+                <div class="flex items-center">
+                    <span class="whitespace-nowrap">{{value.amount}}</span><small class="ml-2">{{value.currency}}</small>
+                </div>
+            </div>
+        </ng-template>
+            <ng-template slot="action" let-value="data">
+                <div class="flex gap-4">
+                    <button type="button"  class="btn btn-success py-1" (click)="selectedRow(value)">View</button>
+                </div>
+            </ng-template>
+        </ng-datatable>
+    </div>
+</div>
+
+<div *ngIf="withdrawRequests.length == 0 && !isLoading" class="flex w-full items-center justify-center">
+    <p class="mt-5 text-base dark:text-white">Payment not found!</p>
+
+    </div>
+
+    <div class="flex justify-center py-10 w-full" *ngIf="withdrawRequests.length == 0 && isLoading">
+        <span class="animate-spin border-4 border-primary border-l-transparent rounded-full w-10 h-10 inline-block align-middle m-auto mb-10"></span>
+    </div>

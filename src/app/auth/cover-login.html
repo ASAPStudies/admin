@@ -1,0 +1,227 @@
+<div>
+    <div class="absolute inset-0 bg-gray"></div>
+    <div class="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-10 bg-[linear-gradient(225deg,#000000,#A6A6A6)] dark:bg-[#060818] sm:px-16">
+        <div
+            class="relative flex w-full max-w-[1502px] flex-col justify-between overflow-hidden rounded-md bg-white/60 backdrop-blur-lg dark:bg-black/50 lg:min-h-[758px] lg:flex-row lg:gap-10 xl:gap-0"
+        >
+            <div
+                class="relative hidden w-full items-center justify-center  p-5 lg:inline-flex lg:max-w-[835px] xl:-ms-28 ltr:xl:skew-x-[14deg] rtl:xl:skew-x-[-14deg] bg-[linear-gradient(225deg,#A6A6A6,#000000)]"
+            >
+                <div
+                    class="absolute inset-y-0 w-8 from-black/10 via-transparent to-transparent xl:w-16 ltr:-right-10 ltr:bg-gradient-to-r ltr:xl:-right-20 rtl:-left-10 rtl:bg-gradient-to-l rtl:xl:-left-20"
+                ></div>
+                <div class="ltr:xl:-skew-x-[14deg] rtl:xl:skew-x-[14deg]">
+                    <a routerLink="/" class="ms-10 flex w-48 gap-4 lg:w-72">
+                        <img src="/assets/asap/logo2.png" alt="Logo" class="w-full" />
+                    </a>
+                    <div class="mt-24 hidden w-full max-w-[430px] lg:block" >
+                        <img src="/assets/images/auth/login.svg" alt="Cover Image" class="w-full" />
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
+                <div class="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
+                    <a routerLink="/" class="block w-20 lg:hidden">
+                        <img src="/assets/asap/logo.png" alt="Logo" class="mx-auto w-20" />
+                    </a>
+                    <!-- <div class="dropdown ms-auto w-max">
+                        <div hlMenu>
+                            <button
+                                type="button"
+                                hlMenuButton
+                                class="flex items-center gap-2.5 rounded-lg border border-white-dark/30 bg-white px-2 py-1.5 text-white-dark hover:border-black hover:text-black dark:bg-black"
+                            >
+                                <div>
+                                    <img
+                                        [src]="'/assets/images/flags/'+ store.locale.toUpperCase() + '.svg'"
+                                        alt="image"
+                                        class="h-5 w-5 rounded-full object-cover"
+                                    />
+                                </div>
+                                <div class="text-base font-bold uppercase">{{ store.locale }}</div>
+                                <span class="shrink-0">
+                                    <icon-caret-down />
+                                </span>
+                            </button>
+                            <ul
+                                *hlMenuItems
+                                @toggleAnimation
+                                class="top-11 grid w-[280px] grid-cols-2 gap-2 !px-2 font-semibold text-dark ltr:-right-14 rtl:-left-14 dark:text-white-dark dark:text-white-light/90 sm:ltr:-right-2 sm:rtl:-left-2"
+                            >
+                                <li *ngFor="let item of store.languageList;">
+                                    <button
+                                        *hlMenuItem="let menuItem"
+                                        type="button"
+                                        class="w-full hover:text-black"
+                                        [ngClass]="{ 'bg-black/10 text-black': translate.currentLang === item.code }"
+                                        (click)="changeLanguage(item)"
+                                    >
+                                        <img
+                                            class="h-5 w-5 rounded-full object-cover"
+                                            [src]="'/assets/images/flags/'+ item.code.toUpperCase() + '.svg'"
+                                            alt=""
+                                        />
+                                        <span class="ltr:ml-3 rtl:mr-3">{{ item.name }}</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="w-full max-w-[440px] lg:mt-16">
+                    <div class="mb-10">
+                        <h1 class="text-3xl font-extrabold uppercase !leading-snug text-black md:text-4xl">Sign in</h1>
+                        <p class=" leading-normal text-black">Enter your email and password to login</p>
+                    </div>
+                    <form class="mb-10 space-y-5 dark:text-white" #loginForm="ngForm"
+                    (ngSubmit)="
+                      form_submission = true;
+                      loginForm.valid && onLogin(loginForm.value)
+                    ">
+                        <div>
+                            <label for="Email">Email</label>
+                            <div class="relative text-white-dark">
+                                <input
+                                    id="Email"
+                                    type="email"
+                                    #name="ngModel"
+                                    name="email"
+                                    [(ngModel)]="form.email"
+                                    placeholder="Enter Email"
+                                    class="form-input ps-10 placeholder:text-white-dark"
+                                    [ngClass]="{
+                       'border-danger/80 focus:outline-danger/80': (name.invalid && form_submission),
+                       'border-zinc-400 focus:outline-black': !(name.invalid && form_submission)
+                   }"
+                                    required
+                                />
+                                <span class="absolute start-4 top-1/2 -translate-y-1/2">
+                                    <icon-mail [fill]="true" />
+                                </span>
+                            </div>
+                            <div *ngIf="name.invalid && form_submission" class="text-danger/80">Email is required</div>
+                        </div>
+                        <div>
+                            <label for="Password">Password</label>
+                            <div class="relative text-white-dark focus:outline-black">
+                                <input
+                                    id="Password"
+                                    type="password"
+                                    #password="ngModel"
+                                    name="password"
+                                    [(ngModel)]="form.password"
+                                    placeholder="Enter Password"
+                                    class="form-input ps-10 placeholder:text-white-dark"
+                                    required
+                                    [ngClass]="{
+                                        'border-danger/80 focus:outline-danger/80': (name.invalid && form_submission),
+                                        'border-zinc-400 focus:outline-black': !(name.invalid && form_submission)
+                                    }"
+                                />
+                                <span class="absolute start-4 top-1/2 -translate-y-1/2">
+                                    <icon-lock-dots [fill]="true" />
+                                </span>
+                            </div>
+                            <div *ngIf="password.invalid && form_submission" class="text-danger/80">Password is required</div>
+                        </div>
+
+                        <button
+                            [disabled]="loading || loginForm.invalid"
+                            type="submit"
+                            class="btn mt-20 w-full border-0 bg-gradient-to-tr from-[#000000] to-gray uppercase text-white shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)] hover:bg-gradient-to-tr hover:from-gray hover:to-black"
+                        >
+                            <span *ngIf="loading">
+                                Please wait...
+                                <svg
+                                    aria-hidden="true"
+                                    role="status"
+                                    [ngClass]="'w-4 h-4 ml-4'"
+                                    class="inline animate-spin text-white"
+                                    viewBox="0 0 100 101"
+                                    fill=""
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="currentColor"
+                                    ></path>
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="#3730a3"
+                                    ></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="!loading">Sign in</span>
+                        </button>
+                    </form>
+
+                    <!-- <form class="space-y-5 mb-10 dark:text-white"  #loginForm="ngForm"
+                    (ngSubmit)="
+                      form_submission = true;
+                      loginForm.valid && onLogin(loginForm.value)
+                    " >
+                        <div>
+                            <label for="Email">Email</label>
+                            <div class="relative text-white-dark">
+                                <input id="Email" type="email" #name name="email" [(ngModel)]="form.email" placeholder="Enter Email" class="form-input ps-10 placeholder:text-white-dark"
+                                [ngClass]="{
+                                    'border-danger/80 focus:outline-danger/80':
+                                      (name.invalid && formSubmission),
+                                    'border-zinc-400 focus:outline-secondary':
+                                      !(name.invalid && formSubmission)}" />
+                                <span class="absolute start-4 top-1/2 -translate-y-1/2">
+                                    <icon-mail [fill]="true" />
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="Password">Password</label>
+                            <div class="relative text-white-dark">
+                                <input id="Password" type="password" name="password" [(ngModel)]="form.password" placeholder="Enter Password" class="form-input ps-10 placeholder:text-white-dark" />
+                                <span class="absolute start-4 top-1/2 -translate-y-1/2">
+                                    <icon-lock-dots [fill]="true" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <button [disabled]="loading" type="submit" class="btn mt-20 text-white bg-gradient-to-tr from-black to-gray hover:bg-gradient-to-tr hover:from-gray hover:to-black  w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]">
+                            <span *ngIf="loading">
+
+                                Please wait...
+                                <svg
+                                    aria-hidden="true"
+                                    role="status"
+                                    [ngClass]="'w-4 h-4 ml-4'"
+                                    class="inline animate-spin text-white"
+                                    viewBox="0 0 100 101"
+                                    fill=""
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="currentColor"
+                                    ></path>
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="#3730a3"
+                                    ></path>
+                                    </svg>
+                            </span>
+                            <span *ngIf="!loading" >Sign in</span>
+
+                        </button>
+                    </form> -->
+                    <div class="relative my-7 text-center md:mb-9">
+                        <span class="absolute inset-x-0 top-1/2 h-px w-full -translate-y-1/2 bg-white-light dark:bg-white-dark"></span>
+                        <span class="relative bg-white px-2 font-bold uppercase text-white-dark dark:bg-dark dark:text-white-light">or</span>
+                    </div>
+                    <div class="text-center dark:text-white">
+                        Forgot Password ?
+                        <a routerLink="/reset-password" class="uppercase text-black underline transition hover:text-black dark:hover:text-white"> Forgot </a>
+                    </div>
+                </div>
+                <p class="absolute bottom-6 w-full text-center dark:text-white">© {{ currYear }}.ASAP Studies All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>

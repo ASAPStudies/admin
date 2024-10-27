@@ -1,0 +1,71 @@
+
+
+<div *ngIf="!loading" class="flex flex-col items-center justify-center min-h-[100dvh] px-4 md:px-6 py-12 md:py-24 lg:py-32">
+    <div class="max-w-md text-center space-y-4">
+      <div class="flex w-full justify-center" *ngIf="isSuccess == false">
+
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="h-20 w-20"  viewBox="0 0 48 48">
+            <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+            </svg>
+        </div>
+      <div class="bg-green-100 dark:bg-green-900 rounded-full p-4 inline-flex" *ngIf="isSuccess == true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-8 w-8 text-green-500 dark:text-green-400"
+        >
+        <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+        </div>
+        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl" *ngIf="isSuccess == true ">Payment Successful</h1>
+        <h1 class="text-3xl font-bold text-red-500 tracking-tighter sm:text-4xl md:text-5xl" *ngIf="isSuccess == false">Payment Declined</h1>
+
+        <p class="text-gray-500 dark:text-gray-400 md:text-xl ">
+            {{message}}
+        </p>
+        <div class="p-6 grid gap-4" *ngIf="isSuccess == true">
+          <div class="flex items-center justify-between">
+            <div class="text-gray-500 dark:text-gray-400">Email</div>
+            <div class="font-medium">{{transactionData.customer.email}}</div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-gray-500 dark:text-gray-400">Method</div>
+            <div class="font-medium">{{transactionData.channel}}</div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-gray-500 dark:text-gray-400">Amount Paid</div>
+            <div class="font-medium">{{transactionData.currency+' '+transactionData.amount/100}}</div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-gray-500 dark:text-gray-400">Transaction ID</div>
+            <div class="font-medium">{{transactionData.reference}}</div>
+          </div>
+        </div>
+        <!-- <div class="flex justify-center">
+            <a (click)="closeTab()"
+            class="flex w-[90%] h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950  dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              href="javascript:;"
+            >
+              Okay
+            </a>
+        </div> -->
+            </div>
+  </div>
+  <div *ngIf="loading" class="flex flex-col items-center justify-center min-h-[100dvh] px-4 md:px-6 py-12 md:py-24 lg:py-32 dark:invert">
+  <div class='flex space-x-2 justify-center items-center'>
+    <span class='sr-only'>Loading...</span>
+     <div class='h-6 w-6 md:h-8 md:w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+   <div class='h-6 w-6 md:h-8 md:w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+   <div class='h-6 w-6 md:h-8 md:w-8 bg-black rounded-full animate-bounce'></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 md:text-xl pt-6">Your payment is in progress, please wait...</p>
+
+</div>
+

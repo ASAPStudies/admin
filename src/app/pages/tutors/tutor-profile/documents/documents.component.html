@@ -1,0 +1,35 @@
+<div *ngIf="student" class="mb-5 rounded-md border border-[#ebedf2] bg-white p-4 dark:border-[#191e3a] dark:bg-[#0e1726]">
+    <h6 class="mb-5 text-lg font-bold">Documents</h6>
+    <div class="flex flex-col sm:flex-row">
+
+        <div class="grid flex-1 grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+            <div>
+                <label for="name" class="underline">Document Type</label>
+                <h3 class="text-lg ">{{student.nationalID}}</h3>
+            </div>
+            <div>
+                <label for="email" class="underline">ID Number</label>
+                <h3 class="text-lg ">{{student.idNumber}}</h3>
+            </div>
+            <div>
+                <label for="gender" class="underline">Doc Link</label>
+                <a href="javascript:;" (click)="modal1.open()" class="text-lg text-primary">View Doc</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<modal #modal1 class="modal-top w-full">
+    <ng-template #modalHeader> <div>Document View</div> </ng-template>
+    <ng-template #modalBody class="max-h-[90vh] overflow-scroll">
+        <iframe class="w-full h-[500px]" *ngIf="docType=='pdf'" [src]="sanitize.bypassSecurityTrustResourceUrl(student?.idImageurl??'')" frameborder="0"></iframe>
+        <img class="w-full" [src]="student?.idImageurl" alt="" srcset="">
+    </ng-template>
+    <ng-template #modalFooter>
+        <button type="button" (click)="modal1.close()" class="btn btn-primary ltr:ml-4 rtl:mr-4">Close</button>
+    </ng-template>
+</modal>
+
+
+
