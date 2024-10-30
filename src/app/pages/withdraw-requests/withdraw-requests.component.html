@@ -157,7 +157,7 @@
         </ng-template>
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <button type="button"  class="btn btn-success py-1" (click)="selectedRow(value)">View</button>
+                    <a routerLink="{{value.id}}" type="button"  class="btn btn-success py-1" >View</a>
                 </div>
             </ng-template>
         </ng-datatable>

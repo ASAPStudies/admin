@@ -4,11 +4,11 @@
             <div class="flex items-center justify-between px-4 py-3">
                 <a routerLink="/" class="main-logo flex shrink-0 items-center">
                     <img class="ml-[5px] w-10 flex-none" src="/assets/asap/logo.png" alt="" />
-                    <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ASAP STUDIES</span>
+                    <span class="align-middle text-xl font-semibold dark:text-white-light lg:inline ltr:ml-1.5 rtl:mr-1.5">ASAP STUDIES</span>
                 </a>
                 <a
                     href="javascript:;"
-                    class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 hover:text-primary rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
+                    class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 hover:text-primary dark:text-white-light dark:hover:bg-dark-light/10 rtl:rotate-180"
                     (click)="storeData.dispatch({ type: 'toggleSidebar'})"
                 >
                     <icon-carets-down class="m-auto rotate-90" />
@@ -17,11 +17,11 @@
             <ng-scrollbar class="relative !h-[calc(100vh-80px)]" appearance="compact">
                 <ul class="relative space-y-0.5 p-4 py-0 font-semibold">
                     <li class="nav-item">
-                        <a routerLink="/dashboard" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                        <a routerLink="/admin/dashboard" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
                             <div class="flex items-center">
                                 <icon-menu-dashboard class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'dashboard' | translate }}</span
                                 >
                             </div>
@@ -29,17 +29,17 @@
                     </li>
 
                     <li class="nav-item">
-                        <a routerLink="/students" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                        <a routerLink="/admin/students" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
                             <div class="flex items-center">
                                 <icon-users class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Students' | translate }}</span
                                 >
                             </div>
                         </a>
                     </li>
-                    <li class="accordion relative menu nav-item">
+                    <li class="accordion menu nav-item relative">
                         <button
                             type="button"
                             class="nav-link group w-full"
@@ -49,7 +49,7 @@
                             <div class="flex items-center">
                                 <icon-users-group class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Tutors' | translate }}</span
                                 >
                             </div>
@@ -66,10 +66,10 @@
                         <div [@slideDownUp]="!activeDropdown.includes('tutors')" class="accordion-content">
                             <ul class="sub-menu text-gray-500">
                                 <li>
-                                    <a routerLink="/tutors/all" routerLinkActive="active" (click)="toggleMobileMenu()">{{ 'All' | translate }}</a>
+                                    <a routerLink="/admin/tutors/all" routerLinkActive="active" (click)="toggleMobileMenu()">{{ 'All' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a routerLink="/tutors/pending" routerLinkActive="active" (click)="toggleMobileMenu()"
+                                    <a routerLink="/admin/tutors/pending" routerLinkActive="active" (click)="toggleMobileMenu()"
                                         >{{ 'Pending Review' | translate }}</a
                                     >
                                 </li>
@@ -77,23 +77,43 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a routerLink="/withdraw-requests" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                        <a routerLink="/admin/withdraw-requests" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
                             <div class="flex items-center">
                                 <icon-menu-forms class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Withdraw Requests' | translate }}</span
                                 >
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a routerLink="/notifications" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                        <a routerLink="/admin/notifications" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
                             <div class="flex items-center">
                                 <icon-bell class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Notifications' | translate }}</span
+                                >
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/admin/notifications" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                            <div class="flex items-center">
+                                <icon-qa class="shrink-0 group-hover:!text-primary" />
+
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{{ 'Q/A Requests' | translate }}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/admin/notifications" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                            <div class="flex items-center">
+                                <icon-live class="shrink-0 group-hover:!text-primary" />
+
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
+                                    >{{ 'Live Tutoring Requests' | translate }}</span
                                 >
                             </div>
                         </a>

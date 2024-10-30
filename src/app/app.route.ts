@@ -26,18 +26,23 @@ import { AuthLayout } from './layouts/auth-layout';
 import { KnowledgeBaseComponent } from './pages/knowledge-base';
 import { FaqComponent } from './pages/faq';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardGuard } from './guards/dashboard.guard';
 
 export const routes: Routes = [
     {
         path: 'payment', component: PaymentComponent, title: 'App Payment'
     },
+    {path:'login', component:LoginComponent},
+    {path:'', redirectTo:'login', pathMatch:'full'},
+
     {
-        path: '',
+        path: 'admin',
         component: AppLayout,
+        canActivate:[DashboardGuard],
         children: [
             // dashboard
-            { path: '', redirectTo:'dashboard',pathMatch:'full' },
-
+            {path:'', redirectTo:'dashboard', pathMatch:'full'},
             { path: 'dashboard', component: DashboardComponent, title: 'ASAP Admin | Dashboard' },
             { path: 'students', loadChildren: () => import('./pages/students/students.module').then((d) => d.StudentsModule)},
             { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule)},

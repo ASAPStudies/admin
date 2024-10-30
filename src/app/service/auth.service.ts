@@ -15,16 +15,6 @@ constructor(private router:Router) {
     const currentUser= getAuth(firebaseApp).currentUser
     console.log(currentUser);
 
-    // if(currentUser){
-    //     const admin = JSON.parse(localStorage.getItem('admin') as string)
-    //     if(!admin){
-    //         this.getUser(currentUser.email as string)
-    //     }
-    //     this.router.navigate(['/dashboard'])
-    // }else{
-    //     this.router.navigate(['/login'])
-
-    // }
     console.log(getAuth(firebaseApp).currentUser);
  }
 
@@ -52,7 +42,8 @@ constructor(private router:Router) {
  }
 
  logOut(){
-    signOut(firebaseAuth);
+    // signOut(firebaseAuth);
+    localStorage.removeItem('admin')
  }
 
 }

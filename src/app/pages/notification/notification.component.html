@@ -179,11 +179,18 @@
                         <input type="radio" name="role" class="form-radio " value="all" [checked]="selectedRole=='all'" (change)="onRadioChange($event)"/>
                         <span>Both</span>
                     </label>
+                     <label class="inline-flex">
+                        <input formControlName="brCast" (change)="onBroadCastButtonChange($event)" type="checkbox" name="role" class="form-checkbox " value="all" />
+                        <span>Broadcast</span>
+                    </label>
+
+                    
+
                 </div>
             </div>
             <div class="flex sm:flex-row flex-col" *ngIf="selectedRole == 'Student' || selectedRole == 'all'">
                 <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Students</label>
-                <div class="flex flex-col w-full">
+                <div *ngIf="!broadcast else note" class="flex flex-col w-full">
                     <ng-select
                         [loading]="fetchUserLoading"
                         [multiple]="true"
@@ -195,6 +202,9 @@
                         <ng-option *ngFor="let student of students" [value]="student">{{student.name + '( ' +student.email+' )'}}</ng-option>
                     </ng-select>
                 </div>
+                <ng-template #note >
+                    Notification will be sent to all users or tutors
+                </ng-template>
             </div>
             <div class="flex sm:flex-row flex-col" *ngIf="selectedRole == 'Tutor' || selectedRole == 'all'">
                 <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Tutors</label>

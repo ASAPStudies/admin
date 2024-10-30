@@ -45,34 +45,10 @@ constructor(private router:Router,private http:HttpClient) {
       console.log(result); // This will contain the data sent back by the Cloud Function
 
     } catch (error) {
-        console.log(error);
         console.error('Error calling helloWorld function:', error);
     }
   }
 
-//   async sendNotification(){
-//     try {
-//         let notificationData={
-//             notification:{
-//                 title:'title',
-//                 body:'body'
-//             },
-//             token:'dnPxUh-zSUGmk6LuqptWYK:APA91bFTZ_GNVQov6oC0Fryv-L99ETOqQFy1T0IAgOqk2u0eV3XM7_Vce7C3ey3Guo3WRqbV2o8gAVsL1m6NXShqMRep3RUS3uhp602Ou9H8HoygcDHPbkwBf6p15ulAkhpHuIkN60Ye'
-//         }
-//         this.http.post(`https://fcm.googleapis.com/v1/projects/asapstudyportal/messages:send`,notificationData,{
-//             headers: {
-//                 "Access-Control-Allow-Origin": "*",
-//               "Content-Type": "application/json",
-//             }}).subscribe(res=>{
-//             console.log(res);
-
-//         })
-//     } catch (error) {
-//         console.log(error);
-
-
-//     }
-//   }
 
 
  async getAllSubjects() {
@@ -102,7 +78,6 @@ async getQuestionByID(id:string) {
     if (question.exists()) {
         return question.data() as IQuestion ;
     } else {
-        console.log("No question document found!");
         return null
     }
 }
@@ -113,7 +88,6 @@ async getSessionByID(id:string) {
     if (session.exists()) {
         return session.data() as ISession ;
     } else {
-        console.log("No session document found!");
         return null
     }
 }

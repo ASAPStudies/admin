@@ -959,7 +959,7 @@ export class StudentListComponent implements OnInit {
 
       selectedRow(value:IStudent){
         this.localStorage.set('student',value)
-        this.router.navigate(['/students/'+value.id])
+        this.router.navigate(['/admin/students/'+value.id])
     }
 
 
