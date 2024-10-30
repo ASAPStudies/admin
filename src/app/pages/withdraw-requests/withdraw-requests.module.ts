@@ -16,6 +16,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+   
     RouterModule.forChild(routes),
   ],
   exports:[SharedModule]

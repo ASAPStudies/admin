@@ -132,7 +132,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
         FaqComponent,
         DashboardComponent,
         FormateDatePipe,
-        PaymentComponent
+        PaymentComponent,
     ],
     exports:[SharedModule],
 
