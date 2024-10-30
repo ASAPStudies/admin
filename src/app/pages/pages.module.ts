@@ -16,6 +16,8 @@ import { MaintenenceComponent } from './maintenence';
 
 // headlessui
 import { MenuModule } from 'headlessui-angular';
+import { QaListComponent } from './qa-list/qa-list.component';
+import { LiveRequestsListComponent } from './live-requests-list/live-requests-list.component';
 
 const routes: Routes = [
     { path: 'pages/contact-us-boxed', component: ContactUsBoxedComponent, title: 'Contact Us Boxed | VRISTO - Multipurpose Tailwind Dashboard Template' },
@@ -38,6 +40,7 @@ const routes: Routes = [
         Error500Component,
         Error503Component,
         MaintenenceComponent,
+       
     ],
 })
 export class PagesModule {}

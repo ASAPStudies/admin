@@ -81,6 +81,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './service/auth.service';
 import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { QaListComponent } from './pages/qa-list/qa-list.component';
+import { LiveRequestsListComponent } from './pages/live-requests-list/live-requests-list.component';
 
 @NgModule({
     imports: [
@@ -133,6 +135,8 @@ import { PaymentComponent } from './pages/payment/payment.component';
         DashboardComponent,
         FormateDatePipe,
         PaymentComponent,
+        QaListComponent,
+        LiveRequestsListComponent
     ],
     exports:[SharedModule],
 

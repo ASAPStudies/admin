@@ -46,7 +46,6 @@ export class WithdrawRequestsComponent implements OnInit {
         this.isLoading = false
 
         // Optionally log data for debugging
-        console.log(this.withdrawRequests);
         
     }
 
