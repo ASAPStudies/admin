@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { httpsCallable } from 'firebase/functions';
 import { IQuestion } from '../pages/students/question.interface';
 import { ISession } from '../pages/students/session.interface';
+import { retry } from 'rxjs';
 export interface ISubject {
     id: string;
     backgroundImgUrl: string;
@@ -178,6 +179,27 @@ async getPaymentKeys() {
     }
 }
 
+async getAllWithdrawalRequests(){
+    let allWithdrawals:any = []
+    const querySnapshot = await getDocs(collection(firebaseDb, "withdraws_requests"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    allWithdrawals.push({id:doc.id, ...doc.data()})
+    // console.log(doc.id, " => newfunc ", doc.data());
+    });
+    return allWithdrawals
+}
+
+async getAllTutors(){
+    let allTutors:any = []
+     const querySnapshot = await getDocs(collection(firebaseDb, "tutors"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    allTutors.push({id:doc.id, ...doc.data()})
+    // console.log(doc.id, " => newfunc ", doc.data());
+    });
+    return allTutors
+}
 
 async getWithdrawRequestWithStatus(status:string='all') {
     let q;

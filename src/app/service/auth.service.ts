@@ -13,9 +13,6 @@ export class AuthService {
 
 constructor(private router:Router) {
     const currentUser= getAuth(firebaseApp).currentUser
-    console.log(currentUser);
-
-    console.log(getAuth(firebaseApp).currentUser);
  }
 
  async signIn(email: string, password: string): Promise<any> {

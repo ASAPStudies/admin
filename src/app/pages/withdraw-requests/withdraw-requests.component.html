@@ -137,8 +137,8 @@
         <ng-template slot="tutor" let-value="data">
             <div class="min-w-[150px] text-black dark:text-white">
                 <div class="flex items-center">
-                    <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{value.tutor.imageUrl}}" alt="avatar" />
-                    <span class="whitespace-nowrap">{{value.tutor.name}}</span>
+                    <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{value.tutor?.imageUrl}}" alt="avatar" />
+                    <span class="whitespace-nowrap">{{value.tutor?.name}}</span>
                 </div>
             </div>
         </ng-template>
@@ -157,7 +157,7 @@
         </ng-template>
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <a routerLink="{{value.id}}" type="button"  class="btn btn-success py-1" >View</a>
+                    <button (click)="selectedRow(value?.id)" type="button"  class="btn btn-success py-1" >View</button>
                 </div>
             </ng-template>
         </ng-datatable>
