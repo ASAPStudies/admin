@@ -30,28 +30,40 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardGuard } from './guards/dashboard.guard';
 import { QaListComponent } from './pages/qa-list/qa-list.component';
 import { LiveRequestsListComponent } from './pages/live-requests-list/live-requests-list.component';
+import { QADetailCompoentPage } from './pages/qa-list/qa-detail/qa-detail.component';
 
 export const routes: Routes = [
     {
-        path: 'payment', component: PaymentComponent, title: 'App Payment'
+        path: 'payment',
+        component: PaymentComponent,
+        title: 'App Payment',
     },
-    {path:'login', component:LoginComponent},
-    {path:'', redirectTo:'login', pathMatch:'full'},
+    { path: 'login', component: LoginComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
 
     {
         path: 'admin',
         component: AppLayout,
-        canActivate:[DashboardGuard],
+        canActivate: [DashboardGuard],
         children: [
             // dashboard
-            {path:'', redirectTo:'dashboard', pathMatch:'full'},
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent, title: 'ASAP Admin | Dashboard' },
-            { path: 'students', loadChildren: () => import('./pages/students/students.module').then((d) => d.StudentsModule)},
-            { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule)},
-            { path: 'withdraw-requests',loadChildren:()=> import('./pages/withdraw-requests/withdraw-requests.module').then((d)=>d.WithdrawRequestsModule) },
-            { path: 'notifications',loadChildren:()=> import('./pages/notification/notification.component.module').then((d)=>d.NotificationModule) },
-            {path:'qa-requests', component:QaListComponent},
-            {path:'live-tutoring-requests', component:LiveRequestsListComponent},
+            { path: 'students', loadChildren: () => import('./pages/students/students.module').then((d) => d.StudentsModule) },
+            { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule) },
+            {
+                path: 'withdraw-requests',
+                loadChildren: () => import('./pages/withdraw-requests/withdraw-requests.module').then((d) => d.WithdrawRequestsModule),
+            },
+            { path: 'notifications', loadChildren: () => import('./pages/notification/notification.component.module').then((d) => d.NotificationModule) },
+            {
+                path: 'qa-requests',
+                component: QaListComponent,
+                children: [],
+            },
+            { path: 'qa-requests/:id/students/:userId', component: QADetailCompoentPage },
+
+            { path: 'live-tutoring-requests', component: LiveRequestsListComponent },
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },

@@ -50,6 +50,16 @@ constructor(private router:Router,private http:HttpClient) {
     }
   }
 
+  async getAllQuestions(){
+    let data:any[] = []
+    const querySnapshot = await getDocs(collection(firebaseDb, 'questions'));
+    querySnapshot.forEach((doc) => {
+    data.push(doc.data())
+    
+    });
+    return data
+}
+
 
 
  async getAllSubjects() {

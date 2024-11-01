@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { UsersService } from 'src/app/service/users.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/service/localstorage.service';
+import { SharedService } from 'src/app/service/shared.service';
+import { title } from 'process';
 
 @Component({
     selector: 'app-qa-list',
@@ -14,20 +16,28 @@ export class QaListComponent {
     students: IStudent[] = [];
     isLoading: boolean = false;
     jsonData = this.students;
+    allQuestions: any = [];
 
     // constructor
-    constructor(private userService: UsersService, private router: Router, private localStorage: LocalStorageService) {}
+    constructor(private userService: UsersService, private router: Router, private localStorage: LocalStorageService, private sharedService: SharedService) {}
     cols = [
-        { field: 'name', title: 'Student Name' },
-        { field: 'email', title: 'Email' },
-        { field: 'dateofbirth', title: 'Date of Birth' },
-        { field: 'gender', title: 'Gender' },
-        { field: 'country', title: 'Country' },
+        { field: 'tutor', title: 'Student Email' },
+        {field:'studentName', title:'Student Name'},
+        { field: 'amount', title: 'Amount' },
+        { field: 'dueDate', title: 'Due Date' },
+        { field: 'status', title: 'Status' },
+        { field: 'createdOn', title: 'Requested Date' },
         { field: 'action', title: 'Action' },
     ];
 
     ngOnInit() {
         this.loadUsers();
+        this.loadQuestions();
+    }
+
+    async loadQuestions() {
+        this.allQuestions = await this.sharedService.getAllQuestions();
+        console.log(this.allQuestions);
     }
 
     // fetch students
@@ -35,8 +45,6 @@ export class QaListComponent {
         try {
             this.isLoading = true;
             this.students = await this.userService.getUsers('Student');
-
-            console.log('Student are', this.students);
             /// Make json for Excel
             this.jsonData = this.students.map((obj: any) => {
                 const newObj: any = {};

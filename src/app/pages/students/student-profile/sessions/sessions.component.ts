@@ -41,7 +41,7 @@ export class SessionsComponent implements OnInit {
 
   meetingDetail:IMeeting | null = null;
 
-  @Input() sessions:ISession[]=[]
+  @Input() sessions:ISession[] | any=[]
 
   constructor(private sharedService:SharedService, private userService:UsersService) { }
 
