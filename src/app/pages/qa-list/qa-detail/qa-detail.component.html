@@ -1,0 +1,78 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" routerLink="/students" class="text-primary hover:underline">Student</a>
+        </li>
+        <li class="before:content-['>'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>QA Requests</span>
+        </li>
+    </ul>
+    <div class="pt-5">
+        <div class="mb-5 flex items-center justify-between">
+            <h5 class="text-lg font-semibold dark:text-white-light">Profile</h5>
+        </div>
+        <div class="mb-5 flex overflow-y-auto whitespace-nowrap border-b border-[#ebedf2] font-semibold dark:border-[#191e3a]">
+            <button
+                (click)="toggleTab('home')"
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'home' }"
+            >
+                Student Info
+            </button>
+            <button
+                (click)="toggleTab('questions')"
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'questions' }"
+            >
+                Questions
+            </button>
+            <button
+                (click)="toggleTab('live')"
+
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'live' }"
+            >
+                Live Sessions
+            </button>
+            <button
+                (click)="toggleTab('danger-zone')"
+
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'danger-zone' }"
+            >
+                Danger Zone
+            </button>
+        </div>
+
+        <div>
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div class="panel space-y-5">
+                    <ng-container [ngSwitch]="activeTab.toLocaleLowerCase()">
+                        <div *ngSwitchCase="'home'">
+                         <app-profile-info [student]="null" />
+
+                        </div>
+                        <div *ngSwitchCase="'questions'">
+                            <app-questions [questions]="null" />
+                        </div>
+                        <div *ngSwitchCase="'live'">
+                            <app-sessions [sessions]="null"></app-sessions>
+                        </div>
+                        <div *ngSwitchCase="'danger-zone'">
+                            <h1>Danger Zone</h1>
+                        </div>
+                        <div *ngSwitchDefault>
+                            <h1>Select a tab</h1>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full justify-center py-10">
+    </div>
+</div>
