@@ -30,7 +30,6 @@
             </button>
             <button
                 (click)="toggleTab('live')"
-
                 [disabled]="isLoading"
                 class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
                 [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'live' }"
@@ -39,7 +38,6 @@
             </button>
             <button
                 (click)="toggleTab('danger-zone')"
-
                 [disabled]="isLoading"
                 class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
                 [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'danger-zone' }"
@@ -48,31 +46,25 @@
             </button>
         </div>
 
-        <div>
-            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-                <div class="panel space-y-5">
-                    <ng-container [ngSwitch]="activeTab.toLocaleLowerCase()">
-                        <div *ngSwitchCase="'home'">
-                         <app-profile-info [student]="null" />
-
-                        </div>
-                        <div *ngSwitchCase="'questions'">
-                            <app-questions [questions]="null" />
-                        </div>
-                        <div *ngSwitchCase="'live'">
-                            <app-sessions [sessions]="null"></app-sessions>
-                        </div>
-                        <div *ngSwitchCase="'danger-zone'">
-                            <h1>Danger Zone</h1>
-                        </div>
-                        <div *ngSwitchDefault>
-                            <h1>Select a tab</h1>
-                        </div>
-                    </ng-container>
+        <div class="">
+            <div class="" [ngSwitch]="activeTab.toLocaleLowerCase()">
+                <div *ngSwitchCase="'home'">
+                    <app-profile-info [student]="current_student" />
+                </div>
+                <div *ngSwitchCase="'questions'">
+                   <q-detail [question]="currentQuestion"></q-detail> 
+                </div>
+                <div *ngSwitchCase="'live'">
+                    <app-sessions [sessions]="null"></app-sessions>
+                </div>
+                <div *ngSwitchCase="'danger-zone'">
+                    <h1>Danger Zone</h1>
+                </div>
+                <div *ngSwitchDefault>
+                    <h1>Select a tab</h1>
                 </div>
             </div>
         </div>
     </div>
-    <div class="flex w-full justify-center py-10">
-    </div>
+    <div class="flex w-full justify-center py-10"></div>
 </div>
