@@ -1,3 +1,4 @@
+import { LiveRequestDetailPage } from './pages/live-requests-list/live-request-detail/live-request-detail';
 import { Routes } from '@angular/router';
 
 // dashboard
@@ -42,7 +43,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
 
     {
-        path: 'admin',
+        path: '',
         component: AppLayout,
         canActivate: [DashboardGuard],
         children: [
@@ -64,6 +65,7 @@ export const routes: Routes = [
             { path: 'qa-requests/:id/students/:userId', component: QADetailCompoentPage },
 
             { path: 'live-tutoring-requests', component: LiveRequestsListComponent },
+            { path: 'live-tutoring-requests/:id/students/:userId', component: LiveRequestDetailPage },
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },

@@ -120,10 +120,10 @@
         </div>
     </div>
 
-    <!-- <div class="datatable">
+    <div class="datatable">
         <ng-datatable
             [loading]="isLoading"
-            [rows]="withdrawRequests"
+            [rows]="allRequests"
             [columns]="cols"
             [sortable]="true"
             [search]="search"
@@ -134,18 +134,23 @@
             previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
             nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
         >
-            <ng-template slot="tutor" let-value="data">
-                <div class="min-w-[150px] text-black dark:text-white">
-                    <div class="flex items-center">
-                        <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{ value.tutor?.imageUrl }}" alt="avatar" />
-                        <span class="whitespace-nowrap">{{ value.tutor?.name }}</span>
-                    </div>
-                </div>
+        <ng-template slot="email" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1 " >{{
+                    value.student?.email
+                }}</span>
+            </ng-template>
+            <ng-template slot="studentName" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1 " >{{
+                    value.student?.name
+                }}</span>
             </ng-template>
             <ng-template slot="status" let-value="data">
                 <span class="whitespace-nowrap rounded-lg px-2 py-1 text-white" [ngClass]="value.status == 'Pending' ? 'bg-orange-500' : 'bg-green-700'">{{
                     value.status
                 }}</span>
+            </ng-template>
+            <ng-template slot="dueDate" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1">{{ value.dueDate.seconds * 1000 | date }}</span>
             </ng-template>
             <ng-template slot="createdOn" let-value="data">
                 <span class="whitespace-nowrap rounded-lg px-2 py-1">{{ value.createdOn.seconds * 1000 | date }}</span>
@@ -160,11 +165,11 @@
             </ng-template>
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <button (click)="selectedRow(value)" class="btn btn-success py-1">View</button>
+                    <a class="bg-green-600 rounded-lg text-white p-3" routerLink="{{value.id}}/students/{{value.studentId}}">View</a>
                 </div>
             </ng-template>
         </ng-datatable>
-    </div> -->
+    </div>
 </div>
 
 

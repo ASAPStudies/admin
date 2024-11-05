@@ -18,21 +18,30 @@
     <!-- Nav (Device only) -->
     <div class="hidden sm:block">
         <nav class="relative z-0 flex divide-x divide-gray-200 rounded-xl border-b dark:divide-neutral-700 dark:border-neutral-700">
-            <a href=""
-                class="group relative min-w-0 flex-1 overflow-hidden rounded-ss-xl border-b-2 border-b-blue-600 bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none dark:border-blue-500 dark:bg-neutral-800 dark:text-neutral-300"
+            <a
+                href=""
+                class="group relative min-w-0 flex-1 overflow-hidden rounded-ss-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none dark:border-blue-500 dark:bg-neutral-800 dark:text-neutral-300"
                 aria-current="page"
                 href="#"
             >
-                Assigned To
-                <p class="text-sm text-gray-400">{{question.answeyBy.length === 0?"Not Answered Yet":question.answeyBy}}</p>
-        </a>
+                Answered By
+                <p class="text-sm text-gray-400">{{ question.answeyBy.length === 0 ? 'Not Answered Yet' : question.answeyBy }}</p>
+            </a>
 
             <a
                 class="group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
                 href="#"
+                >Created Date
+                <p class="text-sm text-gray-400">
+                    {{ question.createdOn.seconds * 1000 | date }}
+                </p>
+            </a>
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
                 >Due Date
                 <p class="text-sm text-gray-400">
-                    {{ question.createdOn }}
+                    {{ question.dueDate.seconds * 1000 | date }}
                 </p>
             </a>
 
@@ -53,11 +62,23 @@
                     {{ question.status }}
                 </p>
             </a>
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+            >
+                Subject
+                <p class="text-sm text-gray-400">
+                    {{ question.subject?.name }}
+                </p>
+            </a>
         </nav>
     </div>
 
-    <div class="flex w-full items-center justify-center p-4 text-center md:px-5 md:py-7">
-        <a href="{{question.attachmentUrl}}">
+    <div class="flex w-full flex-col items-center justify-center p-4 text-center md:px-5 md:py-7">
+        <h3 class="text-lg font-bold uppercase text-gray-800 dark:text-white">
+            {{ question.questionBody }}
+        </h3>
+        <a  href="{{ question.attachmentUrl }}">
             <svg class="hover:cursor-pointer" width="100px" height="100px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -79,9 +100,10 @@
         </a>
     </div>
     <div class="p-4 text-center">
-        <h3 class="text-lg font-bold text-gray-800 dark:text-white">
-            {{ question.questionBody }}
+        <h3 class="text-lg font-bold uppercase text-gray-500 dark:text-white">
+            {{ question.Body }}
         </h3>
-        <p class="mt-2 text-gray-500 dark:text-neutral-400">With supporting text below as a natural lead-in to additional content.</p>
+
+        <p *ngIf="question.attachmentUrl" class="mt-2 text-gray-500 dark:text-neutral-400">Click to view Attachment.</p>
     </div>
 </div>

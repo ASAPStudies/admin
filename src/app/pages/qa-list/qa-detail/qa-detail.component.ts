@@ -16,31 +16,42 @@ import { UsersService } from 'src/app/service/users.service';
     imports: [NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, SharedModule, QuestionDetailCompoent],
 })
 export class QADetailCompoentPage implements OnInit {
-    constructor(private readonly activeRoute: ActivatedRoute, private router: Router, private userService : UsersService, private sharedService:SharedService) {}
+    constructor(private readonly activeRoute: ActivatedRoute, 
+        private router: Router, 
+        private userService : UsersService, 
+        private sharedService:SharedService
+        
+        ) {}
     currentId: string | null = '';
     currentUserId: string | null = '';
     isLoading: boolean = false;
     activeTab = 'home';
     current_student:any;
     currentQuestion:any;
-    subjects:any;
-    questions:any
+    subject:any;
+    questions:any;
+    tutorObj:any;
+
+
+
     ngOnInit(): void {
         this.currentId = this.activeRoute.snapshot.paramMap.get('id');
         this.currentUserId = this.activeRoute.snapshot.paramMap.get('userId');
         this.loadData()
         
         if (!this.currentId || !this.currentUserId) {
-            this.router.navigateByUrl('/admin/qa-requests');
+            this.router.navigateByUrl('/qa-requests');
         }
     }
     
     async loadData(){
         this.current_student = await this.userService.getUserByUID(this.currentUserId as string)
         this.currentQuestion = await this.sharedService.getQuestionByID(this.currentId as string)
-        console.log(this.current_student)
-        console.log(this.currentQuestion)
-
+        this.tutorObj = await this.userService.getUserByUID(this.currentQuestion.answeyBy)
+        this.subject = await this.sharedService.getSubjectByID(this.currentQuestion.subject)
+        this.currentQuestion.subject = this.subject
+        console.log(this.subject)
+        
     }
 
     

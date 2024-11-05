@@ -21,14 +21,14 @@
                 Student Info
             </button>
             <button
-                (click)="toggleTab('questions')"
+                (click)="toggleTab('session')"
                 [disabled]="isLoading"
                 class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
-                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'questions' }"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'session' }"
             >
-                Questions
+                Session
             </button>
-            
+
             <button
                 (click)="toggleTab('danger-zone')"
                 [disabled]="isLoading"
@@ -44,12 +44,18 @@
                 <div *ngSwitchCase="'home'">
                     <app-profile-info [student]="current_student" />
                 </div>
-                <div *ngSwitchCase="'questions'">
-                   <q-detail live="false" [question]="currentQuestion"></q-detail> 
+                <div *ngSwitchCase="'session'">
+                    <live-detail></live-detail>
                 </div>
-                
+
                 <div *ngSwitchCase="'danger-zone'">
-                    <h1>Danger Zone</h1>
+                    <div class="flex w-3/5 flex-col justify-center rounded-lg p-4 text-center shadow-lg">
+                        <div class="w-full flex flex-col text-center">
+                            <p class="text-sm font-semibold">To confrim type "delete" below</p>
+                            <input type="text" class="mb-4 rounded-lg border border-red-500" />
+                            <button class="rounded-lg w-24 mx-auto bg-red-500 p-4 text-white">Delete</button>
+                        </div>
+                    </div>
                 </div>
                 <div *ngSwitchDefault>
                     <h1>Select a tab</h1>

@@ -49,7 +49,6 @@ export class QaListComponent {
             student: this.findUserById(each.studentId),
         }));
         this.isLoading = false
-        console.log('q', this.allQuestions)
         // Optionally log data for debugging
         
     }

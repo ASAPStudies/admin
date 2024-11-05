@@ -133,10 +133,7 @@
                     EXCEL
                 </div>
             </div>
-            <!-- <button type="button" class="btn btn-primary btn-sm m-1" (click)="exportTable('print')">
-                <icon-printer class="ltr:mr-2 rtl:ml-2" />
-                PRINT
-            </button> -->
+         
         </div>
 
         <div class="text-right">
@@ -170,7 +167,7 @@
             <ng-template slot="dateofbirth" let-value="data"> {{ value.dateofbirth?.seconds*1000 | date }} </ng-template>
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <button type="button"  class="btn btn-success py-1" (click)="selectedRow(value)">View</button>
+                    <a routerLink="/students/{{value.id}}" class="btn btn-success py-1" >View</a>
                 </div>
             </ng-template>
         </ng-datatable>

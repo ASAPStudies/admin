@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { getAuth, signOut,signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { firebaseApp, firebaseAuth, firebaseDb } from 'src/configurations/firebase-config';
 
 @Injectable({
@@ -38,6 +38,17 @@ async getRequestsTotal() {
     const q = query(collection(firebaseDb, "withdraws_requests"),where('status','==','Pending'));
     const querySnapshot = await getDocs(q);
      return querySnapshot.size;
+}
+
+async retrieveAllLiveRequests(){
+   let data:any[] = []
+   const querySnapshot = await getDocs(collection(firebaseDb, 'sessions'))
+   querySnapshot.forEach((each)=> {
+      
+      data.push(each.data())
+   })
+
+   return data;
 }
 
 

@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/service/localstorage.service';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
+  
 })
 export class StudentListComponent implements OnInit {
 

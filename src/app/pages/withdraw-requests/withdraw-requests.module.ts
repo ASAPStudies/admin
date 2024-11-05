@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { WithdrawRequestsComponent } from './withdraw-requests.component';
 import { RequestDetailComponent } from './request-detail/request-detail.component';
+import { PageLead } from 'src/app/elements/page-lead';
 
 const routes: Routes = [
     { path: '', component: WithdrawRequestsComponent, title: 'ASAP Admin | Withdraw Requests' },
@@ -14,6 +15,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [WithdrawRequestsComponent,RequestDetailComponent],
   imports: [
+    PageLead,
     CommonModule,
     SharedModule,
    

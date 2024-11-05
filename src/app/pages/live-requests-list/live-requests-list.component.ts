@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/service/users.service';
 import { LocalStorageService } from 'src/app/service/localstorage.service';
+import { DashboardService } from 'src/app/service/dashboard.service';
+import { SharedService } from 'src/app/service/shared.service';
 
 @Component({
     selector: 'app-live-requests-list',
@@ -14,48 +16,52 @@ export class LiveRequestsListComponent {
     students: IStudent[] = [];
     isLoading: boolean = false;
     jsonData = this.students;
-
+    allRequests: any[] = [];
     // constructor
-    constructor(private userService: UsersService, private router: Router, private localStorage: LocalStorageService) {
-        this.loadUsers();
-    }
+    constructor(
+        private userService: UsersService,
+        private router: Router,
+        private localStorage: LocalStorageService,
+        private dashboardService: DashboardService,
+        private sharedService:SharedService
+    ) {}
     cols = [
-        { field: 'name', title: 'Student Name' },
-        { field: 'email', title: 'Email' },
-        { field: 'dateofbirth', title: 'Date of Birth' },
-        { field: 'gender', title: 'Gender' },
-        { field: 'country', title: 'Country' },
+        { field: 'email', title: 'Student Email' },
+        { field: 'studentName', title: 'Student Name' },
+        { field: 'amount', title: 'Amount' },
+        { field: 'dueDate', title: 'Due Date' },
+        { field: 'status', title: 'Status' },
+        { field: 'createdOn', title: 'Requested Date' },
         { field: 'action', title: 'Action' },
     ];
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.loadData();
+    }
+       findUserById(userId: string) {
+        return this.students.find((user) => user.id === userId);
+    }
+    async loadData() {
+        this.loadRequests();
 
-    // fetch students
-    async loadUsers() {
-        try {
-            this.isLoading = true;
-            this.students = await this.userService.getUsers('Student');
-            
-            console.log('Student are', this.students);
-            /// Make json for Excel
-            this.jsonData = this.students.map((obj: any) => {
-                const newObj: any = {};
-                this.cols.forEach((col) => {
-                    newObj[col.field] = obj[col.field];
-                });
-                return newObj;
-            });
-            this.isLoading = false;
-        } catch (error) {
-            this.isLoading = false;
-            console.error('Error loading users:', error);
-        }
+    }
+    async loadRequests() {
+        this.allRequests = await this.dashboardService.retrieveAllLiveRequests();
+        this.isLoading = true;
+
+        this.students = await this.userService.getUsers('Student');
+
+        // Fetch all tutors
+
+        // Map through withdrawal requests and attach tutor data
+        this.allRequests = this.allRequests.map((each: any) => ({
+            ...each,
+            student: this.findUserById(each.studentId),
+        }));
+        this.isLoading = false;
     }
 
-    selectedRow(value: IStudent) {
-        this.localStorage.set('student', value);
-        this.router.navigate(['/admin/students/' + value.id]);
-    }
+    
 
     exportTable(type: string) {
         let columns: any = this.cols.map((d: { field: any }) => {

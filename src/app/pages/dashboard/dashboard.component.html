@@ -1,21 +1,18 @@
 <div>
-
     <ul class="flex space-x-2 rtl:space-x-reverse">
-        <li>
-            <a class="text-primary text-3xl font-medium">Welcome Back</a>
-        </li>
+        <a class="text-3xl font-medium text-primary">Welcome Back</a>
     </ul>
     <div class="pt-5">
         <div class="mb-6 grid grid-cols-1 gap-6 text-white sm:grid-cols-2 xl:grid-cols-4">
             <!-- Users Visit -->
-            <div class="panel bg-primary ">
+            <div class="panel bg-primary">
                 <div class="flex justify-between">
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Total Students</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/students" *hlMenuItem="let menuItem">View All</a>
                             </li>
@@ -23,10 +20,8 @@
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalStudents}}</div>
-
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalStudents }}</div>
                 </div>
-
             </div>
 
             <!-- Sessions -->
@@ -35,24 +30,18 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Total Tutors</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/tutors" *hlMenuItem="let menuItem">View All</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalTutors}}</div>
-                    <!-- <div class="badge bg-white/30">- 2.35%</div> -->
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalTutors }}</div>
                 </div>
-                <!-- <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 84,709
-                </div> -->
             </div>
 
             <div class="panel bg-primary">
@@ -60,9 +49,9 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Pending Withdraw Requests</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/withdraw-requests" *hlMenuItem="let menuItem">View All</a>
                             </li>
@@ -70,271 +59,10 @@
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalWithdrawRequests}}</div>
-                    <!-- <div class="badge bg-white/30">- 2.35%</div> -->
-                </div>
-                <!-- <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 84,709
-                </div> -->
-            </div>
-            <!-- Time On-Site -->
-            <!-- <div class="panel bg-primary">
-                <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Payment Requests</div>
-                    <div hlMenu class="dropdown">
-                        <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
-                        </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">View Report</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">Edit Report</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">38,085</div>
-                    <div class="badge bg-white/30">+ 1.35%</div>
-                </div>
-                <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 37,894
-                </div>
-            </div> -->
-
-            <!-- Bounce Rate -->
-            <!-- <div class="panel bg-primary">
-                <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Account Deletion Request</div>
-                    <div hlMenu class="dropdown">
-                        <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
-                        </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">View Report</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">Edit Report</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">49.10%</div>
-                    <div class="badge bg-white/30">- 0.35%</div>
-                </div>
-                <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 50.01%
-                </div>
-            </div> -->
-        </div>
-
-        <div class="grid grid-cols-1 gap-6 xl:grid-cols-1">
-
-<!-- <div class="mb-5">
-    <div class="mt-3 flex flex-wrap">
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'students' }"
-            (click)="tab2 = 'students'"
-        >
-            Students
-        </a>
-
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'tutors' }"
-            (click)="tab2 = 'tutors'"
-        >
-            Tutors
-        </a>
-
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'payments' }"
-            (click)="tab2 = 'payments'"
-        >
-            Payments
-        </a>
-
-
-    </div>
-    <div class="flex-1 pt-5 text-sm">
-        <div *ngIf="tab2.toLowerCase() === 'students'">
-
-            <div class="panel">
-                <div class="mb-5 text-lg font-bold">Students</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let student of students; let i=index">
-                                <td class="font-semibold"># {{ (i + 1 < 9 ? '0' : '') + (i + 1) }}</td>
-                                <td class="whitespace-nowrap">{{student.createdOn | formateDate}}</td>
-                                <td class="whitespace-nowrap">{{student?.name}}</td>
-                                <td class="font-semibold">$ {{ (i + 1 < 9 ? '0' : '') + (student.balance) }}</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">{{student?.status?'Completed':'In Process'}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <a
-                                    href="javascript:;"
-                                    class="rounded p-1 py-1 !outline-none transition duration-300    bg-primary text-white"
-
-                                >
-                                    View
-                                </a>
-
-                                </td>
-
-                        </tbody>
-                    </table>
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalWithdrawRequests }}</div>
                 </div>
             </div>
-        </div>
-        <div *ngIf="tab2.toLowerCase() === 'tutors'">
-               <div class="panel">
-                <div class="mb-5 text-lg font-bold">Tutors</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let student of tutors; let i=index">
-                                <td class="font-semibold"># {{ (i + 1 < 9 ? '0' : '') + (i + 1) }}</td>
-                                <td class="whitespace-nowrap">{{student.createdOn | formateDate}}</td>
-                                <td class="whitespace-nowrap">{{student?.name}}</td>
-                                <td class="font-semibold">$ {{ (i + 1 < 9 ? '0' : '') + (student.balance) }}</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">{{student?.status?'Completed':'In Process'}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <a
-                                    href="javascript:;"
-                                    class="rounded p-1 py-1 !outline-none transition duration-300    bg-primary text-white"
-
-                                >
-                                    View
-                                </a>
-
-                                </td>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="tab2.toLowerCase() === 'payments'">
-               <div class="panel">
-                <div class="mb-5 text-lg font-bold">Payments</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-semibold">#01</td>
-                                <td class="whitespace-nowrap">Oct 08, 2021</td>
-                                <td class="whitespace-nowrap">Eric Page</td>
-                                <td>$1,358.75</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#02</td>
-                                <td class="whitespace-nowrap">Dec 18, 2021</td>
-                                <td class="whitespace-nowrap">Nita Parr</td>
-                                <td>-$1,042.82</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-info/20 text-info hover:top-0">In Process</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#03</td>
-                                <td class="whitespace-nowrap">Dec 25, 2021</td>
-                                <td class="whitespace-nowrap">Carl Bell</td>
-                                <td>$1,828.16</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-danger/20 text-danger hover:top-0">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#04</td>
-                                <td class="whitespace-nowrap">Nov 29, 2021</td>
-                                <td class="whitespace-nowrap">Dan Hart</td>
-                                <td>$1,647.55</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#05</td>
-                                <td class="whitespace-nowrap">Nov 24, 2021</td>
-                                <td class="whitespace-nowrap">Jake Ross</td>
-                                <td>$927.43</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#06</td>
-                                <td class="whitespace-nowrap">Jan 26, 2022</td>
-                                <td class="whitespace-nowrap">Anna Bell</td>
-                                <td>$250.00</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-info/20 text-info hover:top-0">In Process</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div> -->
-
-
-
-
-
-
+            <div class="grid grid-cols-1 gap-6 xl:grid-cols-1"></div>
         </div>
     </div>
 </div>

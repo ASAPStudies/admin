@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { DatePipe, NgIf } from '@angular/common';
+import { Component, Input, OnInit } from "@angular/core";
 import { IQuestion } from "src/app/pages/students/question.interface";
 import { SharedModule } from "src/app/shared/shared.module";
 
@@ -7,9 +8,12 @@ import { SharedModule } from "src/app/shared/shared.module";
     standalone: true,
     styleUrls: ['./question-detail.component.css'],
     templateUrl: './question-detail.component.html',
-    imports:[SharedModule]
+    imports:[NgIf, SharedModule, DatePipe]
 })
-export class QuestionDetailCompoent {
+export class QuestionDetailCompoent implements OnInit {
       @Input() question:IQuestion|any;
+    
+    ngOnInit(){
+    }
 
 }
