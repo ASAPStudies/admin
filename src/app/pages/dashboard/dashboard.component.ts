@@ -58,11 +58,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         private userService: UsersService
     ) {}
     @ViewChild('alertModal') modal!: ModalComponent;
+    @ViewChild('adminModal') adminModal!:ModalComponent
 
     ngAfterViewInit(): void {}
     ngOnInit(): void {
         this.isLoading = true;
         this.loadData();
+    }
+
+    openAdmin(){
+        this.adminModal?.open()
     }
 
     onTutorSelection(event: any) {

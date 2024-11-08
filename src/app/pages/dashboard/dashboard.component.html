@@ -72,10 +72,19 @@
         <i class="bi bi-wallet2"></i>
         Pay Out
     </button>
-    <button class="rounded-lg bg-orange-600 p-3 text-white">
+    <button (click)="openAdmin()" class="rounded-lg bg-orange-600 p-3 text-white">
         <i class="bi bi-person-fill-gear"></i>
         Admin
     </button>
+</div>
+
+<div>
+    <modal class="modal-top" #adminModal>
+        <ng-template #modalHeader><h2 class="bg-gray-50 p-3 text-center text-lg font-bold">Admin Settings</h2></ng-template>
+        <ng-template #modalBody>
+            <p>HTML content inside modal</p>
+        </ng-template>
+    </modal>
 </div>
 
 <div>
@@ -106,7 +115,13 @@
 
                 <div class="mb-3">
                     <label for="amount" class="mb-2 block font-bold text-gray-600">Amount</label>
-                    <input type="text"  id="amount" formControlName="amount" placeholder="Amount (GHS)" class="mb- w-full rounded border border-red-300 p-3 shadow" />
+                    <input
+                        type="text"
+                        id="amount"
+                        formControlName="amount"
+                        placeholder="Amount (GHS)"
+                        class="mb- w-full rounded border border-red-300 p-3 shadow"
+                    />
                     <p
                         *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.dirty || paymentForm.get('amount')?.touched)"
                         class="mt-2 text-sm text-red-400"
@@ -180,11 +195,9 @@
     </modal>
 </div>
 
-
-<div class="w-full h-14 mt-4 shadow-3xl text-center  bg-white">
-    <h1 class="text-xl p-2">Transaction History</h1>
+<div class="mt-4 h-14 w-full bg-white text-center shadow-3xl">
+    <h1 class="p-2 text-xl">Transaction History</h1>
 </div>
-
 
 <div class="panel pb-1.5">
     <div class="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">

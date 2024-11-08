@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDoc, getDocs, query, where, doc, updateDoc, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, getDoc, getDocs, query, where, doc, updateDoc, addDoc, Timestamp, FieldValue, increment } from 'firebase/firestore';
 import { firebaseApp, firebaseAuth, firebaseDb } from 'src/configurations/firebase-config';
 import { IStudent } from '../pages/students/student.interface';
 
@@ -49,12 +49,12 @@ export class DashboardService {
 
     async updateUserAccount(user:any, amount: any) {
         const uuid = user.id
-        const totalAmount = (parseFloat(amount) + parseFloat(user.balance))
+        amount = parseFloat(amount)
         
         const tutorRef = doc(firebaseDb, 'users', uuid);
 
         await updateDoc(tutorRef, {
-            balance: totalAmount,
+            balance: increment(amount)
         });
     }
 
