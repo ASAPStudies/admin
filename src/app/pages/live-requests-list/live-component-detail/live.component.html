@@ -62,7 +62,7 @@
         <h3 class="text-lg font-bold uppercase text-gray-800 dark:text-white">
             {{ session?.description }}
         </h3>
-        <a href="javascript:;">
+        <a href="{{session?.attachmentUrl??session.attachmentUrl}}">
             <session-icon />
         </a>
     </div>

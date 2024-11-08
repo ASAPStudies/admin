@@ -49,7 +49,12 @@
                 </div>
                 
                 <div *ngSwitchCase="'danger-zone'">
-                    <h1>Danger Zone</h1>
+                    <div class="w-full">
+                        <div class="mb-3 space-y-3  flex w-1/5 flex-col">
+                            <input type="text" class="rounded-md" placeholder="type Delete to confirm" />
+                            <button class="p-3 rounded-lg bg-red-400 text-white">Delete</button>
+                        </div>
+                    </div>
                 </div>
                 <div *ngSwitchDefault>
                     <h1>Select a tab</h1>

@@ -60,7 +60,7 @@ export class WithdrawRequestsComponent implements OnInit {
 
     selectedRow(value: any) {
         this.localStorage.set('request', value);
-        this.router.navigate(['/admin/withdraw-requests/' + value.id]);
+        this.router.navigate(['/withdraw-requests/' + value.id]);
     }
 
 

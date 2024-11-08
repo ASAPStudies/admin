@@ -56,10 +56,7 @@
 <modal #modal1 class="modal-top">
     <ng-template #modalHeader> <div>Send New Notification</div> </ng-template>
     <ng-template #modalBody>
-        <!-- <ng-container *ngIf="isSuccess && form_submission ;else templateName">
-            abc
-            </ng-container>
-            <ng-template #templateName> -->
+      
             <form class="space-y-5" [formGroup]="notificationForm" (ngSubmit)="form_submission = true; notificationForm.valid && onSubmit()" >
             <p *ngIf="isSuccess" class="text-green-800">Notification sent successfully!</p>
             <div class="flex sm:flex-row flex-col">

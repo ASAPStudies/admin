@@ -1,18 +1,6 @@
 <div class="flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-neutral-700/70">
     <!-- Select (Mobile only) -->
-    <div class="sm:hidden">
-        <label for="hs-card-nav" class="sr-only">Select a nav</label>
-        <select
-            name="hs-card-nav"
-            id="hs-card-nav"
-            class="block w-full rounded-t-xl border-x-0 border-t-0 border-gray-300 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-        >
-            <option selected="">My Account</option>
-            <option>Company</option>
-            <option>Team Members</option>
-            <option>Billing</option>
-        </select>
-    </div>
+  
     <!-- End Select (Mobile only) -->
 
     <!-- Nav (Device only) -->
@@ -68,7 +56,7 @@
             >
                 Subject
                 <p class="text-sm text-gray-400">
-                    {{ question.subject?.name }}
+                    {{ subJect?.name }}
                 </p>
             </a>
         </nav>

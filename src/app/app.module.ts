@@ -83,6 +83,7 @@ import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { QaListComponent } from './pages/qa-list/qa-list.component';
 import { LiveRequestsListComponent } from './pages/live-requests-list/live-requests-list.component';
+import { PaymentModal } from './components/paymentModal';
 
 @NgModule({
     imports: [
@@ -115,7 +116,7 @@ import { LiveRequestsListComponent } from './pages/live-requests-list/live-reque
         QuillModule.forRoot(),
         IconModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,

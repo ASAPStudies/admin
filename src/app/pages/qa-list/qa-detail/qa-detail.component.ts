@@ -48,10 +48,6 @@ export class QADetailCompoentPage implements OnInit {
         this.current_student = await this.userService.getUserByUID(this.currentUserId as string)
         this.currentQuestion = await this.sharedService.getQuestionByID(this.currentId as string)
         this.tutorObj = await this.userService.getUserByUID(this.currentQuestion.answeyBy)
-        this.subject = await this.sharedService.getSubjectByID(this.currentQuestion.subject)
-        this.currentQuestion.subject = this.subject
-        console.log(this.subject)
-        
     }
 
     

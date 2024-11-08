@@ -85,18 +85,7 @@ export const routes: Routes = [
             // users
             { path: '', loadChildren: () => import('./users/user.module').then((d) => d.UsersModule) },
 
-            // tables
-            { path: 'tables', component: TablesComponent, title: 'Tables | VRISTO - Multipurpose Tailwind Dashboard Template' },
-            { path: '', loadChildren: () => import('./datatables/datatables.module').then((d) => d.DatatablesModule) },
-
-            // font-icons
-            { path: 'font-icons', component: FontIconsComponent, title: 'Font Icons | VRISTO - Multipurpose Tailwind Dashboard Template' },
-
-            // charts
-            { path: 'charts', component: ChartsComponent, title: 'Charts | VRISTO - Multipurpose Tailwind Dashboard Template' },
-
-            // dragndrop
-            { path: 'dragndrop', component: DragndropComponent, title: 'Dragndrop | VRISTO - Multipurpose Tailwind Dashboard Template' },
+            
 
             // pages
             { path: 'pages/knowledge-base', component: KnowledgeBaseComponent, title: 'Knowledge Base | VRISTO - Multipurpose Tailwind Dashboard Template' },
