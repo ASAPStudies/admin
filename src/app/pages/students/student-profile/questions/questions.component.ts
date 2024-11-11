@@ -18,7 +18,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class QuestionsComponent implements OnInit {
 
   activeTab:string = 'all'
-  @Input() questions:IQuestion[] = [];
+  @Input() questions:any = [];
   filteredQuestions:IQuestion[] = [];
   selectedQuestion:IQuestion | null = null;
   selectedFileType:string = ''

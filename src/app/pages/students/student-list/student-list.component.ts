@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/service/localstorage.service';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
+  
 })
 export class StudentListComponent implements OnInit {
 
@@ -959,7 +960,7 @@ export class StudentListComponent implements OnInit {
 
       selectedRow(value:IStudent){
         this.localStorage.set('student',value)
-        this.router.navigate(['/students/'+value.id])
+        this.router.navigate(['/admin/students/'+value.id])
     }
 
 

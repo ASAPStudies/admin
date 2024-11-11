@@ -4,11 +4,11 @@
             <div class="flex items-center justify-between px-4 py-3">
                 <a routerLink="/" class="main-logo flex shrink-0 items-center">
                     <img class="ml-[5px] w-10 flex-none" src="/assets/asap/logo.png" alt="" />
-                    <span class="align-middle text-xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">ASAP STUDIES</span>
+                    <span class="align-middle text-xl font-semibold dark:text-white-light lg:inline ltr:ml-1.5 rtl:mr-1.5">ASAP STUDIES</span>
                 </a>
                 <a
                     href="javascript:;"
-                    class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 hover:text-primary rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
+                    class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 hover:text-primary dark:text-white-light dark:hover:bg-dark-light/10 rtl:rotate-180"
                     (click)="storeData.dispatch({ type: 'toggleSidebar'})"
                 >
                     <icon-carets-down class="m-auto rotate-90" />
@@ -21,7 +21,7 @@
                             <div class="flex items-center">
                                 <icon-menu-dashboard class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'dashboard' | translate }}</span
                                 >
                             </div>
@@ -33,13 +33,13 @@
                             <div class="flex items-center">
                                 <icon-users class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Students' | translate }}</span
                                 >
                             </div>
                         </a>
                     </li>
-                    <li class="accordion relative menu nav-item">
+                    <li class="accordion menu nav-item relative">
                         <button
                             type="button"
                             class="nav-link group w-full"
@@ -49,7 +49,7 @@
                             <div class="flex items-center">
                                 <icon-users-group class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Tutors' | translate }}</span
                                 >
                             </div>
@@ -57,12 +57,7 @@
                                 <icon-caret-down />
                             </div>
                         </button>
-                        <!-- <span class="absolute top-2 left-2 flex h-3 w-3 ltr:right-0 rtl:left-0">
-                            <span
-                                class="absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full bg-success/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"
-                            ></span>
-                            <span class="relative inline-flex h-[6px] w-[6px] rounded-full bg-success"></span>
-                        </span> -->
+                        
                         <div [@slideDownUp]="!activeDropdown.includes('tutors')" class="accordion-content">
                             <ul class="sub-menu text-gray-500">
                                 <li>
@@ -81,7 +76,7 @@
                             <div class="flex items-center">
                                 <icon-menu-forms class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Withdraw Requests' | translate }}</span
                                 >
                             </div>
@@ -92,8 +87,28 @@
                             <div class="flex items-center">
                                 <icon-bell class="shrink-0 group-hover:!text-primary" />
 
-                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark"
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
                                     >{{ 'Notifications' | translate }}</span
+                                >
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/qa-requests" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                            <div class="flex items-center">
+                                <icon-qa class="shrink-0 group-hover:!text-primary" />
+
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{{ 'Q/A Requests' | translate }}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/live-tutoring-requests" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                            <div class="flex items-center">
+                                <icon-live class="shrink-0 group-hover:!text-primary" />
+
+                                <span class="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3"
+                                    >{{ 'Live Tutoring Requests' | translate }}</span
                                 >
                             </div>
                         </a>

@@ -81,6 +81,9 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './service/auth.service';
 import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { QaListComponent } from './pages/qa-list/qa-list.component';
+import { LiveRequestsListComponent } from './pages/live-requests-list/live-requests-list.component';
+import { PaymentModal } from './components/paymentModal';
 
 @NgModule({
     imports: [
@@ -113,7 +116,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
         QuillModule.forRoot(),
         IconModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,
@@ -132,7 +135,9 @@ import { PaymentComponent } from './pages/payment/payment.component';
         FaqComponent,
         DashboardComponent,
         FormateDatePipe,
-        PaymentComponent
+        PaymentComponent,
+        QaListComponent,
+        LiveRequestsListComponent
     ],
     exports:[SharedModule],
 

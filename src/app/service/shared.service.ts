@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { httpsCallable } from 'firebase/functions';
 import { IQuestion } from '../pages/students/question.interface';
 import { ISession } from '../pages/students/session.interface';
+import { retry } from 'rxjs';
 export interface ISubject {
     id: string;
     backgroundImgUrl: string;
@@ -45,34 +46,20 @@ constructor(private router:Router,private http:HttpClient) {
       console.log(result); // This will contain the data sent back by the Cloud Function
 
     } catch (error) {
-        console.log(error);
         console.error('Error calling helloWorld function:', error);
     }
   }
 
-//   async sendNotification(){
-//     try {
-//         let notificationData={
-//             notification:{
-//                 title:'title',
-//                 body:'body'
-//             },
-//             token:'dnPxUh-zSUGmk6LuqptWYK:APA91bFTZ_GNVQov6oC0Fryv-L99ETOqQFy1T0IAgOqk2u0eV3XM7_Vce7C3ey3Guo3WRqbV2o8gAVsL1m6NXShqMRep3RUS3uhp602Ou9H8HoygcDHPbkwBf6p15ulAkhpHuIkN60Ye'
-//         }
-//         this.http.post(`https://fcm.googleapis.com/v1/projects/asapstudyportal/messages:send`,notificationData,{
-//             headers: {
-//                 "Access-Control-Allow-Origin": "*",
-//               "Content-Type": "application/json",
-//             }}).subscribe(res=>{
-//             console.log(res);
+  async getAllQuestions(){
+    let data:any[] = []
+    const querySnapshot = await getDocs(collection(firebaseDb, 'questions'));
+    querySnapshot.forEach((doc) => {
+    data.push(doc.data())
+    
+    });
+    return data
+}
 
-//         })
-//     } catch (error) {
-//         console.log(error);
-
-
-//     }
-//   }
 
 
  async getAllSubjects() {
@@ -102,7 +89,6 @@ async getQuestionByID(id:string) {
     if (question.exists()) {
         return question.data() as IQuestion ;
     } else {
-        console.log("No question document found!");
         return null
     }
 }
@@ -113,7 +99,6 @@ async getSessionByID(id:string) {
     if (session.exists()) {
         return session.data() as ISession ;
     } else {
-        console.log("No session document found!");
         return null
     }
 }
@@ -204,6 +189,27 @@ async getPaymentKeys() {
     }
 }
 
+async getAllWithdrawalRequests(){
+    let allWithdrawals:any = []
+    const querySnapshot = await getDocs(collection(firebaseDb, "withdraws_requests"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    allWithdrawals.push({id:doc.id, ...doc.data()})
+    // console.log(doc.id, " => newfunc ", doc.data());
+    });
+    return allWithdrawals
+}
+
+async getAllTutors(){
+    let allTutors:any = []
+     const querySnapshot = await getDocs(collection(firebaseDb, "tutors"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    allTutors.push({id:doc.id, ...doc.data()})
+    // console.log(doc.id, " => newfunc ", doc.data());
+    });
+    return allTutors
+}
 
 async getWithdrawRequestWithStatus(status:string='all') {
     let q;

@@ -1,0 +1,75 @@
+<div class="flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-neutral-700/70">
+   
+    <div class="hidden sm:block">
+        <nav class="relative z-0 flex divide-x divide-gray-200 rounded-xl border-b dark:divide-neutral-700 dark:border-neutral-700">
+            <a
+                href=""
+                class="group relative min-w-0 flex-1 overflow-hidden rounded-ss-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none dark:border-blue-500 dark:bg-neutral-800 dark:text-neutral-300"
+                aria-current="page"
+                href="#"
+            >
+                AcceptedBy
+                <p class="text-sm text-gray-400">{{ session?.acceptedBy.length === 0? "No acceptd Yet": session?.acceptedBy }}</p>
+            </a>
+
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+                >Created Date
+                <p class="text-sm text-gray-400">
+                    {{session?.createdOn.seconds * 1000 | date}}
+                </p>
+            </a>
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+                >Due Date
+                <p class="text-sm text-gray-400">
+                    {{session?.dueDate.seconds * 1000 | date }}
+                </p>
+            </a>
+
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+            >
+                Amount
+                <p class="text-sm text-gray-400">{{ session?.currency }}{{ session?.amount }}</p>
+            </a>
+
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+            >
+                Status
+                <p class="text-sm text-gray-400">
+                    {{ session?.status }}
+                </p>
+            </a>
+            <a
+                class="group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-400 dark:focus:bg-neutral-700 dark:focus:text-neutral-400"
+                href="#"
+            >
+                Subject
+                <p class="text-sm text-gray-400">
+                    {{ currentSubject?.name }}
+                </p>
+            </a>
+        </nav>
+    </div>
+
+    <div class="flex w-full flex-col items-center justify-center p-4 text-center md:px-5 md:py-7">
+        <h3 class="text-lg font-bold uppercase text-gray-800 dark:text-white">
+            {{ session?.description }}
+        </h3>
+        <a href="{{session?.attachmentUrl??session.attachmentUrl}}">
+            <session-icon />
+        </a>
+    </div>
+    <div class="p-4 text-center">
+        <h3 class="text-lg font-bold uppercase text-gray-500 dark:text-white"></h3>
+
+        <p *ngIf="session?.attachmentUrl" class="mt-2 text-gray-500 dark:text-neutral-400">Click to view Attachment.</p>
+        
+    </div>
+</div>

@@ -17,6 +17,7 @@ export class NotificationComponent {
     isLoading:boolean = false;
     isDeleteLoading:boolean = false;
     search:string = '';
+    broadcast:boolean =false;
 
 
     // constructor
@@ -40,12 +41,11 @@ export class NotificationComponent {
         try {
             this.isLoading = true;
             this.notificationTemplates = await this.sharedService.getNotificationTemplates();
-            console.log(this.notificationTemplates);
 
             this.isLoading=false;
         } catch (error) {
             this.isLoading=false;
-            console.error('Error loading notification templates:', error);
+            alert('Error loading notification templates:');
         }
     }
 
@@ -60,11 +60,11 @@ export class NotificationComponent {
     }
 
     resendNotification(value:any){
-        this.notificationForm.setValue({title:value.title,body:value.body,templateName:''})
+        this.notificationForm.setValue({title:value.title,body:value.body,templateName:'', brCast:value.brCast})
     }
 
 
-    ///
+    
     form_submission:boolean = false;
     isSuccess:boolean = false;
     submitLoading:boolean = false;
@@ -81,12 +81,25 @@ export class NotificationComponent {
     notificationForm = new FormGroup({
         title: new FormControl('', [Validators.required]),
         body: new FormControl('', [Validators.required]),
-        templateName: new FormControl({ value: '', disabled: true },[Validators.required])
+        templateName: new FormControl({ value: '', disabled: true },[Validators.required]),
+        brCast : new FormControl(false)
     })
 
     onRadioChange(event: any) {
       this.selectedRole = event.target.value;
       this.getAllUsers(this.selectedRole)
+    }
+    onBroadCastButtonChange(event:any) {
+        this.broadcast = !this.broadcast
+        
+        if(this.broadcast === true){
+            this.selectedStudents = this.students
+            this.selectedTutors = this.tutors
+           
+        }else {
+            this.selectedStudents = []
+            this.selectedTutors =[]
+        }
     }
 
     onStudentSelection(event: any){
@@ -137,6 +150,7 @@ export class NotificationComponent {
     async onSubmit(){
         this.submitLoading = true;
         const {title,body,templateName} = this.notificationForm.value as {title:string,body:string,templateName:string}
+        
         switch (this.selectedRole) {
             case 'all':{
                 for (let index = 0; index < this.selectedStudents.length; index++) {

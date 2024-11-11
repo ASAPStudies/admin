@@ -1,0 +1,67 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" routerLink="/students" class="text-primary hover:underline">Student</a>
+        </li>
+        <li class="before:content-['>'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>QA Requests</span>
+        </li>
+    </ul>
+    <div class="pt-5">
+        <div class="mb-5 flex items-center justify-between">
+            <h5 class="text-lg font-semibold dark:text-white-light">Profile</h5>
+        </div>
+        <div class="mb-5 flex overflow-y-auto whitespace-nowrap border-b border-[#ebedf2] font-semibold dark:border-[#191e3a]">
+            <button
+                (click)="toggleTab('home')"
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'home' }"
+            >
+                Student Info
+            </button>
+            <button
+                (click)="toggleTab('session')"
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'session' }"
+            >
+                Session
+            </button>
+
+            <button
+                (click)="toggleTab('danger-zone')"
+                [disabled]="isLoading"
+                class="flex gap-2 border-b border-transparent p-4 !outline-none hover:border-primary hover:text-primary"
+                [ngClass]="{ '!border-primary text-primary': activeTab.toLowerCase() === 'danger-zone' }"
+            >
+                Danger Zone
+            </button>
+        </div>
+
+        <div class="">
+            <div class="" [ngSwitch]="activeTab.toLocaleLowerCase()">
+                <div *ngSwitchCase="'home'">
+                    <app-profile-info [student]="current_student" />
+                </div>
+                <div *ngSwitchCase="'session'">
+                    <live-detail></live-detail>
+                </div>
+
+                <div *ngSwitchCase="'danger-zone'">
+                    <div class="flex w-3/5 flex-col justify-center rounded-lg p-4 text-center shadow-lg">
+                        <div class="w-full flex flex-col text-center">
+                            <p class="text-sm font-semibold">To confrim type "delete" below</p>
+                            <input type="text" class="mb-4 rounded-lg border border-red-500" />
+                            <button class="rounded-lg w-24 mx-auto bg-red-500 p-4 text-white">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngSwitchDefault>
+                    <h1>Select a tab</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full justify-center py-10"></div>
+</div>

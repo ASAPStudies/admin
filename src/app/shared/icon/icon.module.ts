@@ -92,6 +92,7 @@ import { IconInfoTriangleComponent } from './icon-info-triangle';
 import { IconInstagramComponent } from './icon-instagram';
 import { IconLaptopComponent } from './icon-laptop';
 import { IconLayoutComponent } from './icon-layout';
+import { IconQAComponent } from './icon-question-mark';
 import { IconLayoutGridComponent } from './icon-layout-grid';
 import { IconLinkComponent } from './icon-link';
 import { IconLinkedinComponent } from './icon-linkedin';
@@ -163,10 +164,13 @@ import { IconXComponent } from './icon-x';
 import { IconXCircleComponent } from './icon-x-circle';
 import { IconZipFileComponent } from './icon-zip-file';
 import { IconCodeFileComponent } from 'src/app/shared/icon/icon-code-file';
+import { IconLiveComponent } from './icon-live';
 
 @NgModule({
     imports: [CommonModule],
     declarations: [
+        IconLiveComponent,
+        IconQAComponent,
         IconMenuAppsComponent,
         IconMenuAuthenticationComponent,
         IconMenuCalendarComponent,
@@ -332,6 +336,8 @@ import { IconCodeFileComponent } from 'src/app/shared/icon/icon-code-file';
         IconCodeFileComponent,
     ],
     exports: [
+        IconLiveComponent,
+        IconQAComponent,
         IconMenuAppsComponent,
         IconMenuAuthenticationComponent,
         IconMenuCalendarComponent,

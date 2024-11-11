@@ -11,7 +11,6 @@ export class AppService {
     storeData: any;
     constructor(public translate: TranslateService,public store: Store<any>) {
         const currentUser= getAuth(firebaseApp).currentUser
-        console.log(currentUser);
         this.initStoreData();
     }
 

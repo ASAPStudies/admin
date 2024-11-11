@@ -1,3 +1,4 @@
+import { LiveRequestDetailPage } from './pages/live-requests-list/live-request-detail/live-request-detail';
 import { Routes } from '@angular/router';
 
 // dashboard
@@ -26,24 +27,45 @@ import { AuthLayout } from './layouts/auth-layout';
 import { KnowledgeBaseComponent } from './pages/knowledge-base';
 import { FaqComponent } from './pages/faq';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardGuard } from './guards/dashboard.guard';
+import { QaListComponent } from './pages/qa-list/qa-list.component';
+import { LiveRequestsListComponent } from './pages/live-requests-list/live-requests-list.component';
+import { QADetailCompoentPage } from './pages/qa-list/qa-detail/qa-detail.component';
 
 export const routes: Routes = [
     {
-        path: 'payment', component: PaymentComponent, title: 'App Payment'
+        path: 'payment',
+        component: PaymentComponent,
+        title: 'App Payment',
     },
+    { path: 'login', component: LoginComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+
     {
         path: '',
         component: AppLayout,
+        canActivate: [DashboardGuard],
         children: [
             // dashboard
-            { path: '', redirectTo:'dashboard',pathMatch:'full' },
-
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent, title: 'ASAP Admin | Dashboard' },
-            { path: 'students', loadChildren: () => import('./pages/students/students.module').then((d) => d.StudentsModule)},
-            { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule)},
-            { path: 'withdraw-requests',loadChildren:()=> import('./pages/withdraw-requests/withdraw-requests.module').then((d)=>d.WithdrawRequestsModule) },
-            { path: 'notifications',loadChildren:()=> import('./pages/notification/notification.component.module').then((d)=>d.NotificationModule) },
+            { path: 'students', loadChildren: () => import('./pages/students/students.module').then((d) => d.StudentsModule) },
+            { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule) },
+            {
+                path: 'withdraw-requests',
+                loadChildren: () => import('./pages/withdraw-requests/withdraw-requests.module').then((d) => d.WithdrawRequestsModule),
+            },
+            { path: 'notifications', loadChildren: () => import('./pages/notification/notification.component.module').then((d) => d.NotificationModule) },
+            {
+                path: 'qa-requests',
+                component: QaListComponent,
+                children: [],
+            },
+            { path: 'qa-requests/:id/students/:userId', component: QADetailCompoentPage },
 
+            { path: 'live-tutoring-requests', component: LiveRequestsListComponent },
+            { path: 'live-tutoring-requests/:id/students/:userId', component: LiveRequestDetailPage },
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },
@@ -63,18 +85,7 @@ export const routes: Routes = [
             // users
             { path: '', loadChildren: () => import('./users/user.module').then((d) => d.UsersModule) },
 
-            // tables
-            { path: 'tables', component: TablesComponent, title: 'Tables | VRISTO - Multipurpose Tailwind Dashboard Template' },
-            { path: '', loadChildren: () => import('./datatables/datatables.module').then((d) => d.DatatablesModule) },
-
-            // font-icons
-            { path: 'font-icons', component: FontIconsComponent, title: 'Font Icons | VRISTO - Multipurpose Tailwind Dashboard Template' },
-
-            // charts
-            { path: 'charts', component: ChartsComponent, title: 'Charts | VRISTO - Multipurpose Tailwind Dashboard Template' },
-
-            // dragndrop
-            { path: 'dragndrop', component: DragndropComponent, title: 'Dragndrop | VRISTO - Multipurpose Tailwind Dashboard Template' },
+            
 
             // pages
             { path: 'pages/knowledge-base', component: KnowledgeBaseComponent, title: 'Knowledge Base | VRISTO - Multipurpose Tailwind Dashboard Template' },

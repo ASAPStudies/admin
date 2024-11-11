@@ -1,21 +1,18 @@
 <div>
-
     <ul class="flex space-x-2 rtl:space-x-reverse">
-        <li>
-            <a href="javascript:;" class="text-primary hover:underline">Dashboard</a>
-        </li>
+        <a class="text-3xl font-medium text-primary">Welcome Back</a>
     </ul>
     <div class="pt-5">
         <div class="mb-6 grid grid-cols-1 gap-6 text-white sm:grid-cols-2 xl:grid-cols-4">
             <!-- Users Visit -->
-            <div class="panel bg-primary ">
+            <div class="panel bg-primary">
                 <div class="flex justify-between">
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Total Students</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/students" *hlMenuItem="let menuItem">View All</a>
                             </li>
@@ -23,10 +20,8 @@
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalStudents}}</div>
-
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalStudents }}</div>
                 </div>
-
             </div>
 
             <!-- Sessions -->
@@ -35,24 +30,18 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Total Tutors</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/tutors" *hlMenuItem="let menuItem">View All</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalTutors}}</div>
-                    <!-- <div class="badge bg-white/30">- 2.35%</div> -->
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalTutors }}</div>
                 </div>
-                <!-- <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 84,709
-                </div> -->
             </div>
 
             <div class="panel bg-primary">
@@ -60,9 +49,9 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Pending Withdraw Requests</div>
                     <div hlMenu class="dropdown">
                         <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
+                            <icon-horizontal-dots class="opacity-70 hover:opacity-80" />
                         </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
+                        <ul *hlMenuItems @toggleAnimation class="text-black dark:text-white-dark ltr:right-0 rtl:left-0">
                             <li>
                                 <a href="javascript:;" routerLink="/withdraw-requests" *hlMenuItem="let menuItem">View All</a>
                             </li>
@@ -70,271 +59,170 @@
                     </div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{totalWithdrawRequests}}</div>
-                    <!-- <div class="badge bg-white/30">- 2.35%</div> -->
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ totalWithdrawRequests }}</div>
                 </div>
-                <!-- <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 84,709
-                </div> -->
             </div>
-            <!-- Time On-Site -->
-            <!-- <div class="panel bg-primary">
-                <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Payment Requests</div>
-                    <div hlMenu class="dropdown">
-                        <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
-                        </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">View Report</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">Edit Report</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">38,085</div>
-                    <div class="badge bg-white/30">+ 1.35%</div>
-                </div>
-                <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 37,894
-                </div>
-            </div> -->
-
-            <!-- Bounce Rate -->
-            <!-- <div class="panel bg-primary">
-                <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Account Deletion Request</div>
-                    <div hlMenu class="dropdown">
-                        <button type="button" hlMenuButton>
-                            <icon-horizontal-dots class="hover:opacity-80 opacity-70" />
-                        </button>
-                        <ul *hlMenuItems @toggleAnimation class="text-black ltr:right-0 rtl:left-0 dark:text-white-dark">
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">View Report</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" *hlMenuItem="let menuItem">Edit Report</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">49.10%</div>
-                    <div class="badge bg-white/30">- 0.35%</div>
-                </div>
-                <div class="mt-5 flex items-center font-semibold">
-                    <icon-eye class="ltr:mr-2 rtl:ml-2 shrink-0" />
-                    Last Week 50.01%
-                </div>
-            </div> -->
+            <div class="grid grid-cols-1 gap-6 xl:grid-cols-1"></div>
         </div>
-
-        <div class="grid grid-cols-1 gap-6 xl:grid-cols-1">
-
-<!-- <div class="mb-5">
-    <div class="mt-3 flex flex-wrap">
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'students' }"
-            (click)="tab2 = 'students'"
-        >
-            Students
-        </a>
-
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'tutors' }"
-            (click)="tab2 = 'tutors'"
-        >
-            Tutors
-        </a>
-
-        <a
-            href="javascript:;"
-            class="-mb-[1px] block rounded p-3.5 py-2 !outline-none transition duration-300 hover:bg-primary hover:text-white ltr:mr-2 rtl:ml-2"
-            [ngClass]="{ 'bg-primary text-white': tab2.toLowerCase() == 'payments' }"
-            (click)="tab2 = 'payments'"
-        >
-            Payments
-        </a>
-
-
     </div>
-    <div class="flex-1 pt-5 text-sm">
-        <div *ngIf="tab2.toLowerCase() === 'students'">
+</div>
 
-            <div class="panel">
-                <div class="mb-5 text-lg font-bold">Students</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">Action</th>
+<div class="flex space-x-5">
+    <button class="space-x-3 rounded-lg bg-blue-600 p-2 text-white" (click)="payment.open()">
+        <i class="bi bi-wallet2"></i>
+        Pay Out
+    </button>
+    <button (click)="openAdmin()" class="rounded-lg bg-orange-600 p-3 text-white">
+        <i class="bi bi-person-fill-gear"></i>
+        Admin
+    </button>
+</div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let student of students; let i=index">
-                                <td class="font-semibold"># {{ (i + 1 < 9 ? '0' : '') + (i + 1) }}</td>
-                                <td class="whitespace-nowrap">{{student.createdOn | formateDate}}</td>
-                                <td class="whitespace-nowrap">{{student?.name}}</td>
-                                <td class="font-semibold">$ {{ (i + 1 < 9 ? '0' : '') + (student.balance) }}</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">{{student?.status?'Completed':'In Process'}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <a
-                                    href="javascript:;"
-                                    class="rounded p-1 py-1 !outline-none transition duration-300    bg-primary text-white"
+<div>
+    <modal class="modal-top" #adminModal>
+        <ng-template #modalHeader><h2 class="bg-gray-50 p-3 text-center text-lg font-bold">Admin Settings</h2></ng-template>
+        <ng-template #modalBody>
+            <p>HTML content inside modal</p>
+        </ng-template>
+    </modal>
+</div>
 
+<div>
+    <modal class="modal-top" #payment>
+        <ng-template #modalHeader><h2 class="bg-gray-50 p-3 text-center text-lg font-bold">Pay Users</h2></ng-template>
+        <ng-template #modalBody>
+            <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
+                <div *ngIf="allSelected === false" class="mb-5">
+                    <label for="name" class="mb-2 block font-bold text-gray-600">Name</label>
+                    <ng-select
+                        [loading]="isLoading"
+                        [multiple]="true"
+                        [clearable]="false"
+                        (change)="onTutorSelection($event)"
+                        placeholder="Select a tutor"
+                        class="custom-multiselect"
+                        [formControlName]="'tutors'"
+                    >
+                        <ng-option *ngFor="let tutor of allTutors" [value]="tutor">{{ tutor.name + '( ' + tutor.email + ' )' }}</ng-option>
+                    </ng-select>
+                </div>
+
+                <div class="mb-5">
+                    <label class="mb-2 block font-bold text-gray-600">Pay Everyone</label>
+                    <input (change)="onPayAllChecked($event)" type="checkbox" formControlName="payEveryone" />
+                    <span class="mx-2 text-sm text-gray-400">By Selecting all you would send the amount to all tutors</span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount" class="mb-2 block font-bold text-gray-600">Amount</label>
+                    <input
+                        type="text"
+                        id="amount"
+                        formControlName="amount"
+                        placeholder="Amount (GHS)"
+                        class="mb- w-full rounded border border-red-300 p-3 shadow"
+                    />
+                    <p
+                        *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.dirty || paymentForm.get('amount')?.touched)"
+                        class="mt-2 text-sm text-red-400"
+                    >
+                        Amount is required and must be a valid number.
+                    </p>
+                </div>
+
+                <button type="submit" class="block w-full rounded-lg bg-blue-400 p-4 font-bold text-white hover:bg-blue-500">Pay Now</button>
+            </form>
+            <!-- <button (click)="htmlInsideModal.open()">Raw HTML inside modal</button> -->
+            <modal class="" #alertModal>
+                <ng-template #modalHeader>
+                    <h2 class="bg-gray-50 p-3 text-center text-lg font-bold">Payment Status</h2>
+                </ng-template>
+
+                <ng-template #modalBody>
+                    <ng-container *ngIf="!errorInPayment; else failure">
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="mx-auto mb-3.5 mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 p-2 dark:bg-green-900">
+                                <svg
+                                    aria-hidden="true"
+                                    class="h-8 w-8 text-green-500 dark:text-green-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    View
-                                </a>
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                                <span class="sr-only">Success</span>
+                            </div>
+                            <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Payment sent successfully</p>
+                            <button
+                                data-modal-toggle="successModal"
+                                type="button"
+                                class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 dark:focus:ring-primary-900 rounded-lg px-3 py-2 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+                            >
+                                Continue
+                            </button>
+                        </div>
+                    </ng-container>
 
-                                </td>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="tab2.toLowerCase() === 'tutors'">
-               <div class="panel">
-                <div class="mb-5 text-lg font-bold">Tutors</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let student of tutors; let i=index">
-                                <td class="font-semibold"># {{ (i + 1 < 9 ? '0' : '') + (i + 1) }}</td>
-                                <td class="whitespace-nowrap">{{student.createdOn | formateDate}}</td>
-                                <td class="whitespace-nowrap">{{student?.name}}</td>
-                                <td class="font-semibold">$ {{ (i + 1 < 9 ? '0' : '') + (student.balance) }}</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">{{student?.status?'Completed':'In Process'}}</span>
-                                </td>
-                                <td class="text-center">
-                                    <a
-                                    href="javascript:;"
-                                    class="rounded p-1 py-1 !outline-none transition duration-300    bg-primary text-white"
-
+                    <ng-template #failure>
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="mx-auto mb-3.5 mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 p-2 dark:bg-red-900">
+                                <svg
+                                    aria-hidden="true"
+                                    class="h-8 w-8 text-red-500 dark:text-red-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    View
-                                </a>
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 9a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1zm0-7a9 9 0 100 18A9 9 0 0010 2z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                                <span class="sr-only">Error</span>
+                            </div>
+                            <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">There was an error processing your payment.</p>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </modal>
+        </ng-template>
+    </modal>
+</div>
 
-                                </td>
+<div class="mt-4 h-14 w-full bg-white text-center shadow-3xl">
+    <h1 class="p-2 text-xl">Transaction History</h1>
+</div>
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="panel pb-1.5">
+    <div class="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+        <div class="text-right">
+            <input [(ngModel)]="search" type="text" class="form-input w-auto" placeholder="Search..." />
         </div>
-        <div *ngIf="tab2.toLowerCase() === 'payments'">
-               <div class="panel">
-                <div class="mb-5 text-lg font-bold">Payments</div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="ltr:rounded-l-md rtl:rounded-r-md">ID</th>
-                                <th>DATE</th>
-                                <th>NAME</th>
-                                <th>AMOUNT</th>
-                                <th class="text-center ltr:rounded-r-md rtl:rounded-l-md">STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-semibold">#01</td>
-                                <td class="whitespace-nowrap">Oct 08, 2021</td>
-                                <td class="whitespace-nowrap">Eric Page</td>
-                                <td>$1,358.75</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#02</td>
-                                <td class="whitespace-nowrap">Dec 18, 2021</td>
-                                <td class="whitespace-nowrap">Nita Parr</td>
-                                <td>-$1,042.82</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-info/20 text-info hover:top-0">In Process</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#03</td>
-                                <td class="whitespace-nowrap">Dec 25, 2021</td>
-                                <td class="whitespace-nowrap">Carl Bell</td>
-                                <td>$1,828.16</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-danger/20 text-danger hover:top-0">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#04</td>
-                                <td class="whitespace-nowrap">Nov 29, 2021</td>
-                                <td class="whitespace-nowrap">Dan Hart</td>
-                                <td>$1,647.55</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#05</td>
-                                <td class="whitespace-nowrap">Nov 24, 2021</td>
-                                <td class="whitespace-nowrap">Jake Ross</td>
-                                <td>$927.43</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-success/20 text-success hover:top-0">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">#06</td>
-                                <td class="whitespace-nowrap">Jan 26, 2022</td>
-                                <td class="whitespace-nowrap">Anna Bell</td>
-                                <td>$250.00</td>
-                                <td class="text-center">
-                                    <span class="badge rounded-full bg-info/20 text-info hover:top-0">In Process</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
     </div>
-</div> -->
 
-
-
-
-
-
-        </div>
+    <div class="datatable">
+        <ng-datatable
+            [loading]="isLoading"
+            [rows]="paymentHistory"
+            [columns]="cols"
+            [sortable]="true"
+            [search]="search"
+            [pageSize]="5"
+            skin="whitespace-nowrap table-hover"
+            firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg> '
+            previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+        >
+            <ng-template slot="time" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1">{{ value.time.seconds * 1000 | date }}</span>
+            </ng-template>
+        </ng-datatable>
     </div>
 </div>
