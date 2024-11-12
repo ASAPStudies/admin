@@ -14,234 +14,223 @@ export interface ISubject {
     enabled: boolean;
     fcmTopic: string;
     name: string;
-  }
+}
 
-  export interface paymentKeys {
+export interface paymentKeys {
     id: string;
     live_publickey: string;
     live_secretkey: string;
     test_secretkey: string;
     test_publickey: string;
     live: boolean;
-  }
-
+}
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class SharedService {
+    constructor(private router: Router, private http: HttpClient) {}
 
-constructor(private router:Router,private http:HttpClient) {
- }
+    async sendNotification(notification: { title: string; body: string; token: string; isToken?: boolean }) {
+        try {
+            // Call the Cloud Function
+            const helloWorldFunction = httpsCallable(firebaseFunctions, 'sendNotification');
 
-
-  async sendNotification(notification:{title:string,body:string,token:string,isToken?:boolean}){
-    try {
-        // Call the Cloud Function
-      const helloWorldFunction = httpsCallable(firebaseFunctions, 'sendNotification');
-
-      // Invoke the function and get the result
-      const result =  (await helloWorldFunction(notification));
-      console.log(result); // This will contain the data sent back by the Cloud Function
-
-    } catch (error) {
-        console.log(error);
-        console.error('Error calling helloWorld function:', error);
+            // Invoke the function and get the result
+            const result = await helloWorldFunction(notification);
+            console.log(result); // This will contain the data sent back by the Cloud Function
+        } catch (error) {
+            console.log(error);
+            console.error('Error calling helloWorld function:', error);
+        }
     }
-  }
-
-//   async sendNotification(){
-//     try {
-//         let notificationData={
-//             notification:{
-//                 title:'title',
-//                 body:'body'
-//             },
-//             token:'dnPxUh-zSUGmk6LuqptWYK:APA91bFTZ_GNVQov6oC0Fryv-L99ETOqQFy1T0IAgOqk2u0eV3XM7_Vce7C3ey3Guo3WRqbV2o8gAVsL1m6NXShqMRep3RUS3uhp602Ou9H8HoygcDHPbkwBf6p15ulAkhpHuIkN60Ye'
-//         }
-//         this.http.post(`https://fcm.googleapis.com/v1/projects/asapstudyportal/messages:send`,notificationData,{
-//             headers: {
-//                 "Access-Control-Allow-Origin": "*",
-//               "Content-Type": "application/json",
-//             }}).subscribe(res=>{
-//             console.log(res);
-
-//         })
-//     } catch (error) {
-//         console.log(error);
-
-
-//     }
-//   }
-
-
- async getAllSubjects() {
-    const q = query(collection(firebaseDb, "subjects"));
-    const querySnapshot = await getDocs(q);
-    const subjects: any[] = [];
-    querySnapshot.forEach(doc => {
-        subjects.push({ id: doc.id, ...doc.data() });
-    });
-    return subjects;
-}
-
-async getQuestionByStudentID(studentId:string) {
-    const q = query(collection(firebaseDb, "questions"),where('studentId','==',studentId),where('isPaid','==',true));
-    const querySnapshot = await getDocs(q);
-    const questions: any[] = [];
-    querySnapshot.forEach(doc => {
-        questions.push({ id: doc.id, ...doc.data() });
-    });
-    return questions;
-}
-
-
-async getQuestionByID(id:string) {
-    const docRef = doc(firebaseDb, "questions", id);
-    const question = await getDoc(docRef);
-    if (question.exists()) {
-        return question.data() as IQuestion ;
-    } else {
-        console.log("No question document found!");
-        return null
+    async getAllWithdrawalRequests() {
+        let allWithdrawals: any = [];
+        const querySnapshot = await getDocs(collection(firebaseDb, 'withdraws_requests'));
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            allWithdrawals.push({ id: doc.id, ...doc.data() });
+            // console.log(doc.id, " => newfunc ", doc.data());
+        });
+        return allWithdrawals;
     }
-}
 
-async getSessionByID(id:string) {
-    const docRef = doc(firebaseDb, "sessions", id);
-    const session = await getDoc(docRef);
-    if (session.exists()) {
-        return session.data() as ISession ;
-    } else {
-        console.log("No session document found!");
-        return null
+    //   async sendNotification(){
+    //     try {
+    //         let notificationData={
+    //             notification:{
+    //                 title:'title',
+    //                 body:'body'
+    //             },
+    //             token:'dnPxUh-zSUGmk6LuqptWYK:APA91bFTZ_GNVQov6oC0Fryv-L99ETOqQFy1T0IAgOqk2u0eV3XM7_Vce7C3ey3Guo3WRqbV2o8gAVsL1m6NXShqMRep3RUS3uhp602Ou9H8HoygcDHPbkwBf6p15ulAkhpHuIkN60Ye'
+    //         }
+    //         this.http.post(`https://fcm.googleapis.com/v1/projects/asapstudyportal/messages:send`,notificationData,{
+    //             headers: {
+    //                 "Access-Control-Allow-Origin": "*",
+    //               "Content-Type": "application/json",
+    //             }}).subscribe(res=>{
+    //             console.log(res);
+
+    //         })
+    //     } catch (error) {
+    //         console.log(error);
+
+    //     }
+    //   }
+
+    async getAllSubjects() {
+        const q = query(collection(firebaseDb, 'subjects'));
+        const querySnapshot = await getDocs(q);
+        const subjects: any[] = [];
+        querySnapshot.forEach((doc) => {
+            subjects.push({ id: doc.id, ...doc.data() });
+        });
+        return subjects;
     }
-}
 
+    async getQuestionByStudentID(studentId: string) {
+        const q = query(collection(firebaseDb, 'questions'), where('studentId', '==', studentId), where('isPaid', '==', true));
+        const querySnapshot = await getDocs(q);
+        const questions: any[] = [];
+        querySnapshot.forEach((doc) => {
+            questions.push({ id: doc.id, ...doc.data() });
+        });
+        return questions;
+    }
 
-async getQuestionByTutorID(tutorId:string) {
-    const q = query(collection(firebaseDb, "questions"),where('answeyBy','==',tutorId));
-    const querySnapshot = await getDocs(q);
-    const questions: any[] = [];
-    querySnapshot.forEach(doc => {
-        questions.push({ id: doc.id, ...doc.data() });
-    });
-    return questions;
-}
+    async getQuestionByID(id: string) {
+        const docRef = doc(firebaseDb, 'questions', id);
+        const question = await getDoc(docRef);
+        if (question.exists()) {
+            return question.data() as IQuestion;
+        } else {
+            console.log('No question document found!');
+            return null;
+        }
+    }
 
-async getSessionsByStudentID(studentId:string) {
-    const q = query(collection(firebaseDb, "sessions"),where('studentId','==',studentId),where('isPaid','==',true));
-    const querySnapshot = await getDocs(q);
-    const sessions: any[] = [];
-    querySnapshot.forEach(doc => {
-        sessions.push({ id: doc.id, ...doc.data() });
-    });
-    return sessions;
-}
+    async getSessionByID(id: string) {
+        const docRef = doc(firebaseDb, 'sessions', id);
+        const session = await getDoc(docRef);
+        if (session.exists()) {
+            return session.data() as ISession;
+        } else {
+            console.log('No session document found!');
+            return null;
+        }
+    }
 
-async getSessionsByTutorID(tutorId:string) {
-    const q = query(collection(firebaseDb, "sessions"),where('acceptedBy','==',tutorId));
-    const querySnapshot = await getDocs(q);
-    const sessions: any[] = [];
-    querySnapshot.forEach(doc => {
-        sessions.push({ id: doc.id, ...doc.data() });
-    });
-    return sessions;
-}
+    async getQuestionByTutorID(tutorId: string) {
+        const q = query(collection(firebaseDb, 'questions'), where('answeyBy', '==', tutorId));
+        const querySnapshot = await getDocs(q);
+        const questions: any[] = [];
+        querySnapshot.forEach((doc) => {
+            questions.push({ id: doc.id, ...doc.data() });
+        });
+        return questions;
+    }
 
-async getMeetingDetailsBySessionID(sessionId:string) {
-    const q = query(collection(firebaseDb, "sessions",sessionId,'meeting_detail'));
-    const querySnapshot = await getDocs(q);
-    const meeting: any[] = [];
-    console.log(querySnapshot.size);
+    async getSessionsByStudentID(studentId: string) {
+        const q = query(collection(firebaseDb, 'sessions'), where('studentId', '==', studentId), where('isPaid', '==', true));
+        const querySnapshot = await getDocs(q);
+        const sessions: any[] = [];
+        querySnapshot.forEach((doc) => {
+            sessions.push({ id: doc.id, ...doc.data() });
+        });
+        return sessions;
+    }
 
-    if(querySnapshot.size>0)
-        {
-            querySnapshot.forEach(doc => {
+    async getSessionsByTutorID(tutorId: string) {
+        const q = query(collection(firebaseDb, 'sessions'), where('acceptedBy', '==', tutorId));
+        const querySnapshot = await getDocs(q);
+        const sessions: any[] = [];
+        querySnapshot.forEach((doc) => {
+            sessions.push({ id: doc.id, ...doc.data() });
+        });
+        return sessions;
+    }
+
+    async getMeetingDetailsBySessionID(sessionId: string) {
+        const q = query(collection(firebaseDb, 'sessions', sessionId, 'meeting_detail'));
+        const querySnapshot = await getDocs(q);
+        const meeting: any[] = [];
+        console.log(querySnapshot.size);
+
+        if (querySnapshot.size > 0) {
+            querySnapshot.forEach((doc) => {
                 meeting.push({ id: doc.id, ...doc.data() });
             });
             return meeting[0];
-        }else{
-            return null
+        } else {
+            return null;
         }
-}
+    }
 
+    async getAnswerByQuestionID(tutorId: string, questionId: string) {
+        const q = query(collection(firebaseDb, 'users', tutorId, 'answers_submitted'), where('questionId', '==', questionId));
+        const querySnapshot = await getDocs(q);
+        const answers: any[] = [];
+        console.log(querySnapshot.size);
 
-async getAnswerByQuestionID(tutorId:string,questionId:string) {
-    const q = query(collection(firebaseDb, "users",tutorId,'answers_submitted'),where('questionId','==',questionId));
-    const querySnapshot = await getDocs(q);
-    const answers: any[] = [];
-    console.log(querySnapshot.size);
+        querySnapshot.forEach((doc) => {
+            answers.push({ id: doc.id, ...doc.data() });
+        });
+        return answers[0];
+    }
 
-    querySnapshot.forEach(doc => {
-        answers.push({ id: doc.id, ...doc.data() });
-    });
-    return answers[0];
-}
+    async getSubjectByID(subjectID: string) {
+        const docRef = doc(firebaseDb, 'subjects', subjectID);
+        const subject = await getDoc(docRef);
+        if (subject.exists()) {
+            return subject.data() as ISubject;
+        } else {
+            console.log('No Subject document!');
+            return null;
+        }
+    }
 
-async getSubjectByID(subjectID:string) {
-    const docRef = doc(firebaseDb, "subjects", subjectID);
-    const subject = await getDoc(docRef);
-    if (subject.exists()) {
-        return subject.data() as ISubject ;
-    } else {
-        console.log("No Subject document!");
-        return null
+    async getPaymentKeys() {
+        const docRef = doc(firebaseDb, 'paymentkeys', 'urIm4w9XbqwwE40Ib8VO');
+        const keys = await getDoc(docRef);
+        if (keys.exists()) {
+            return keys.data() as paymentKeys;
+        } else {
+            console.log('No keys document found!');
+            return null;
+        }
+    }
+
+    async getWithdrawRequestWithStatus(status: string = 'all') {
+        let q;
+        if (status == 'all') {
+            q = query(collection(firebaseDb, 'withdraws_requests'));
+        } else q = query(collection(firebaseDb, 'withdraws_requests'), where('status', '==', status));
+        const querySnapshot = await getDocs(q);
+        const withdraws: any[] = [];
+        querySnapshot.forEach((doc) => {
+            withdraws.push({ id: doc.id, ...doc.data() });
+        });
+        return withdraws;
+    }
+
+    async getNotificationTemplates(status: string = 'all') {
+        let q = query(collection(firebaseDb, 'notification_templates'));
+        const querySnapshot = await getDocs(q);
+        const templates: any[] = [];
+        querySnapshot.forEach((doc) => {
+            templates.push({ id: doc.id, ...doc.data() });
+        });
+        return templates;
+    }
+
+    async deleteNotificationTemplates(collectionName: string, doc_id: string) {
+        try {
+            let q = doc(firebaseDb, collectionName, doc_id);
+            await deleteDoc(q);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 }
-
-
-
-
-async getPaymentKeys() {
-    const docRef = doc(firebaseDb, "paymentkeys", 'urIm4w9XbqwwE40Ib8VO');
-    const keys = await getDoc(docRef);
-    if (keys.exists()) {
-        return keys.data() as paymentKeys ;
-    } else {
-        console.log("No keys document found!");
-        return null
-    }
-}
-
-
-async getWithdrawRequestWithStatus(status:string='all') {
-    let q;
-    if(status == 'all'){
-        q = query(collection(firebaseDb, "withdraws_requests"));
-    }else
-     q = query(collection(firebaseDb, "withdraws_requests"),where('status','==',status));
-    const querySnapshot = await getDocs(q);
-    const withdraws: any[] = [];
-    querySnapshot.forEach(doc => {
-        withdraws.push({ id: doc.id, ...doc.data() });
-    });
-    return withdraws;
-}
-
-async getNotificationTemplates(status:string='all') {
-    let q = query(collection(firebaseDb, "notification_templates"));
-    const querySnapshot = await getDocs(q);
-    const templates: any[] = [];
-    querySnapshot.forEach(doc => {
-        templates.push({ id: doc.id, ...doc.data() });
-    });
-    return templates;
-}
-
-async deleteNotificationTemplates(collectionName:string,doc_id:string) {
-    try {
-        let q = (doc(firebaseDb, collectionName, doc_id));
-        await deleteDoc(q);
-        return true
-    } catch (error) {
-        console.log(error);
-        return false
-
-    }
-}
-
-
-
-}
-
