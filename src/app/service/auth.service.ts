@@ -27,6 +27,21 @@ constructor(private router:Router) {
     // }
     console.log(getAuth(firebaseApp).currentUser);
  }
+ async logUserIn(data:any){
+      let ret:any = []
+     const q = query(collection(firebaseDb, 'admin'), where('email', '==', data.email));
+     const querySnapshot = await getDocs(q);
+     
+     querySnapshot.forEach((res) => {
+        ret.push(res.data())
+     });
+     if (data.password === ret[0].password){
+        localStorage.setItem('admin', JSON.stringify({email:ret[0].email, role:ret[0].role}))
+        this.router.navigateByUrl('/dashboard')
+     }else {
+        alert("Invalid password")
+     }
+ }
 
  async signIn(email: string, password: string): Promise<any> {
    return signInWithEmailAndPassword(firebaseAuth, email, password);

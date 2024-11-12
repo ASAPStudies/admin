@@ -6,6 +6,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../service/auth.service';
+import { LocalStorageService } from '../service/localstorage.service';
 
 @Component({
     moduleId: module.id,
@@ -85,7 +86,8 @@ export class HeaderComponent {
         public storeData: Store<any>,
         public router: Router,
         private appSetting: AppService,
-        private sanitizer: DomSanitizer,private AuthService :AuthService
+        private sanitizer: DomSanitizer,private AuthService :AuthService,
+        private storate: LocalStorageService
     ) {
         this.initStore();
     }
@@ -148,7 +150,7 @@ export class HeaderComponent {
 
     logout(){
         try {
-            this.AuthService.logOut();
+            this.storate.delete('admin')
             this.router.navigate(['/login'])
         } catch (error) {
             console.log(error);

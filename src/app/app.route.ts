@@ -26,14 +26,18 @@ import { AuthLayout } from './layouts/auth-layout';
 import { KnowledgeBaseComponent } from './pages/knowledge-base';
 import { FaqComponent } from './pages/faq';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { CoverLoginComponent } from './auth/cover-login';
+import { LoginComponent } from './auth/login/login.component';
+import { DashboardGuard } from './guards/dashboard.guard';
+import { LoginGuard } from './guards/login.guard';
 
 export const routes: Routes = [
-    {
-        path: 'payment', component: PaymentComponent, title: 'App Payment'
-    },
+   
+    {path:'login',component:LoginComponent, title:'ASAP | Login', canActivate:[LoginGuard]},
     {
         path: '',
         component: AppLayout,
+        canActivate:[DashboardGuard],
         children: [
             // dashboard
             { path: '', redirectTo:'dashboard',pathMatch:'full' },
