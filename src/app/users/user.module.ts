@@ -10,11 +10,10 @@ import { ProfileComponent } from './profile';
 
 const routes: Routes = [
     {
-        path: 'users/user-account-settings',
+        path: 'users/profile',
         component: UserAccountSettingsComponent,
         title: 'Account Setting | VRISTO - Multipurpose Tailwind Dashboard Template',
     },
-    { path: 'users/profile', component: ProfileComponent, title: 'User Profile | VRISTO - Multipurpose Tailwind Dashboard Template' },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes), CommonModule, IconModule],

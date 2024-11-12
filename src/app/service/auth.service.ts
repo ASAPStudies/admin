@@ -13,19 +13,7 @@ export class AuthService {
 
 constructor(private router:Router) {
     const currentUser= getAuth(firebaseApp).currentUser
-    console.log(currentUser);
-
-    // if(currentUser){
-    //     const admin = JSON.parse(localStorage.getItem('admin') as string)
-    //     if(!admin){
-    //         this.getUser(currentUser.email as string)
-    //     }
-    //     this.router.navigate(['/dashboard'])
-    // }else{
-    //     this.router.navigate(['/login'])
-
-    // }
-    console.log(getAuth(firebaseApp).currentUser);
+    
  }
  async logUserIn(data:any){
       let ret:any = []
@@ -33,10 +21,10 @@ constructor(private router:Router) {
      const querySnapshot = await getDocs(q);
      
      querySnapshot.forEach((res) => {
-        ret.push(res.data())
+        ret.push({id:res.id, ...res.data()})
      });
      if (data.password === ret[0].password){
-        localStorage.setItem('admin', JSON.stringify({email:ret[0].email, role:ret[0].role}))
+        localStorage.setItem('admin', JSON.stringify({email:ret[0].email, role:ret[0].role, id:ret[0].id}))
         this.router.navigateByUrl('/dashboard')
      }else {
         alert("Invalid password")
