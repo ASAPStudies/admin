@@ -55,6 +55,18 @@ export class SharedService {
         return allWithdrawals;
     }
 
+    async getAllQuestions(){
+        let data:any[] = []
+        const querySnapshot = await getDocs(collection(firebaseDb, 'questions'));
+        querySnapshot.forEach((doc) => {
+        data.push(doc.data())
+        
+        });
+        return data
+    }
+
+
+
     //   async sendNotification(){
     //     try {
     //         let notificationData={
