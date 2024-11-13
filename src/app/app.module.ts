@@ -83,6 +83,7 @@ import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
 import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
 
 @NgModule({
     imports: [
@@ -137,6 +138,7 @@ import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-
         PaymentComponent,
         LongTermRequestsComponent,
         QaRequestsComponent,
+        QaDetailComponent
         
     ],
     exports: [SharedModule],

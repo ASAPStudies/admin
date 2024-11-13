@@ -1,3 +1,4 @@
+import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
 import { Routes } from '@angular/router';
 
 // dashboard
@@ -51,6 +52,7 @@ export const routes: Routes = [
             { path: 'notifications',loadChildren:()=> import('./pages/notification/notification.component.module').then((d)=>d.NotificationModule) },
             {path:'qa-requests', component: QaRequestsComponent},
             {path:'long-term-requests', component:LongTermRequestsComponent},
+            {path:'qa-requests/:id/students/:uid', component: QaDetailComponent},
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },
