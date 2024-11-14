@@ -84,6 +84,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
 import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
 import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
 import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
+import { NoteIcon } from './components/document.icon';
 
 @NgModule({
     imports: [
@@ -138,8 +139,8 @@ import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.compo
         PaymentComponent,
         LongTermRequestsComponent,
         QaRequestsComponent,
-        QaDetailComponent
-        
+        QaDetailComponent,
+        NoteIcon,
     ],
     exports: [SharedModule],
 
