@@ -28,9 +28,8 @@ export class QaDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentId = this.activeRoute.snapshot.paramMap.get('id');
-        this.currentUserId = this.activeRoute.snapshot.paramMap.get('uid');
 
-        if (!this.currentId || !this.currentUserId) {
+        if (!this.currentId) {
             this.router.navigateByUrl('/qa-requests');
         } else {
             this.loadData();
@@ -41,7 +40,7 @@ export class QaDetailComponent implements OnInit {
         try {
             this.isLoading = true; // Set loading to true before fetching data
             this.question = await this.sharedService.getQuestionByID(this.currentId as string);
-            this.subject = await this.sharedService.getSubjectByID(this.question.subject as string)
+            this.subject = await this.sharedService.getSubjectByID(this.question.subject as string);
             if (!this.question) {
                 this.errorMessage = 'Question not found.';
             }
@@ -56,7 +55,7 @@ export class QaDetailComponent implements OnInit {
         // Check if question and answeredBy are defined
         if (this.question && this.question.answeredBy) {
             // Navigate to the specified route
-            this.router.navigateByUrl("/dashboard/tutors/" + this.question.answeyBy);
+            this.router.navigateByUrl('/dashboard/tutors/' + this.question.answeyBy);
         } else {
             console.error('Question or answeredBy is not defined');
         }

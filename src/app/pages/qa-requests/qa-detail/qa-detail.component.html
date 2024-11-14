@@ -1,20 +1,24 @@
-<div class="my-4">
-    <button (click)="goBack()" class="rounded-full bg-white p-2">
-        <i class="bi bi-arrow-left icon text-black"></i>
-    </button>
+<div class="mb-14 space-y-4">
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" routerLink="/qa-requests" class="text-primary hover:underline">QA Requets</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>Details</span>
+        </li>
+    </ul>
 </div>
 
-<div class="flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-neutral-700/70">
+<div *ngIf="question" class="flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-neutral-700/70">
     <div class="hidden sm:block">
         <nav class="relative z-0 flex divide-x divide-gray-200 rounded-xl border-b dark:divide-neutral-700 dark:border-neutral-700">
             <a
-                
-                href="/tutors/{{question.answeyBy}}"
+                [routerLink]="['/', 'tutors', question.answeyBy]"
                 class="group relative min-w-0 flex-1 overflow-hidden rounded-ss-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:bg-gray-50 focus:outline-none dark:border-blue-500 dark:bg-neutral-800 dark:text-neutral-300"
                 aria-current="page"
             >
                 Answered By
-                <p class="text-sm text-gray-400">{{ question?.answeyBy?.length === 0 ? 'Not Answered Yet' : "Click to view " }}</p>
+                <p class="text-sm text-gray-400">{{ question?.answeyBy?.length === 0 ? 'Not Answered Yet' : 'Click to view ' }}</p>
             </a>
 
             <a
@@ -42,7 +46,7 @@
             </a>
 
             <a
-                class="px-4 py-4 text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 dark:bg-neutral=800 dark:hover:bg-neutral=700 dark:hover:text-neutral=400 dark:focus:bg-neutral=700 dark:focus:text-neutral=400 group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white text-center text-sm font-medium focus:outline-none"
+                class="dark:bg-neutral=800 dark:hover:bg-neutral=700 dark:hover:text-neutral=400 dark:focus:bg-neutral=700 dark:focus:text-neutral=400 group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none"
                 href="#"
             >
                 Status
@@ -50,7 +54,7 @@
             </a>
 
             <a
-                class="px-4 py-4 text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 dark:bg-neutral=800 dark:hover:bg-neutral=700 dark:hover:text-neutral=400 dark:focus:bg-neutral=700 dark:focus:text-neutral=400 group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white text-center text-sm font-medium focus:outline-none"
+                class="dark:bg-neutral=800 dark:hover:bg-neutral=700 dark:hover:text-neutral=400 dark:focus:bg-neutral=700 dark:focus:text-neutral=400 group relative min-w-0 flex-1 overflow-hidden rounded-se-xl bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10 focus:bg-gray-50 focus:outline-none"
                 href="#"
             >
                 Subject
@@ -69,17 +73,24 @@
         <h3 class="text-gray-[800] text-lg font-bold uppercase dark:text-white">
             {{ question?.questionBody }}
         </h3>
-        <a [href]="question?.attachmentUrl" >
-           <note-icon></note-icon>
+        <a [href]="question?.attachmentUrl">
+            <note-icon></note-icon>
         </a>
-        <p *ngIf="!question?.attachmentUrl" class="text-gray-500 mt-2">No attachment available.</p>
+        <p *ngIf="!question?.attachmentUrl" class="mt-2 text-gray-500">No attachment available.</p>
     </div>
 
     <div class="p-4 text-center">
         <h3 class="text-gray-[500] text-lg font-bold uppercase dark:text-white">
             {{ question?.Body }}
         </h3>
-        <p *ngIf="!question?.Body" class="text-gray-500 mt-2">No body content available.</p>
+        <p *ngIf="!question?.Body" class="mt-2 text-gray-500">No body content available.</p>
         <p *ngIf="!isLoading && !errorMessage" class="text-gray-[500] mt-2">Click to view Attachment.</p>
     </div>
+</div>
+
+<div *ngIf="isLoading" class="flex w-full justify-center py-10">
+    <span
+        *ngIf="isLoading"
+        class="m-auto mb-10 inline-block h-10 w-10 animate-spin rounded-full border-4 border-primary border-l-transparent align-middle"
+    ></span>
 </div>
