@@ -48,13 +48,13 @@ export class QaDetailComponent implements OnInit {
             console.error('Error fetching question:', error);
             this.errorMessage = 'An error occurred while fetching the question.';
         } finally {
-            this.isLoading = false; // Set loading to false after fetching data
+            this.isLoading = false; 
         }
     }
     viewTutor() {
-        // Check if question and answeredBy are defined
+
         if (this.question && this.question.answeredBy) {
-            // Navigate to the specified route
+
             this.router.navigateByUrl('/dashboard/tutors/' + this.question.answeyBy);
         } else {
             console.error('Question or answeredBy is not defined');
