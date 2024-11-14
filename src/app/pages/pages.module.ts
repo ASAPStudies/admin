@@ -40,8 +40,6 @@ const routes: Routes = [
         Error500Component,
         Error503Component,
         MaintenenceComponent,
-        LongTermRequestsComponent,
-        QaRequestsComponent,
     ],
 })
 export class PagesModule {}

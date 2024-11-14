@@ -32,6 +32,7 @@ import { DashboardGuard } from './guards/dashboard.guard';
 import { LoginGuard } from './guards/login.guard';
 import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
 import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { LiveRequestDetailComponent } from './pages/long-term-requests/live-request-detail/live-request-detail.component';
 
 export const routes: Routes = [
    
@@ -50,7 +51,8 @@ export const routes: Routes = [
             { path: 'withdraw-requests',loadChildren:()=> import('./pages/withdraw-requests/withdraw-requests.module').then((d)=>d.WithdrawRequestsModule) },
             { path: 'notifications',loadChildren:()=> import('./pages/notification/notification.component.module').then((d)=>d.NotificationModule) },
             {path:'qa-requests', component: QaRequestsComponent},
-            {path:'long-term-requests', component:LongTermRequestsComponent},
+            {path:'live-requests', component:LongTermRequestsComponent},
+            {path:'live-requests/:id', component:LiveRequestDetailComponent},
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },
