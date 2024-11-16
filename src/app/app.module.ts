@@ -81,6 +81,9 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './service/auth.service';
 import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { LiveRequestDetailComponent } from './pages/long-term-requests/live-request-detail/live-request-detail.component';
+import { LiveIcon } from './components/live-request.icon';
 
 @NgModule({
     imports: [
@@ -132,7 +135,10 @@ import { PaymentComponent } from './pages/payment/payment.component';
         FaqComponent,
         DashboardComponent,
         FormateDatePipe,
-        PaymentComponent
+        PaymentComponent,
+        LiveIcon,
+        LongTermRequestsComponent,
+        LiveRequestDetailComponent
     ],
     exports:[SharedModule],
 

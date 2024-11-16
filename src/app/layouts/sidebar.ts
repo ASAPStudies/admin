@@ -10,6 +10,9 @@ import { slideDownUp } from '../shared/animations';
     selector: 'sidebar',
     templateUrl: './sidebar.html',
     animations: [slideDownUp],
+    styles: [`.icon {
+        font-size:1.5em
+    }`]
 })
 export class SidebarComponent {
     active = false;

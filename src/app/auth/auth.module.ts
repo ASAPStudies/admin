@@ -11,9 +11,10 @@ import { CoverPasswordResetComponent } from './cover-password-reset';
 // headlessui
 import { MenuModule } from 'headlessui-angular';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-    { path: 'login', component: CoverLoginComponent, title: 'ASAP Admin | Login' },
+    { path: 'login', component: LoginComponent, title: 'ASAP Admin | Login' },
     {
         path: 'password-reset',
         component: CoverPasswordResetComponent,
@@ -25,6 +26,7 @@ const routes: Routes = [
     declarations: [
         CoverLoginComponent,
         CoverPasswordResetComponent,
+        LoginComponent,
     ],
 })
 export class AuthModule {}
