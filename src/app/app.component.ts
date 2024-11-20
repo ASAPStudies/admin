@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import { ToasterService } from './service/toaster.service';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from 'src/configurations/firebase-config';
@@ -11,13 +11,7 @@ import { AuthService } from './service/auth.service';
 })
 export class AppComponent {
     constructor(private _toast:ToasterService,private router:Router,private authService:AuthService) {
-        // if(getAuth(firebaseApp).currentUser){
-        //     this.router.navigate(['/dashboard'])
-        // }else{
-        //     this.router.navigate(['/login'])
-
-        // }
-        // console.log(getAuth(firebaseApp).currentUser);
+      
     }
     toastConfig: any;
   showToast: boolean = false;

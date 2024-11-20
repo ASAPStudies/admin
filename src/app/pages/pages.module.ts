@@ -1,7 +1,8 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-
+import { TablesComponent } from '../tables';
 // icon
 import { IconModule } from 'src/app/shared/icon/icon.module';
 
@@ -30,7 +31,7 @@ const routes: Routes = [
     { path: 'pages/maintenence', component: MaintenenceComponent, title: 'Maintenence | VRISTO - Multipurpose Tailwind Dashboard Template' },
 ];
 @NgModule({
-    imports: [RouterModule.forChild(routes), CommonModule, MenuModule, IconModule],
+    imports: [RouterModule.forChild(routes), FormsModule, CommonModule, MenuModule, IconModule],
     declarations: [
         ContactUsBoxedComponent,
         ContactUsCoverComponent,
@@ -39,9 +40,9 @@ const routes: Routes = [
         Error404Component,
         Error500Component,
         Error503Component,
+        // TablesComponent,
         MaintenenceComponent,
-        LongTermRequestsComponent,
-        QaRequestsComponent,
+       
     ],
 })
 export class PagesModule {}
