@@ -28,3 +28,5 @@ export interface IStudent {
     seconds: number;
     nanoseconds: number;
   }
+
+
