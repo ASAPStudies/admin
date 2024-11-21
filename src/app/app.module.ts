@@ -89,6 +89,7 @@ import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.compo
 import { NoteIcon } from './components/document.icon';
 import { UserAccountSettingsComponent } from './users/user-account-settings';
 import { UsersModule } from './users/user.module';
+import { AdminPaystackComponent } from './pages/dashboard/admin-paystack/admin-paystack.component';
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
@@ -148,6 +149,7 @@ import { UsersModule } from './users/user.module';
         // UserAccountSettingsComponent,
 
         LiveIcon,
+        AdminPaystackComponent,
      ],
     providers: [
         AppService,

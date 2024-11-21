@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { httpsCallable } from 'firebase/functions';
 import { DashboardService } from 'src/app/service/dashboard.service';
 import { SharedService } from 'src/app/service/shared.service';
+import { UsersService } from 'src/app/service/users.service';
 import { firebaseFunctions } from 'src/configurations/firebase-config';
 
 @Component({
@@ -32,7 +33,10 @@ export class DashboardComponent {
 
     tab2='students';
     tutors:any;
-    constructor(public storeData: Store<any>, private dashboardService: DashboardService,private sharedService:SharedService) {
+    constructor(public storeData: Store<any>, 
+        private dashboardService: DashboardService,
+        private sharedService:SharedService,
+        private usersService:UsersService) {
         this.initStore();
     }
 
@@ -426,7 +430,9 @@ export class DashboardComponent {
     async loadData() {
         try {
           this.totalStudents = await this.dashboardService.getUsersTotal('Student');
-          this.totalTutors = await this.dashboardService.getUsersTotal('Tutor');
+          this.tutors = await this.usersService.getUsers('Tutor')
+    
+          this.totalTutors = this.tutors.length;
           this.totalWithdrawRequests = await this.dashboardService.getRequestsTotal();
           this.isLoading=false;
         } catch (error) {
