@@ -7,6 +7,8 @@ import { IconModule } from 'src/app/shared/icon/icon.module';
 
 import { UserAccountSettingsComponent } from './user-account-settings';
 import { ProfileComponent } from './profile';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { FormModule } from '../forms/form.module';
 
 const routes: Routes = [
     {
@@ -16,7 +18,7 @@ const routes: Routes = [
     },
 ];
 @NgModule({
-    imports: [RouterModule.forChild(routes), CommonModule, IconModule],
+    imports: [RouterModule.forChild(routes), CommonModule, IconModule, FormsModule, ReactiveFormsModule],
     declarations: [UserAccountSettingsComponent, ProfileComponent],
 })
 export class UsersModule {}

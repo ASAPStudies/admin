@@ -81,11 +81,14 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './service/auth.service';
 import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
-import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
 import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { LiveRequestDetailComponent } from './pages/long-term-requests/live-request-detail/live-request-detail.component';
+import { LiveIcon } from './components/live-request.icon';
+import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
 import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
 import { NoteIcon } from './components/document.icon';
-
+import { UserAccountSettingsComponent } from './users/user-account-settings';
+import { UsersModule } from './users/user.module';
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
@@ -138,16 +141,17 @@ import { NoteIcon } from './components/document.icon';
         FormateDatePipe,
         PaymentComponent,
         LongTermRequestsComponent,
-        QaRequestsComponent,
+        LiveRequestDetailComponent,
         QaDetailComponent,
         NoteIcon,
-    ],
-    exports: [SharedModule],
+        QaRequestsComponent,
+        // UserAccountSettingsComponent,
 
+        LiveIcon,
+     ],
     providers: [
         AppService,
         AuthService,
-        Title,
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

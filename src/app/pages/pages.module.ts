@@ -2,8 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { TablesComponent } from '../tables';
-// icon
+
 import { IconModule } from 'src/app/shared/icon/icon.module';
 
 import { ContactUsBoxedComponent } from './contact-us-boxed';
@@ -17,8 +16,7 @@ import { MaintenenceComponent } from './maintenence';
 
 // headlessui
 import { MenuModule } from 'headlessui-angular';
-import { LongTermRequestsComponent } from './long-term-requests/long-term-requests.component';
-import { QaRequestsComponent } from './qa-requests/qa-requests.component';
+
 
 const routes: Routes = [
     { path: 'pages/contact-us-boxed', component: ContactUsBoxedComponent, title: 'Contact Us Boxed | VRISTO - Multipurpose Tailwind Dashboard Template' },
@@ -40,9 +38,7 @@ const routes: Routes = [
         Error404Component,
         Error500Component,
         Error503Component,
-        // TablesComponent,
         MaintenenceComponent,
-       
     ],
 })
 export class PagesModule {}
