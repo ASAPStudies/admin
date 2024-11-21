@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Router } from '@angular/router';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { firebaseDb } from 'src/configurations/firebase-config';
-
 @Injectable({
   providedIn: 'root'
 })

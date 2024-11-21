@@ -7,17 +7,16 @@
             <span>all-tutoring</span>
         </li>
     </ul>
-     
 </div>
 <div class="panel mt-6 pb-1.5">
     <div class="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div *ngIf="tutors.length > 0" class="flex flex-wrap gap-3 items-center">
+        <div *ngIf="tutors.length > 0" class="flex flex-wrap items-center gap-3">
             <h2 class="text-xl">Export to:</h2>
             <button type="button" class="btn btn-primary btn-sm" (click)="exportTable('csv')">
                 <icon-file class="h-5 w-5 ltr:mr-2 rtl:ml-2" />
                 CSV
             </button>
-            
+
             <div class="relative">
                 <ang-json2excel-btn [json]="jsonData" fileName="table" sheetName="tablesheet"></ang-json2excel-btn>
                 <div class="btn btn-primary btn-sm absolute left-0 top-0">
@@ -32,15 +31,28 @@
             </button> -->
         </div>
 
-        <div class="text-right">
+        <div class="flex flex-row text-right">
             <input [(ngModel)]="search" type="text" class="form-input w-auto" placeholder="Search..." />
+
+            <div>
+                <select (change)="filterTutors($event)"
+                    id="countries"
+                    class="block w-full mx-4 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                >
+                    <option selected value="all">Choose a subject</option>
+                    <option *ngFor="let subject of allSujects" value="{{subject.id}}">
+                        {{subject.name}}
+                    </option>
+                    
+                </select>
+            </div>
         </div>
     </div>
 
     <div class="datatable">
         <ng-datatable
-        [loading]="isLoading"
-            [rows]="tutors"
+            [loading]="isLoading"
+            [rows]="filteredTutors"
             [columns]="cols"
             [sortable]="true"
             [search]="search"
@@ -51,26 +63,35 @@
             previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
             nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
         >
-        <ng-template slot="name" let-value="data">
-            <div class="min-w-[150px] text-black dark:text-white">
-                <div class="flex items-center">
-                    <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{value.imageUrl}}" alt="avatar" />
-                    <span class="whitespace-nowrap">{{value.name}}</span>
+            <ng-template slot="name" let-value="data">
+                <div class="min-w-[150px] text-black dark:text-white">
+                    <div class="flex items-center">
+                        <img class="h-10 w-10 rounded-md object-cover ltr:mr-3 rtl:ml-3" src="{{ value.imageUrl }}" alt="avatar" />
+                        <span class="whitespace-nowrap">{{ value.name }}</span>
+                    </div>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template slot="onHold" let-value="data">
-            <div class="min-w-[150px] text-black dark:text-white">
-                <label class="w-12 h-6 relative">
-                    <input [checked]="!value.onHold" (change)="value.onHold = !value.onHold;changeAccountStatus(value.onHold,value.id)" type="checkbox" class="custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer" id="custom_switch_checkbox2" />
-                    <span for="custom_switch_checkbox2" class="outline_checkbox bg-icon border-2 border-[#ebedf2] dark:border-white-dark block h-full rounded-full before:absolute before:left-1 before:bg-[#ebedf2] dark:before:bg-white-dark before:bottom-1 before:w-4 before:h-4 before:rounded-full before:bg-[url(/assets/images/close.svg)] before:bg-no-repeat before:bg-center peer-checked:before:left-7 peer-checked:before:bg-[url(/assets/images/checked.svg)] peer-checked:border-green-700 peer-checked:before:bg-green-700 before:transition-all before:duration-300"></span>
-                </label>
-            </div>
-        </ng-template>
-            <ng-template slot="dateofbirth" let-value="data"> {{ value.dateofbirth?.seconds*1000 | date }} </ng-template>
+            </ng-template>
+            <ng-template slot="onHold" let-value="data">
+                <div class="min-w-[150px] text-black dark:text-white">
+                    <label class="relative h-6 w-12">
+                        <input
+                            [checked]="!value.onHold"
+                            (change)="value.onHold = !value.onHold; changeAccountStatus(value.onHold, value.id)"
+                            type="checkbox"
+                            class="custom_switch peer absolute z-10 h-full w-full cursor-pointer opacity-0"
+                            id="custom_switch_checkbox2"
+                        />
+                        <span
+                            for="custom_switch_checkbox2"
+                            class="outline_checkbox bg-icon block h-full rounded-full border-2 border-[#ebedf2] before:absolute before:bottom-1 before:left-1 before:h-4 before:w-4 before:rounded-full before:bg-[#ebedf2] before:bg-[url(/assets/images/close.svg)] before:bg-center before:bg-no-repeat before:transition-all before:duration-300 peer-checked:border-green-700 peer-checked:before:left-7 peer-checked:before:bg-green-700 peer-checked:before:bg-[url(/assets/images/checked.svg)] dark:border-white-dark dark:before:bg-white-dark"
+                        ></span>
+                    </label>
+                </div>
+            </ng-template>
+            <ng-template slot="dateofbirth" let-value="data"> {{ value.dateofbirth?.seconds * 1000 | date }} </ng-template>
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <button type="button"  class="btn btn-success py-1" (click)="selectedRow(value)">View</button>
+                    <button type="button" class="btn btn-success py-1" (click)="selectedRow(value)">View</button>
                 </div>
             </ng-template>
         </ng-datatable>

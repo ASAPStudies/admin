@@ -30,3 +30,7 @@ export interface IStudent {
   }
 
 
+  export interface ITutor extends IStudent {
+    
+  }
+
