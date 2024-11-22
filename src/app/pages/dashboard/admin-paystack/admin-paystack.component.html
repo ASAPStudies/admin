@@ -19,10 +19,12 @@
                                 [formControlName]="'tutors'"
                             >
                                 <div *ngIf="allSelected === false">
-                                    <ng-option *ngFor="let tutor of filteredTutorsList" [value]="tutor">{{ tutor.name + '( ' + tutor.email + ' )' }} </ng-option>
+                                    <ng-option *ngFor="let tutor of filteredTutorsList" [value]="tutor"
+                                        >{{ tutor.name + '( ' + tutor.email + ' )' }}
+                                    </ng-option>
                                 </div>
                             </ng-select>
-                            <div *ngIf="allSelected" class="bg-gray-500">you have current selectd all tutors to make payment to</div>
+                            <div *ngIf="allSelected" class="my-4 text-gray-500">you have current selectd all tutors to make payment to</div>
                         </div>
 
                         <div class="mb-5">
@@ -47,6 +49,22 @@
                                 Amount is required and must be a valid number.
                             </p>
                         </div>
+                        <div class="mb-3">
+                            <label for="amount" class="mb-2 block font-bold text-gray-600">Reason</label>
+                            <input
+                                type="text"
+                                id="amount"
+                                formControlName="reason"
+                                placeholder="eg;: monthly stipends"
+                                class="mb- w-full rounded border border-red-300 p-3 shadow"
+                            />
+                            <p
+                                *ngIf="paymentForm.get('reason')?.invalid && (paymentForm.get('reason')?.dirty || paymentForm.get('reason')?.touched)"
+                                class="mt-2 text-sm text-red-400"
+                            >
+                                Reason: You monthly stipend
+                            </p>
+                        </div>
 
                         <button
                             type="button"
@@ -63,55 +81,48 @@
                             <i class="bi bi-arrow-left text-2xl"></i>
                         </button>
                     </div>
-                    <div class="max-h-60 h-60 overflow-y-auto">
+                    <div class="h-60 max-h-60 overflow-y-auto">
                         <ul role="list" class="divide-y divide-gray-100">
                             <li *ngFor="let tutor of paymentForm.value.tutors" class="flex justify-between gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
-                                    <img
-                                        class="h-12 w-12 flex-none rounded-full bg-gray-50"
-                                        src={{tutor?.imageUrl}}
-                                        alt=""
-                                    />
+                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ tutor?.imageUrl }}" alt="" />
                                     <div class="min-w-0 flex-auto">
-                                        <p class="text-sm font-semibold leading-6 text-gray-900">{{tutor?.name}}</p>
-                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{tutor?.email}}</p>
+                                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ tutor?.name }}</p>
+                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ tutor?.email }}</p>
                                     </div>
                                 </div>
                                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                     <p class="text-sm leading-6 text-gray-900">Tutor</p>
-                                    <p class="mt-1 text-xs leading-5 text-gray-500">{{paymentForm.value.amount}} <span class="text-gray-900 font-bold">GHS</span></p>
-                                </div>
-                            </li>
-                            
-                            <li class="flex justify-between gap-x-6 py-5">
-                                <div class="flex min-w-0 gap-x-4">
-                                    <img
-                                        class="h-12 w-12 flex-none rounded-full bg-gray-50"
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt=""
-                                    />
-                                    <div class="min-w-0 flex-auto">
-                                        <p class="text-sm font-semibold leading-6 text-gray-900">Tom Cook</p>
-                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">tom.cook@example.com</p>
-                                    </div>
-                                </div>
-                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                    <p class="text-sm leading-6 text-gray-900">Director of Product</p>
-                                    <div class="mt-1 flex items-center gap-x-1.5">
-                                        <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-                                            <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-                                        </div>
-                                        <p class="text-xs leading-5 text-gray-500">Online</p>
-                                    </div>
+                                    <p class="mt-1 text-xs leading-5 text-gray-500">
+                                        {{ paymentForm.value.amount }} <span class="font-bold text-gray-900">GHS</span>
+                                    </p>
                                 </div>
                             </li>
                         </ul>
                     </div>
+                    <form [formGroup]="paymentForm">
+                        <div class="m-4">
+                            <label for="secret" class="mb-2 block font-bold text-gray-600">Secret</label>
+                            <input
+                                type="password"
+                                id="amount"
+                                formControlName="secret"
+                                placeholder="payment secrete"
+                                class="mb- w-full rounded border border-red-300 p-3 shadow"
+                            />
+                            <p
+                                *ngIf="paymentForm.get('secret')?.invalid && (paymentForm.get('secret')?.dirty || paymentForm.get('secret')?.touched)"
+                                class="mt-2 text-sm text-red-400"
+                            >
+                                Secret is required and must be a valid number.
+                            </p>
+                        </div>
+                    </form>
 
                     <div class="m-4 flex flex-row">
                         <button
                             type="button"
-                            (click)="toggleTab('finish')"
+                            (click)="createPaymentRequest()"
                             class="block w-full rounded-lg bg-blue-400 p-4 font-bold text-white hover:bg-blue-500"
                         >
                             Pay
@@ -126,6 +137,106 @@
                     </div>
                 </div>
             </div>
+               <modal class="" #alertModal>
+                <ng-template #modalHeader>
+                    <h2 class="bg-gray-50 p-3 text-center text-lg font-bold">Payment Status</h2>
+                </ng-template>
+
+                <ng-template #modalBody>
+                    <ng-container *ngIf="!errorInPayment; else failure">
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="mx-auto mb-3.5 mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 p-2 dark:bg-green-900">
+                                <svg
+                                    aria-hidden="true"
+                                    class="h-8 w-8 text-green-500 dark:text-green-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                                <span class="sr-only">Success</span>
+                            </div>
+                            <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Payment sent successfully</p>
+                            <button
+                                data-modal-toggle="successModal"
+                                type="button"
+                                class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 dark:focus:ring-primary-900 rounded-lg px-3 py-2 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+                            >
+                                Continue
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <ng-template #failure>
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="mx-auto mb-3.5 mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 p-2 dark:bg-red-900">
+                                <svg
+                                    aria-hidden="true"
+                                    class="h-8 w-8 text-red-500 dark:text-red-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 9a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1zm0-7a9 9 0 100 18A9 9 0 0010 2z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                                <span class="sr-only">Error</span>
+                            </div>
+                            <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">There was an error processing your payment.</p>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </modal>
         </ng-template>
     </modal>
+</div>
+
+<div class="panel mt-6 pb-1.5">
+    <div class="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+        <div class="text-right">
+            <input [(ngModel)]="search" type="text" class="form-input w-auto" placeholder="Search..." />
+        </div>
+    </div>
+
+    <div class="datatable">
+        <ng-datatable
+            [loading]="isLoading"
+            [rows]="transactionsHistory"
+            [columns]="cols"
+            [sortable]="true"
+            [search]="search"
+            [pageSize]="5"
+            skin="whitespace-nowrap table-hover"
+            firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg> '
+            previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+        >
+            <ng-template slot="status" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1 text-white" [ngClass]="value.status == 'Pending' ? 'bg-orange-500' : 'bg-green-700'">{{
+                    value.status
+                }}</span>
+            </ng-template>
+            
+             <ng-template slot="name" let-value="data">
+                {{value?.recipient?.name}}
+            </ng-template>
+             
+             <ng-template slot="number" let-value="data">
+                {{value?.recipient?.details?.account_number}}
+            </ng-template>
+
+             <ng-template slot="amount" let-value="data">
+                {{value?.amount / 100}} {{ value?.currency }}
+            </ng-template>
+        </ng-datatable>
+    </div>
 </div>

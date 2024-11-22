@@ -17,6 +17,17 @@ export class DashboardService {
         return querySnapshot.size;
     }
 
+    async getTransactionHistory(){
+        let q = query(collection(firebaseDb, 'payment_history'));
+        const querySnapshot = await getDocs(q);
+        const data: any[] = [];
+        querySnapshot.forEach((doc) => {
+            data.push({ id: doc.id, ...doc.data() });
+        });
+
+        return data
+    }
+
     async getRequestsTotal() {
         const q = query(collection(firebaseDb, 'withdraws_requests'), where('status', '==', 'Pending'));
         const querySnapshot = await getDocs(q);
