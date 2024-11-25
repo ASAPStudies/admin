@@ -28,16 +28,15 @@ export class PaystackService {
         );
     }
 
-    checkPayStackBalance():Observable<any>{
-        return this.api.getRequest(BASE_URL + 'balance', SECRET_KEY)
+    checkPayStackBalance(): Observable<any> {
+        return this.api.getRequest(BASE_URL + 'balance', SECRET_KEY);
     }
 
-    verifyTransfer(ref:string):Observable<TransferResponse> {
-      return this.api.getRequest(`${BASE_URL}transfer/verify/${ref}`, SECRET_KEY);
+    verifyTransfer(ref: string): Observable<TransferResponse> {
+        return this.api.getRequest(`${BASE_URL}transfer/verify/${ref}`, SECRET_KEY);
     }
 
-    getAllTransactions():Observable<TransferResponse>{
+    getAllTransactions(): Observable<TransferResponse> {
         return this.api.getRequest(BASE_URL + 'transfer', SECRET_KEY);
     }
-    
 }

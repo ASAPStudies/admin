@@ -31,6 +31,7 @@ export class AdminPaystackComponent implements OnInit {
     allRecipts: any[] = [];
     transactionsHistory: any[] = [];
     payStackTransactions: any[] = [];
+    erroMsg:string= ''
 
     @ViewChild('paymentModal') motherModal!: ModalComponent;
     @ViewChild('alertModal') alertModal!: ModalComponent;
@@ -92,32 +93,34 @@ export class AdminPaystackComponent implements OnInit {
 
     async createPaymentRequest() {
         try {
-        if (this.paymentForm.valid && this.paymentForm.value.secret === 'hhh') {
-            let tutors = this.paymentForm.value.tutors;
-            for (const tutor of tutors) {
-                this.pay.createRecieptRequest(tutors[0].name, tutors[0].phone).subscribe((res: TransferRecieptReturnType) =>
-                    this.allRecipts.push({
-                        amount: this.paymentForm.value.amount * 100,
-                        reference: Math.random().toString(20).substring(2),
-                        recipient: res.data['recipient_code'],
-                        reason: this.paymentForm.value.reason,
-                    })
-                );
-            }
+            if (this.paymentForm.valid && this.paymentForm.value.secret === 'hhh') {
+                let tutors = this.paymentForm.value.tutors;
+                for (const tutor of tutors) {
+                    this.pay.createRecieptRequest(tutors[0].name, tutors[0].phone).subscribe((res: TransferRecieptReturnType) =>
+                        this.allRecipts.push({
+                            amount: this.paymentForm.value.amount * 100,
+                            reference: Math.random().toString(20).substring(2),
+                            recipient: res.data['recipient_code'],
+                            reason: this.paymentForm.value.reason,
+                        })
+                    );
+                }
 
-            if (this.allRecipts.length > 0) {
-                this.pay.initaitePaymentInBulk(this.allRecipts).subscribe((res: any) => {
-                    this.errorInPayment = !res.status;
-                    console.log(res)
-                    this.paymentForm.reset();
-                });
-                this.alertModal.open();
+                if (this.allRecipts.length > 0) {
+                    this.pay.initaitePaymentInBulk(this.allRecipts).subscribe((res: any) => {
+                        this.errorInPayment = !res.status;
+                        console.log(res);
+                        this.paymentForm.reset();
+                        this.alertModal.open();
+                    });
+                }
+            } else {
+                alert('Invalid Information Provided');
             }
-        } else {
-            alert('Invalid Information Provided');
-        }
-        } catch (err) {
-            console.log(err);
+        } catch (err:any) {
+            console.log(err.toString());
+            this.erroMsg = err.toString()
+        
         } finally {
         }
     }
