@@ -6,7 +6,7 @@ import { ITutor } from '../../students/student.interface';
 import { UsersService } from 'src/app/service/users.service';
 import { PaystackService } from 'src/app/service/paystack.service';
 import { TransferRecieptReturnType, TransferResponse } from './paystact.interface';
-import { createReadyReceipts } from './paystact.helper';
+import { convertToLocalNumber, createReadyReceipts, findNetwork } from './paystact.helper';
 import { DashboardService } from 'src/app/service/dashboard.service';
 
 @Component({
@@ -31,7 +31,9 @@ export class AdminPaystackComponent implements OnInit {
     allRecipts: any[] = [];
     transactionsHistory: any[] = [];
     payStackTransactions: any[] = [];
-    erroMsg:string= ''
+    erroMsg: string = '';
+    fallback: boolean = false;
+    paymentLoading:boolean = false
 
     @ViewChild('paymentModal') motherModal!: ModalComponent;
     @ViewChild('alertModal') alertModal!: ModalComponent;
@@ -92,36 +94,41 @@ export class AdminPaystackComponent implements OnInit {
     }
 
     async createPaymentRequest() {
+        this.paymentLoading = true
         try {
             if (this.paymentForm.valid && this.paymentForm.value.secret === 'hhh') {
                 let tutors = this.paymentForm.value.tutors;
                 for (const tutor of tutors) {
-                    this.pay.createRecieptRequest(tutors[0].name, tutors[0].phone).subscribe((res: TransferRecieptReturnType) =>
-                        this.allRecipts.push({
-                            amount: this.paymentForm.value.amount * 100,
-                            reference: Math.random().toString(20).substring(2),
-                            recipient: res.data['recipient_code'],
-                            reason: this.paymentForm.value.reason,
-                        })
-                    );
+                    if (tutor.phone.length > 0 && tutor.name.length > 0) {
+                        this.pay.createRecieptRequest(tutor.name, tutor.phone).subscribe((res: TransferRecieptReturnType) =>
+                            this.allRecipts.push({
+                                amount: this.paymentForm.value.amount * 100,
+                                reference: Math.random().toString(20).substring(2),
+                                recipient: res.data['recipient_code'],
+                                reason: this.paymentForm.value.reason,
+                            })
+                        );
+                    }
                 }
 
                 if (this.allRecipts.length > 0) {
+                    console.log(this.allRecipts);
                     this.pay.initaitePaymentInBulk(this.allRecipts).subscribe((res: any) => {
                         this.errorInPayment = !res.status;
                         console.log(res);
+                        this.paymentLoading = false
                         this.paymentForm.reset();
                         this.alertModal.open();
                     });
                 }
             } else {
-                alert('Invalid Information Provided');
+                alert('invalid Secrete Key');
             }
-        } catch (err:any) {
+        } catch (err: any) {
             console.log(err.toString());
-            this.erroMsg = err.toString()
-        
+            this.erroMsg = err.toString();
         } finally {
+            this.alertModal.open();
         }
     }
 
@@ -130,7 +137,7 @@ export class AdminPaystackComponent implements OnInit {
         for (let tutor of this.filteredTutorsList) {
             let bank_details = await this.userService.getTutorBankDetails(tutor.id);
             if (bank_details !== null) {
-                tutor['phone'] = bank_details.mobileMOneyNumber;
+                tutor['phone'] = convertToLocalNumber(bank_details.mobileMOneyNumber);
             }
         }
         this.filteredTutorsList = this.tutors.filter((tutor: ITutor) => tutor.phone.length > 0);

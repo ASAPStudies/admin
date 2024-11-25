@@ -1,23 +1,54 @@
 import { TransferReceipt, TransferRecieptReturnType } from "./paystact.interface";
 
+export function convertToLocalNumber(phoneNumber: string) {
+    // Trim and remove spaces, parentheses
+    phoneNumber = phoneNumber.trim().replace(/\s|\(|\)/g, '');
+        if (phoneNumber.startsWith('+2330')) {
+            phoneNumber = phoneNumber.slice(4, phoneNumber.length)
+        }
+            // Check if the number starts with '+233' or '233'
+        else if (phoneNumber.startsWith('+233')) {
+            return '0' + phoneNumber.slice(4);
+            
+        } 
+        else if (phoneNumber.startsWith('233')) {
+            return '0' + phoneNumber.slice(3);
+        } else if (phoneNumber.startsWith('0')) {
+            // If it already starts with '0', just return as-is
+            return phoneNumber;
+        } else {
+            return '0' + phoneNumber; // Fallback to assuming it's a local number
+        }
+
+        return phoneNumber;
+    
+}
+
 export function findNetwork(phoneNumber: string): string {
     // Remove any non-digit characters
     const sanitizedNumber = phoneNumber.replace(/\D/g, '');
 
+    // Convert to local format if it starts with country code +233
+    let localNumber = sanitizedNumber;
+    if (sanitizedNumber.startsWith('233') && sanitizedNumber.length > 3) {
+        localNumber = '0' + sanitizedNumber.substring(3);
+    }
+
     // Check the length of the number
-    if (sanitizedNumber.length < 10) {
+    if (localNumber.length < 10) {
         return 'Invalid phone number';
     }
 
     // Extract the prefix (first few digits)
-    const prefix = sanitizedNumber.substring(0, 3);
+    const prefix = localNumber.substring(0, 3);
 
     // Determine the network based on the prefix
     switch (prefix) {
         case '024': // MTN prefix example
         case '054':
+        case '053':
         case '055':
-        case 'O59':
+        case '059':
             return 'MTN';
         case '020': // Vodafone prefix example
         case '050':
@@ -26,18 +57,18 @@ export function findNetwork(phoneNumber: string): string {
         case '026':
             return 'ATL';
         default:
-            return 'Unknown network';
+            return 'NON';
     }
 }
 
 
 export function generateTransFerRecieptObj(name:string, phone:string){
-    
+  
     let obj:TransferReceipt = {
         name:name,
         type:'mobile_money',
         currency:"GHS",
-        account_number:phone,
+        account_number:convertToLocalNumber(phone),
         bank_code: findNetwork(phone)
     }
 
