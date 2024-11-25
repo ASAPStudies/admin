@@ -14,15 +14,18 @@
         <div class="text-right">
             <input [(ngModel)]="search" type="text" class="form-input w-auto" placeholder="Search..." />
         </div>
-            <div (click)="isSuccess = false;isSaveTemplate=false; form_submission=false;notificationForm.reset();modal1.open();getAllUsers();" class="btn cursor-pointer btn-primary btn-sm">
-                <icon-bell class="ltr:mr-2 rtl:ml-2" />
-                Send Notification
-            </div>
+        <div
+            (click)="isSuccess = false; isSaveTemplate = false; form_submission = false; notificationForm.reset(); modal1.open(); getAllUsers()"
+            class="btn btn-primary btn-sm cursor-pointer"
+        >
+            <icon-bell class="ltr:mr-2 rtl:ml-2" />
+            Send Notification
+        </div>
     </div>
 
     <div class="datatable">
         <ng-datatable
-        [loading]="isLoading"
+            [loading]="isLoading"
             [rows]="notificationTemplates"
             [columns]="cols"
             [sortable]="true"
@@ -34,17 +37,25 @@
             previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
             nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
         >
-
-
-        <ng-template slot="createdOn" let-value="data">
-            <span class="whitespace-nowrap px-2 py-1 rounded-lg">{{value.createdOn.seconds * 1000 | date}}</span>
-        </ng-template>
+            <ng-template slot="createdOn" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1">{{ value.createdOn.seconds * 1000 | date }}</span>
+            </ng-template>
 
             <ng-template slot="action" let-value="data">
                 <div class="flex gap-4">
-                    <button type="button"  class="btn btn-success py-1" (click)="resendNotification(value);modal1.open()">Resend</button>
-                    <button type="button" [disabled]="isDeleteLoading && selectedNotificationTemplates.id == value.id" (click)="deleteTemplate(value);"  class="btn btn-danger flex gap-3 py-1"><span *ngIf="isDeleteLoading  && selectedNotificationTemplates.id == value.id" class=" animate-spin border-4 border-white border-l-transparent rounded-full w-4 h-4 align-middle m-auto"></span> <span>Delete</span></button>
-
+                    <button type="button" class="btn btn-success py-1" (click)="resendNotification(value); modal1.open()">Resend</button>
+                    <button
+                        type="button"
+                        [disabled]="isDeleteLoading && selectedNotificationTemplates.id == value.id"
+                        (click)="deleteTemplate(value)"
+                        class="btn btn-danger flex gap-3 py-1"
+                    >
+                        <span
+                            *ngIf="isDeleteLoading && selectedNotificationTemplates.id == value.id"
+                            class="m-auto h-4 w-4 animate-spin rounded-full border-4 border-white border-l-transparent align-middle"
+                        ></span>
+                        <span>Delete</span>
+                    </button>
                 </div>
             </ng-template>
         </ng-datatable>
@@ -54,33 +65,41 @@
 <modal #modal1 class="modal-top">
     <ng-template #modalHeader> <div>Send New Notification</div> </ng-template>
     <ng-template #modalBody>
-        <!-- <ng-container *ngIf="isSuccess && form_submission ;else templateName">
-            abc
-            </ng-container>
-            <ng-template #templateName> -->
-            <form class="space-y-5" [formGroup]="notificationForm" (ngSubmit)="form_submission = true; notificationForm.valid && onSubmit()" >
+        <form class="space-y-5" [formGroup]="notificationForm" (ngSubmit)="form_submission = true; notificationForm.valid && onSubmit()">
             <p *ngIf="isSuccess" class="text-green-800">Notification sent successfully!</p>
-            <div class="flex sm:flex-row flex-col">
+            <div class="flex flex-col sm:flex-row">
                 <label class="font-semibold sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Select User Role</label>
-                <div class = 'flex justify-start gap-6 items-center w-full'>
+                <div class="flex w-full items-center justify-start gap-6">
                     <label class="inline-flex">
-                        <input type="radio" name="role" class="form-radio" value="Student" [checked]="selectedRole=='Student'" (change)="onRadioChange($event)"/>
+                        <input
+                            type="radio"
+                            name="role"
+                            class="form-radio"
+                            value="Student"
+                            [checked]="selectedRole == 'Student'"
+                            (change)="onRadioChange($event)"
+                        />
                         <span>Student</span>
                     </label>
                     <label class="inline-flex">
-                        <input type="radio" name="role" class="form-radio " value="Tutor" [checked]="selectedRole=='Tutor'" (change)="onRadioChange($event)"/>
+                        <input type="radio" name="role" class="form-radio" value="Tutor" [checked]="selectedRole == 'Tutor'" (change)="onRadioChange($event)" />
                         <span>Tutor</span>
                     </label>
                     <label class="inline-flex">
-                        <input type="radio" name="role" class="form-radio " value="all" [checked]="selectedRole=='all'" (change)="onRadioChange($event)"/>
+                        <input type="radio" name="role" class="form-radio" value="all" [checked]="selectedRole == 'all'" (change)="onRadioChange($event)" />
                         <span>Both</span>
+                    </label>
+                    <label class="inline-flex">
+                        <input type="checkbox" name="role" class="form-check mx-1" value="broadcast" (change)="onChecked($event)" />
+                        <span>Broadcast</span>
                     </label>
                 </div>
             </div>
-            <div class="flex sm:flex-row flex-col" *ngIf="selectedRole == 'Student' || selectedRole == 'all'">
-                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Students</label>
-                <div class="flex flex-col w-full">
+            <div class="flex flex-col sm:flex-row" *ngIf="selectedRole == 'Student' || selectedRole == 'all'">
+                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Students</label>
+                <div class="flex w-full flex-col">
                     <ng-select
+                        *ngIf="!shouldBroadCast"
                         [loading]="fetchUserLoading"
                         [multiple]="true"
                         [clearable]="false"
@@ -88,14 +107,16 @@
                         placeholder="Select an Student"
                         class="custom-multiselect"
                     >
-                        <ng-option *ngFor="let student of students" [value]="student">{{student.name + '( ' +student.email+' )'}}</ng-option>
+                        <ng-option *ngFor="let student of students" [value]="student">{{ student.name + '( ' + student.email + ' )' }}</ng-option>
                     </ng-select>
+                    <p *ngIf="shouldBroadCast">Notification will be sent to all students</p>
                 </div>
             </div>
-            <div class="flex sm:flex-row flex-col" *ngIf="selectedRole == 'Tutor' || selectedRole == 'all'">
-                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Tutors</label>
-                <div class="flex flex-col w-full">
+            <div class="flex flex-col sm:flex-row" *ngIf="selectedRole == 'Tutor' || selectedRole == 'all'">
+                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Tutors</label>
+                <div class="flex w-full flex-col">
                     <ng-select
+                        *ngIf="!shouldBroadCast"
                         [loading]="fetchUserLoading"
                         [multiple]="true"
                         [clearable]="false"
@@ -103,58 +124,115 @@
                         placeholder="Select an Tutor"
                         class="custom-multiselect"
                     >
-                    <ng-option *ngFor="let tutor of tutors" [value]="tutor">{{tutor.name + '( ' +tutor.email+' )'}}</ng-option>
-
+                        <ng-option *ngFor="let tutor of tutors" [value]="tutor">{{ tutor.name + '( ' + tutor.email + ' )' }}</ng-option>
                     </ng-select>
+                    <p *ngIf="shouldBroadCast">Notification will be sent to all tutors</p>
                 </div>
             </div>
-            <div class="flex sm:flex-row flex-col">
-                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Title</label>
-                <div class="flex flex-col w-full">
-                    <input id="title" formControlName="title" [ngClass]="{ 'ring-2 ring-red-400 ': notificationForm.controls['title'].invalid && (notificationForm.controls['title'].dirty || notificationForm.controls['title'].touched || form_submission) }" type="text" placeholder="Enter Notification Title" class="form-input flex-1" />
-                    <ng-container *ngIf="(notificationForm.controls['title'].invalid && (notificationForm.controls['title'].dirty || notificationForm.controls['title'].touched || form_submission))">
-                        <span *ngIf="(notificationForm.controls['title'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block">Notification title is required </span>
+            <div class="flex flex-col sm:flex-row">
+                <label for="title" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Title</label>
+                <div class="flex w-full flex-col">
+                    <input
+                        id="title"
+                        formControlName="title"
+                        [ngClass]="{
+                            'ring-2 ring-red-400 ':
+                                notificationForm.controls['title'].invalid &&
+                                (notificationForm.controls['title'].dirty || notificationForm.controls['title'].touched || form_submission)
+                        }"
+                        type="text"
+                        placeholder="Enter Notification Title"
+                        class="form-input flex-1"
+                    />
+                    <ng-container
+                        *ngIf="
+                            notificationForm.controls['title'].invalid &&
+                            (notificationForm.controls['title'].dirty || notificationForm.controls['title'].touched || form_submission)
+                        "
+                    >
+                        <span *ngIf="(notificationForm.controls['title'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block"
+                            >Notification title is required
+                        </span>
                     </ng-container>
                 </div>
             </div>
-            <div class="flex sm:flex-row flex-col">
-                <label for="body" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2 ">Body</label>
-                <div class="flex flex-col w-full">
-                <textarea formControlName="body" [ngClass]="{ 'ring-2 ring-red-400 ': notificationForm.controls['body'].invalid && (notificationForm.controls['body'].dirty || notificationForm.controls['body'].touched || form_submission) }" name="body" id="body" class="form-input flex-1"  rows="10"></textarea>
-                <ng-container *ngIf="(notificationForm.controls['body'].invalid && (notificationForm.controls['body'].dirty || notificationForm.controls['body'].touched || form_submission))">
-                    <span *ngIf="(notificationForm.controls['body'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block">Notification body is required </span>
-                </ng-container>
+            <div class="flex flex-col sm:flex-row">
+                <label for="body" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Body</label>
+                <div class="flex w-full flex-col">
+                    <textarea
+                        formControlName="body"
+                        [ngClass]="{
+                            'ring-2 ring-red-400 ':
+                                notificationForm.controls['body'].invalid &&
+                                (notificationForm.controls['body'].dirty || notificationForm.controls['body'].touched || form_submission)
+                        }"
+                        name="body"
+                        id="body"
+                        class="form-input flex-1"
+                        rows="10"
+                    ></textarea>
+                    <ng-container
+                        *ngIf="
+                            notificationForm.controls['body'].invalid &&
+                            (notificationForm.controls['body'].dirty || notificationForm.controls['body'].touched || form_submission)
+                        "
+                    >
+                        <span *ngIf="(notificationForm.controls['body'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block"
+                            >Notification body is required
+                        </span>
+                    </ng-container>
                 </div>
             </div>
-            <div class="flex sm:flex-row flex-col">
+            <div class="flex flex-col sm:flex-row">
                 <label class="font-semibold text-white-dark sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Save as Template</label>
 
-                <label class="flex mb-0 cursor-pointer w-full">
+                <label class="mb-0 flex w-full cursor-pointer">
                     <input name="isSaveTemplate" [checked]="isSaveTemplate" (change)="onIsSaveTemplateChange($event)" type="checkbox" class="form-checkbox" />
-                    <span class="text-white-dark relative">Do you want to save as a template?</span>
+                    <span class="relative text-white-dark">Do you want to save as a template?</span>
                 </label>
             </div>
-            <div class="flex sm:flex-row flex-col" [ngClass]="{'hidden': !isSaveTemplate}" >
+            <div class="flex flex-col sm:flex-row" [ngClass]="{ hidden: !isSaveTemplate }">
                 <label for="template" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Template Name</label>
-                <div class="flex flex-col w-full">
-
-                <input id="template"  formControlName="templateName" [ngClass]="{ 'ring-2 ring-red-400 ': notificationForm.controls['templateName'].invalid && (notificationForm.controls['templateName'].dirty || notificationForm.controls['templateName'].touched || form_submission) }" form type="text" placeholder="Enter Template Name" class="form-input flex w-full" />
-                <ng-container *ngIf="(notificationForm.controls['templateName'].invalid && (notificationForm.controls['templateName'].dirty || notificationForm.controls['templateName'].touched || form_submission))">
-                    <span *ngIf="(notificationForm.controls['templateName'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block">TemplateName is required </span>
-                </ng-container>
+                <div class="flex w-full flex-col">
+                    <input
+                        id="template"
+                        formControlName="templateName"
+                        [ngClass]="{
+                            'ring-2 ring-red-400 ':
+                                notificationForm.controls['templateName'].invalid &&
+                                (notificationForm.controls['templateName'].dirty || notificationForm.controls['templateName'].touched || form_submission)
+                        }"
+                        form
+                        type="text"
+                        placeholder="Enter Template Name"
+                        class="form-input flex w-full"
+                    />
+                    <ng-container
+                        *ngIf="
+                            notificationForm.controls['templateName'].invalid &&
+                            (notificationForm.controls['templateName'].dirty || notificationForm.controls['templateName'].touched || form_submission)
+                        "
+                    >
+                        <span *ngIf="(notificationForm.controls['templateName'].errors?.['required'])" class="mt-1 text-sm text-red-500 peer-invalid:block"
+                            >TemplateName is required
+                        </span>
+                    </ng-container>
                 </div>
             </div>
-        <div class="flex gap-3 flex-col md:flex-row justify-end">
-            <button type="button" [disabled]="submitLoading && form_submission" (click)="modal1.close()" class="btn btn-primary">Cancel</button>
-        <button type="submit" [disabled]="submitLoading && form_submission" class="btn btn-success flex gap-2">
-            <p *ngIf="submitLoading" class="animate-spin border-4 border-white border-l-transparent rounded-full w-4 h-4 inline-block align-middle m-auto"></p>
-            <span *ngIf="!isSaveTemplate">Send</span>
-            <span *ngIf="isSaveTemplate">Save & Send</span>
-        </button>
-    </div>
-</form>
-<!-- </ng-template> -->
-        </ng-template>
+            <div class="flex flex-col justify-end gap-3 md:flex-row">
+                <button type="button" [disabled]="submitLoading && form_submission" (click)="modal1.close()" class="btn btn-primary">Cancel</button>
+                <button type="submit" [disabled]="submitLoading && form_submission" class="btn btn-success flex gap-2">
+                    <p
+                        *ngIf="submitLoading"
+                        class="m-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-white border-l-transparent align-middle"
+                    ></p>
+                    <span *ngIf="!isSaveTemplate">Send</span>
+                    <span *ngIf="isSaveTemplate">Save & Send</span>
+                </button>
+            </div>
+        </form>
+        <!-- </ng-template> -->
+    </ng-template>
     <!-- <ng-template #modalFooter>
 </ng-template> -->
 </modal>
