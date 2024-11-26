@@ -8,6 +8,7 @@ import { PaystackService } from 'src/app/service/paystack.service';
 import { TransferRecieptReturnType, TransferResponse } from './paystact.interface';
 import { convertToLocalNumber, createReadyReceipts, findNetwork } from './paystact.helper';
 import { DashboardService } from 'src/app/service/dashboard.service';
+import { LocalStorageService } from 'src/app/service/localstorage.service';
 
 @Component({
     selector: 'app-admin-paystack',
@@ -34,6 +35,9 @@ export class AdminPaystackComponent implements OnInit {
     erroMsg: string = '';
     fallback: boolean = false;
     paymentLoading:boolean = false
+    loggedInUser:any = {}
+
+
 
     @ViewChild('paymentModal') motherModal!: ModalComponent;
     @ViewChild('alertModal') alertModal!: ModalComponent;
@@ -52,7 +56,8 @@ export class AdminPaystackComponent implements OnInit {
         private userService: UsersService,
         private readonly sharedService: SharedService,
         private pay: PaystackService,
-        private dashboardService: DashboardService
+        private dashboardService: DashboardService,
+        private localStorage: LocalStorageService
     ) {}
 
     paymentForm: any = new FormGroup({
@@ -91,12 +96,19 @@ export class AdminPaystackComponent implements OnInit {
         this.transactionsHistory = await this.dashboardService.getTransactionHistory();
         this.filterTutors();
         this.loadTransactions();
+        this.loggedInUser = await this.userService.getUserAdmin(this.localStorage.get('admin').email);
+        this.loggedInUser = this.loggedInUser[0]
+        
     }
 
     async createPaymentRequest() {
+        if (!this.loggedInUser) {
+            alert("Loading....")
+            return
+        }
         this.paymentLoading = true
         try {
-            if (this.paymentForm.valid && this.paymentForm.value.secret === 'hhh') {
+            if ((this.paymentForm.valid && this.paymentForm.value.secret === this.loggedInUser?.secret) && this.loggedInUser.role ==='master') {
                 let tutors = this.paymentForm.value.tutors;
                 for (const tutor of tutors) {
                     if (tutor.phone.length > 0 && tutor.name.length > 0) {
@@ -105,7 +117,7 @@ export class AdminPaystackComponent implements OnInit {
                                 amount: this.paymentForm.value.amount * 100,
                                 reference: Math.random().toString(20).substring(2),
                                 recipient: res.data['recipient_code'],
-                                reason: this.paymentForm.value.reason,
+                                reason:  `FROM ASAP STUDIES : ${this.paymentForm.value.reason}`,
                             })
                         );
                     }
@@ -119,16 +131,19 @@ export class AdminPaystackComponent implements OnInit {
                         this.paymentLoading = false
                         this.paymentForm.reset();
                         this.alertModal.open();
+                        this.loadTransactions()
                     });
                 }
             } else {
-                alert('invalid Secrete Key');
+                alert('Not authorized to perform this function');
+
             }
         } catch (err: any) {
             console.log(err.toString());
             this.erroMsg = err.toString();
         } finally {
-            this.alertModal.open();
+            // this.alertModal.open();
+            this.paymentLoading = false
         }
     }
 
