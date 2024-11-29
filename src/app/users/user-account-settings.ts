@@ -60,7 +60,7 @@ export class UserAccountSettingsComponent implements OnInit {
                 alert('Secrete Updated');
             } else if (this.adminData[0].secrete == undefined) {
                 this.userService.updateAdminProfile(this.adminData[0].id, {
-                    secrete: this.acountDataForm.value.newPaymentSecret,
+                    secret: this.acountDataForm.value.newPaymentSecret,
                 });
                 alert('Secrete Updated');
             }
