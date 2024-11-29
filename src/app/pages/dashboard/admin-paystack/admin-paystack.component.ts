@@ -36,7 +36,7 @@ export class AdminPaystackComponent implements OnInit {
     fallback: boolean = false;
     paymentLoading:boolean = false
     loggedInUser:any = {}
-
+    failedTutorsList:any[] = []
 
 
     @ViewChild('paymentModal') motherModal!: ModalComponent;
@@ -51,6 +51,8 @@ export class AdminPaystackComponent implements OnInit {
         { field: 'updatedAt', title: 'Sent Date' },
         { field: 'transfer_code', title: 'Transfer Code' },
     ];
+
+
 
     constructor(
         private userService: UsersService,
@@ -98,9 +100,15 @@ export class AdminPaystackComponent implements OnInit {
         this.loadTransactions();
         this.loggedInUser = await this.userService.getUserAdmin(this.localStorage.get('admin').email);
         this.loggedInUser = this.loggedInUser[0]
+        this.filterBad()
         
     }
 
+    async  filterBad() {
+         this.failedTutorsList = this.tutors.filter(
+             (tutor: ITutor) => tutor.phone.length == 0 || tutor.name.length === 0 || findNetwork(tutor.phone) === 'NON'
+         );
+    }
     async createPaymentRequest() {
         if (!this.loggedInUser) {
             alert("Loading....")
@@ -156,6 +164,7 @@ export class AdminPaystackComponent implements OnInit {
             }
         }
         this.filteredTutorsList = this.tutors.filter((tutor: ITutor) => tutor.phone.length > 0);
+       
     }
 
     openPaymentModal() {

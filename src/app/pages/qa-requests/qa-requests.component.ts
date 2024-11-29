@@ -23,6 +23,7 @@ export class QaRequestsComponent {
         { field: 'amount', title: 'Amount' },
         { field: 'dueDate', title: 'Due Date' },
         { field: 'status', title: 'Status' },
+        {field: 'isPaid', title: "Payment"},
         { field: 'createdOn', title: 'Requested Date' },
         { field: 'action', title: 'Action' },
     ];

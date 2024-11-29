@@ -40,6 +40,11 @@
                     value.status
                 }}</span>
             </ng-template>
+            <ng-template slot="isPaid" let-value="data">
+                <span class="whitespace-nowrap rounded-lg px-2 py-1 text-white" [ngClass]="!value.isPaid ? 'bg-red-500' : 'bg-green-700'">{{
+                    value.isPaid? "Success": "Failed"
+                }}</span>
+            </ng-template>
             <ng-template slot="dueDate" let-value="data">
                 <span class="whitespace-nowrap rounded-lg px-2 py-1">{{ value.dueDate.seconds * 1000 | date }}</span>
             </ng-template>
