@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { SharedService } from 'src/app/service/shared.service';
 import { UsersService } from 'src/app/service/users.service';
-import { IStudent } from '../students/student.interface';
+import { IStudent, ITutor } from '../students/student.interface';
 
 @Component({
     selector: 'app-notification',
@@ -67,10 +67,10 @@ export class NotificationComponent {
     isSaveTemplate: boolean = false;
 
     selectedRole: string = '';
-    tutors: IStudent[] = [];
+    tutors: ITutor[] = [];
     students: IStudent[] = [];
     selectedStudents: IStudent[] = [];
-    selectedTutors: IStudent[] = [];
+    selectedTutors: ITutor[] = [];
     fetchUserLoading: boolean = false;
     shouldBroadCast: boolean = false;
 

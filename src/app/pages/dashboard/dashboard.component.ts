@@ -8,6 +8,7 @@ import { PaystackService } from 'src/app/service/paystack.service';
 import { SharedService } from 'src/app/service/shared.service';
 import { UsersService } from 'src/app/service/users.service';
 import { firebaseFunctions } from 'src/configurations/firebase-config';
+import { ITutor } from '../students/student.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,7 @@ export class DashboardComponent {
     totalWithdrawRequests:number = 0;
     paystackBalance!:any
     tab2='students';
-    tutors:any;
+    tutors!:ITutor[];
     role!:string;
     
     constructor(public storeData: Store<any>, 
