@@ -100,7 +100,7 @@ export class AdminPaystackComponent implements OnInit {
         this.loadTransactions();
         this.loggedInUser = await this.userService.getUserAdmin(this.localStorage.get('admin').email);
         this.loggedInUser = this.loggedInUser[0]
-        this.filterBad()
+        
         
     }
 
@@ -164,6 +164,7 @@ export class AdminPaystackComponent implements OnInit {
             }
         }
         this.filteredTutorsList = this.tutors.filter((tutor: ITutor) => tutor.phone.length > 0);
+        this.filterBad()
        
     }
 
