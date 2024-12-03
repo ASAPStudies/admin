@@ -10,7 +10,7 @@ import { fromEvent } from 'rxjs';
 })
 export class DashboardService {
     constructor(private router: Router) {}
-    timeOut: number = 180000;
+    timeOut: number = 18000;
     timeOutId: any = null;
 
     allEvents = ['click', 'dblclick', 'mousemove', 'mousedown', 'mouseup', 'keydown', 'keyup'];

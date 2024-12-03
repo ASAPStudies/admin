@@ -93,6 +93,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private dashbaord: DashboardService
     ) {
         this.initStore();
+
     }
     async initStore() {
         this.storeData
@@ -103,6 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     async sayHi() {
+        alert("Loggin you out for inactivity.....")
         this.logout()
     }
 
