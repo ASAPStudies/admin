@@ -104,7 +104,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     async sayHi() {
-        alert("Loggin you out for inactivity.....")
         this.logout()
     }
 
