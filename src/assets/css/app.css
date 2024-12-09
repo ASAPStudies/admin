@@ -9,3 +9,12 @@
 @import 'flatpickr/dist/flatpickr.min.css';
 @import 'nouislider/dist/nouislider.min.css';
 @import 'tailwind.css';
+
+ .modal .modal-dialog {
+                max-width: 50% !important;
+                max-height: 92vh !important;
+            }
+            .modal .modal-body {
+                max-height: 95vh !important;
+                overflow-y: scroll !important;
+            }

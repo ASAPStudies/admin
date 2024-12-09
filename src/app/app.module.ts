@@ -81,7 +81,15 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './service/auth.service';
 import { FormateDatePipe } from './pipes/formate-date.pipe';
 import { PaymentComponent } from './pages/payment/payment.component';
-
+import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { LiveRequestDetailComponent } from './pages/long-term-requests/live-request-detail/live-request-detail.component';
+import { LiveIcon } from './components/live-request.icon';
+import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
+import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
+import { NoteIcon } from './components/document.icon';
+import { UserAccountSettingsComponent } from './users/user-account-settings';
+import { UsersModule } from './users/user.module';
+import { AdminPaystackComponent } from './pages/dashboard/admin-paystack/admin-paystack.component';
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
@@ -113,7 +121,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
         QuillModule.forRoot(),
         IconModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,
@@ -132,14 +140,20 @@ import { PaymentComponent } from './pages/payment/payment.component';
         FaqComponent,
         DashboardComponent,
         FormateDatePipe,
-        PaymentComponent
-    ],
-    exports:[SharedModule],
+        PaymentComponent,
+        LongTermRequestsComponent,
+        LiveRequestDetailComponent,
+        QaDetailComponent,
+        NoteIcon,
+        QaRequestsComponent,
+        // UserAccountSettingsComponent,
 
+        LiveIcon,
+        AdminPaystackComponent,
+     ],
     providers: [
         AppService,
         AuthService,
-        Title,
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

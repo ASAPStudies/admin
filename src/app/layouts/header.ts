@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppService } from '../service/app.service';
@@ -6,6 +6,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../service/auth.service';
+import { LocalStorageService } from '../service/localstorage.service';
+import { DashboardService } from '../service/dashboard.service';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +20,7 @@ import { AuthService } from '../service/auth.service';
         ]),
     ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
     store: any;
     search = false;
     notifications = [
@@ -85,9 +87,13 @@ export class HeaderComponent {
         public storeData: Store<any>,
         public router: Router,
         private appSetting: AppService,
-        private sanitizer: DomSanitizer,private AuthService :AuthService
+        private sanitizer: DomSanitizer,
+        private AuthService: AuthService,
+        private storate: LocalStorageService,
+        private dashbaord: DashboardService
     ) {
         this.initStore();
+
     }
     async initStore() {
         this.storeData
@@ -97,6 +103,14 @@ export class HeaderComponent {
             });
     }
 
+    async sayHi() {
+        this.logout()
+    }
+
+    ngOnDestroy() {
+        this.dashbaord.clearInterval()
+    }
+
     ngOnInit() {
         this.setActiveDropdown();
         this.router.events.subscribe((event) => {
@@ -104,6 +118,8 @@ export class HeaderComponent {
                 this.setActiveDropdown();
             }
         });
+
+        this.dashbaord.initiateLister(this.sayHi.bind(this));
     }
 
     setActiveDropdown() {
@@ -139,21 +155,19 @@ export class HeaderComponent {
         this.translate.use(item.code);
         this.appSetting.toggleLanguage(item);
         if (this.store.locale?.toLowerCase() === 'ae') {
-            this.storeData.dispatch({type: 'toggleRTL', payload: 'rtl'});
+            this.storeData.dispatch({ type: 'toggleRTL', payload: 'rtl' });
         } else {
-            this.storeData.dispatch({type: 'toggleRTL', payload: 'ltr'});
+            this.storeData.dispatch({ type: 'toggleRTL', payload: 'ltr' });
         }
         window.location.reload();
     }
 
-    logout(){
+    logout() {
         try {
-            this.AuthService.logOut();
-            this.router.navigate(['/login'])
+            this.storate.delete('admin');
+            this.router.navigate(['/login']);
         } catch (error) {
             console.log(error);
-
-
         }
     }
 }

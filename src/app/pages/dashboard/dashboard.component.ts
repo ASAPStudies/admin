@@ -3,8 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { httpsCallable } from 'firebase/functions';
 import { DashboardService } from 'src/app/service/dashboard.service';
+import { LocalStorageService } from 'src/app/service/localstorage.service';
+import { PaystackService } from 'src/app/service/paystack.service';
 import { SharedService } from 'src/app/service/shared.service';
+import { UsersService } from 'src/app/service/users.service';
 import { firebaseFunctions } from 'src/configurations/firebase-config';
+import { ITutor } from '../students/student.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,10 +33,17 @@ export class DashboardComponent {
     totalStudents:number = 0;
     totalTutors:number = 0;
     totalWithdrawRequests:number = 0;
-
+    paystackBalance!:any
     tab2='students';
-    tutors:any;
-    constructor(public storeData: Store<any>, private dashboardService: DashboardService,private sharedService:SharedService) {
+    tutors!:ITutor[];
+    role!:string;
+    
+    constructor(public storeData: Store<any>, 
+        private dashboardService: DashboardService,
+        private sharedService:SharedService,
+        private usersService:UsersService,
+        private pay: PaystackService,
+        private localStore: LocalStorageService) {
         this.initStore();
     }
 
@@ -424,9 +435,16 @@ export class DashboardComponent {
     }
 
     async loadData() {
+        this.role = this.localStore.get('admin').role
         try {
           this.totalStudents = await this.dashboardService.getUsersTotal('Student');
-          this.totalTutors = await this.dashboardService.getUsersTotal('Tutor');
+          this.tutors = await this.usersService.getUsers('Tutor')
+           this.pay.checkPayStackBalance().subscribe((res)=> {
+            let balance = res.data[0]?.balance / 100
+            this.paystackBalance = balance
+            console.log(res.data[0])
+           })
+          this.totalTutors = this.tutors.length;
           this.totalWithdrawRequests = await this.dashboardService.getRequestsTotal();
           this.isLoading=false;
         } catch (error) {

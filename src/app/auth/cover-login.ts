@@ -42,19 +42,6 @@ export class CoverLoginComponent {
             });
     }
 
-    // Change language code commented it's not used now we use this when we need
-
-    // changeLanguage(item: any) {
-    //     this.translate.use(item.code);
-    //     this.appSetting.toggleLanguage(item);
-    //     if (this.store.locale?.toLowerCase() === 'ae') {
-    //         this.storeData.dispatch({ type: 'toggleRTL', payload: 'rtl' });
-    //     } else {
-    //         this.storeData.dispatch({ type: 'toggleRTL', payload: 'ltr' });
-    //     }
-    //     window.location.reload();
-    // }
-
 
 
     async onLogin(value: any) {

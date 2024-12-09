@@ -1,3 +1,4 @@
+import { QaDetailComponent } from './pages/qa-requests/qa-detail/qa-detail.component';
 import { Routes } from '@angular/router';
 
 // dashboard
@@ -21,19 +22,25 @@ import { DragndropComponent } from './dragndrop';
 // layouts
 import { AppLayout } from './layouts/app-layout';
 import { AuthLayout } from './layouts/auth-layout';
-
 // pages
 import { KnowledgeBaseComponent } from './pages/knowledge-base';
 import { FaqComponent } from './pages/faq';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { CoverLoginComponent } from './auth/cover-login';
+import { LoginComponent } from './auth/login/login.component';
+import { DashboardGuard } from './guards/dashboard.guard';
+import { LoginGuard } from './guards/login.guard';
+import { QaRequestsComponent } from './pages/qa-requests/qa-requests.component';
+import { LongTermRequestsComponent } from './pages/long-term-requests/long-term-requests.component';
+import { LiveRequestDetailComponent } from './pages/long-term-requests/live-request-detail/live-request-detail.component';
 
 export const routes: Routes = [
-    {
-        path: 'payment', component: PaymentComponent, title: 'App Payment'
-    },
+   
+    {path:'login',component:LoginComponent, title:'ASAP | Login', canActivate:[LoginGuard]},
     {
         path: '',
         component: AppLayout,
+        canActivate:[DashboardGuard],
         children: [
             // dashboard
             { path: '', redirectTo:'dashboard',pathMatch:'full' },
@@ -43,7 +50,10 @@ export const routes: Routes = [
             { path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then((d) => d.TutorsModule)},
             { path: 'withdraw-requests',loadChildren:()=> import('./pages/withdraw-requests/withdraw-requests.module').then((d)=>d.WithdrawRequestsModule) },
             { path: 'notifications',loadChildren:()=> import('./pages/notification/notification.component.module').then((d)=>d.NotificationModule) },
-
+            {path:'qa-requests', component: QaRequestsComponent},
+            {path:'qa-requests/:id',component:QaDetailComponent},
+            {path:'live-requests', component:LongTermRequestsComponent},
+            {path:'live-requests/:id', component:LiveRequestDetailComponent},
 
             //apps
             { path: '', loadChildren: () => import('./apps/apps.module').then((d) => d.AppsModule) },

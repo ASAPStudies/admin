@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IStudent } from '../../students/student.interface';
+import { IStudent, ITutor } from '../../students/student.interface';
 import { UsersService } from 'src/app/service/users.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/service/localstorage.service';
@@ -14,7 +14,7 @@ export class PendingReviewTutorsListComponent implements OnInit {
 
 
     // Variables
-    tutors:IStudent[]=[]
+    tutors:ITutor[]=[]
     isLoading:boolean = false;
     search:string = '';
     jsonData = this.tutors;
@@ -254,7 +254,6 @@ export class PendingReviewTutorsListComponent implements OnInit {
 //     }
 // ]
             this.tutors =  this.tutors.filter(res=> res.onHold == true)
-            console.log("Tutors are",this.tutors);
             /// Make json for Excel
             this.jsonData = this.tutors.map((obj: any) => {
                 const newObj: any = {};

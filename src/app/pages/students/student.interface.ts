@@ -28,3 +28,9 @@ export interface IStudent {
     seconds: number;
     nanoseconds: number;
   }
+
+
+  export interface ITutor extends IStudent {
+    
+  }
+

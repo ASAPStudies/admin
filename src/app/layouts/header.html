@@ -1,16 +1,16 @@
 ﻿<div class="z-40 shadow-sm" [ngClass]="{ 'dark text-white-dark': store.semidark && store.menu === 'horizontal'}">
     <div class="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-[#0e1726]">
-        <div class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
+        <div class="horizontal-logo flex items-center justify-between lg:hidden ltr:mr-2 rtl:ml-2">
             <a routerLink="/" class="main-logo flex shrink-0 items-center">
                 <img class="inline w-10 ltr:-ml-1 rtl:-mr-1" src="/assets/asap/logo.png" alt="" />
-                <span class="align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">
+                <span class="align-middle text-2xl font-semibold transition-all duration-300 dark:text-white-light md:inline ltr:ml-1.5 rtl:mr-1.5">
                     ASAP STUDIES
                 </span>
             </a>
 
             <a
                 href="javascript:;"
-                class="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden"
+                class="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden ltr:ml-2 rtl:mr-2"
                 (click)="storeData.dispatch({type: 'toggleSidebar'})"
             >
                 <icon-menu class="h-5 w-5" />
@@ -18,11 +18,9 @@
         </div>
 
         <div
-            class="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2"
+            class="flex items-center space-x-1.5 dark:text-[#d0d2d6] sm:flex-1 lg:space-x-2 ltr:ml-auto ltr:sm:ml-0 rtl:mr-auto rtl:space-x-reverse sm:rtl:mr-0"
         >
-            <div class="sm:ltr:mr-auto sm:rtl:ml-auto">
-
-            </div>
+            <div class="sm:ltr:mr-auto sm:rtl:ml-auto"></div>
             <div>
                 <a
                     href="javascript:;"
@@ -50,7 +48,7 @@
                 </a>
             </div>
 
-            <div class="dropdown hidden shrink-0">
+            <div class="dropdown space-x-4 hidden shrink-0">
                 <div hlMenu>
                     <button
                         type="button"
@@ -62,7 +60,7 @@
                     <ul
                         *hlMenuItems
                         @toggleAnimation
-                        class="top-11 grid w-[280px] grid-cols-2 gap-2 !px-2 font-semibold text-dark ltr:-right-14 rtl:-left-14 dark:text-white-dark dark:text-white-light/90 sm:ltr:-right-2 sm:rtl:-left-2"
+                        class="top-11 grid w-[280px] grid-cols-2 gap-2 !px-2 font-semibold text-dark dark:text-white-dark dark:text-white-light/90 ltr:-right-14 sm:ltr:-right-2 rtl:-left-14 sm:rtl:-left-2"
                     >
                         <li *ngFor="let item of store.languageList;">
                             <button
@@ -79,97 +77,26 @@
                     </ul>
                 </div>
             </div>
-
-
-            <div class="dropdown shrink-0">
-                <div hlMenu>
-                    <button
-                        type="button"
-                        hlMenuButton
-                        class="relative block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
-                    >
-                        <icon-bell-bing />
-
-                        <span class="absolute top-0 flex h-3 w-3 ltr:right-0 rtl:left-0">
-                            <span
-                                class="absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full bg-success/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"
-                            ></span>
-                            <span class="relative inline-flex h-[6px] w-[6px] rounded-full bg-success"></span>
-                        </span>
-                    </button>
-                    <ul
-                        *hlMenuItems
-                        @toggleAnimation
-                        class="top-11 w-[300px] divide-y !py-0 text-dark ltr:-right-2 rtl:-left-2 dark:divide-white/10 dark:text-white-dark sm:w-[350px]"
-                    >
-                        <li>
-                            <div class="flex items-center justify-between px-4 py-2 font-semibold">
-                                <h4 class="text-lg">Notification</h4>
-                                <span *ngIf="notifications.length" class="badge bg-primary/80">{{notifications.length + 'New'}}</span>
-                            </div>
-                        </li>
-                        <li *ngFor="let notification of notifications" class="dark:text-white-light/90">
-                            <div class="group flex items-center px-4 py-2">
-                                <div class="grid place-content-center rounded">
-                                    <div class="relative h-12 w-12">
-                                        <img class="h-12 w-12 rounded-full object-cover" [src]="'/assets/images/' + notification.profile" alt="" />
-                                        <span class="absolute bottom-0 right-[6px] block h-2 w-2 rounded-full bg-success"></span>
-                                    </div>
-                                </div>
-                                <div class="flex flex-auto ltr:pl-3 rtl:pr-3">
-                                    <div class="ltr:pr-3 rtl:pl-3">
-                                        <h6 [innerHTML]="notification.message"></h6>
-                                        <span class="block text-xs font-normal dark:text-gray-500">{{notification.time}}</span>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        class="text-neutral-300 opacity-0 hover:text-danger group-hover:opacity-100 ltr:ml-auto rtl:mr-auto"
-                                        (click)="$event.stopPropagation();removeNotification(notification.id)"
-                                    >
-                                        <icon-x-circle />
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                        <li *ngIf="notifications.length">
-                            <div class="p-4">
-                                <button type="button" class="btn btn-primary btn-small block w-full" *hlMenuItem="let menuItem">Read All Notifications</button>
-                            </div>
-                        </li>
-                        <li *ngIf="!notifications.length">
-                            <div class="!grid min-h-[200px] place-content-center text-lg hover:!bg-transparent">
-                                <div class="mx-auto mb-4 rounded-full text-primary ring-4 ring-primary/30">
-                                    <icon-info-circle [fill]="true" class="h-10 w-10" />
-                                </div>
-                                No data available.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            <div></div>
             <div class="dropdown shrink-0">
                 <div hlMenu class="!block">
-                    <button type="button" hlMenuButton class="group relative block">
-                        <img class="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/assets/images/user-profile.jpeg" alt="" />
+                    <button type="button" hlMenuButton class="group hover:underline  hover:text-primary space-x-3 relative block">
+                    admin
+                    <i class="bi bi-caret-down-fill"></i>
                     </button>
                     <ul
                         *hlMenuItems
                         @toggleAnimation
-                        class="top-11 w-[230px] !py-0 font-semibold text-dark ltr:right-0 rtl:left-0 dark:text-white-dark dark:text-white-light/90"
+                        class="top-11 w-[230px] !py-0 font-semibold text-dark dark:text-white-dark dark:text-white-light/90 ltr:right-0 rtl:left-0"
                     >
                         <li>
                             <div class="flex items-center px-4 py-4">
-                                <div class="flex-none">
-                                    <img class="h-10 w-10 rounded-md object-cover" src="/assets/images/user-profile.jpeg" alt="" />
-                                </div>
+                                
                                 <div class="truncate ltr:pl-4 rtl:pr-4">
                                     <h4 class="text-base">
-                                        John Doe<span class="rounded bg-success-light px-1 text-xs text-success ltr:ml-2 rtl:ml-2">Pro</span>
+                                        Admin
                                     </h4>
-                                    <a class="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;"
-                                        >johndoe@gmail.com</a
-                                    >
+                                    <a class="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;">admin</a>
                                 </div>
                             </div>
                         </li>
@@ -180,20 +107,7 @@
                                 Profile
                             </a>
                         </li>
-                        <li>
-                            <a routerLink="/apps/mailbox" *hlMenuItem="let menuItem" class="dark:hover:text-white">
-                                <icon-mail class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
 
-                                Inbox
-                            </a>
-                        </li>
-                        <li>
-                            <a routerLink="/auth/boxed-lockscreen" *hlMenuItem="let menuItem" class="dark:hover:text-white">
-                                <icon-lock-dots class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
-
-                                Lock Screen
-                            </a>
-                        </li>
                         <li class="border-t border-white-light dark:border-white-light/10">
                             <a href="javascript:;" (click)="logout()" *hlMenuItem="let menuItem" class="!py-3 text-danger">
                                 <icon-logout class="h-4.5 w-4.5 shrink-0 rotate-90 ltr:mr-2 rtl:ml-2" />
@@ -209,7 +123,7 @@
 
     <!-- horizontal menu -->
     <ul
-        class="horizontal-menu hidden border-t border-[#ebedf2] bg-white px-6 py-1.5 font-semibold text-black rtl:space-x-reverse dark:border-[#191e3a] dark:bg-[#0e1726] dark:text-white-dark lg:space-x-1.5 xl:space-x-8"
+        class="horizontal-menu hidden border-t border-[#ebedf2] bg-white px-6 py-1.5 font-semibold text-black dark:border-[#191e3a] dark:bg-[#0e1726] dark:text-white-dark lg:space-x-1.5 xl:space-x-8 rtl:space-x-reverse"
     >
         <li class="menu nav-item relative">
             <a href="javascript:;" class="nav-link">
@@ -223,11 +137,9 @@
                 </div>
             </a>
             <ul class="sub-menu">
-
                 <li>
                     <a routerLink="/" routerLinkActive="active">{{ 'finance' | translate }}</a>
                 </li>
-
             </ul>
         </li>
         <li class="menu nav-item relative">
@@ -268,7 +180,7 @@
                         </div>
                     </a>
                     <ul
-                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow ltr:left-[95%] rtl:right-[95%] dark:bg-[#1b2e4b] dark:text-white-dark"
+                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark ltr:left-[95%] rtl:right-[95%]"
                     >
                         <li>
                             <a routerLink="/apps/invoice/list" routerLinkActive="active">{{ 'list' | translate }}</a>
@@ -433,7 +345,7 @@
                         </div>
                     </a>
                     <ul
-                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow ltr:left-[95%] rtl:right-[95%] dark:bg-[#1b2e4b] dark:text-white-dark"
+                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark ltr:left-[95%] rtl:right-[95%]"
                     >
                         <li>
                             <a routerLink="/datatables/basic" routerLinkActive="active">{{ 'basic' | translate }}</a>
@@ -558,7 +470,7 @@
                         </div>
                     </a>
                     <ul
-                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow ltr:left-[95%] rtl:right-[95%] dark:bg-[#1b2e4b] dark:text-white-dark"
+                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark ltr:left-[95%] rtl:right-[95%]"
                     >
                         <li>
                             <a routerLink="/users/profile" routerLinkActive="active">{{ 'profile' | translate }}</a>
@@ -597,7 +509,7 @@
                         </div>
                     </a>
                     <ul
-                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow ltr:left-[95%] rtl:right-[95%] dark:bg-[#1b2e4b] dark:text-white-dark"
+                        class="absolute top-0 z-[10] hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark ltr:left-[95%] rtl:right-[95%]"
                     >
                         <li>
                             <a routerLink="/pages/error404" target="_blank" routerLinkActive="active">{{ '404' | translate }}</a>
@@ -610,7 +522,6 @@
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </li>
         <li class="menu nav-item relative">

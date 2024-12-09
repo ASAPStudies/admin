@@ -1,8 +1,8 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-// icon
 import { IconModule } from 'src/app/shared/icon/icon.module';
 
 import { ContactUsBoxedComponent } from './contact-us-boxed';
@@ -17,6 +17,7 @@ import { MaintenenceComponent } from './maintenence';
 // headlessui
 import { MenuModule } from 'headlessui-angular';
 
+
 const routes: Routes = [
     { path: 'pages/contact-us-boxed', component: ContactUsBoxedComponent, title: 'Contact Us Boxed | VRISTO - Multipurpose Tailwind Dashboard Template' },
     { path: 'pages/contact-us-cover', component: ContactUsCoverComponent, title: 'Contact Us Cover | VRISTO - Multipurpose Tailwind Dashboard Template' },
@@ -28,7 +29,7 @@ const routes: Routes = [
     { path: 'pages/maintenence', component: MaintenenceComponent, title: 'Maintenence | VRISTO - Multipurpose Tailwind Dashboard Template' },
 ];
 @NgModule({
-    imports: [RouterModule.forChild(routes), CommonModule, MenuModule, IconModule],
+    imports: [RouterModule.forChild(routes), FormsModule, CommonModule, MenuModule, IconModule],
     declarations: [
         ContactUsBoxedComponent,
         ContactUsCoverComponent,
